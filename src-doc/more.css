@@ -1,0 +1,104 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,600;1,400;1,600&display=swap');
+
+:root{
+    --light-color-background: hsl(220, 25%, 91%);
+    --light-color-background-secondary: hsl(220, 25%, 95%);
+    --light-color-icon-background: var(--light-color-background-secondary);
+    --light-color-accent: hsl(220, 20%, 60%);
+    --light-color-text: hsl(220, 0%, 5%);
+    --light-color-text-aside: hsl(220, 0%, 20%);
+    --light-color-link: hsl(260, 90%, 45%);
+    --light-color-ts-private: hsl(10, 70%, 40%);
+    
+    --dark-color-background: hsl(220, 25%, 25%);
+    --dark-color-background-secondary: hsl(220, 25%, 15%);
+    --dark-color-icon-background: var(--dark-color-background-secondary);
+    --dark-color-accent: hsl(220, 20%, 70%);
+    --dark-color-text: hsl(220, 0%, 95%);
+    --dark-color-text-aside: hsl(220, 0%, 80%);
+    --dark-color-link: hsl(180, 80%, 75%);
+    --dark-color-ts-private: hsl(50, 40%, 75%);
+
+    --light-code-background: var(--light-color-background-secondary);
+    --dark-code-background: var(--dark-color-background-secondary);
+}
+
+body {
+    font-family: "Noto Sans", "Segoe UI", sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 600;
+}
+
+.tsd-accordion-details {
+    content-visibility: visible;
+}
+
+.tsd-index-panel .uppercase {
+    display: none;
+}
+
+.tsd-index-heading {
+    color: var(--color-ts-private);
+}
+
+.tsd-index-link .tsd-kind-icon {
+    display: none;
+}
+
+.tsd-index-panel a.tsd-kind-function,
+.tsd-index-panel a.tsd-kind-type-alias,
+.tsd-index-panel a.tsd-kind-module {
+    color: var(--color-text);
+}
+
+.tsd-navigation.primary a {
+    padding: 0.125rem 0 0.25rem 0.5rem;
+}
+
+.tsd-navigation.primary li.current > a {
+    border-left: 0.15rem var(--color-ts-private) solid;
+}
+
+.tsd-page-title {
+    color: var(--color-ts-private);
+}
+
+.tsd-panel h3, .tsd-panel h4 {
+    color: var(--color-ts-private);
+    margin-bottom: 0.5rem;
+}
+
+.tsd-signature {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+.tsd-description .tsd-signatures .tsd-signature {
+    border-width: 1px 0;
+}
+
+.tsd-type-parameters {
+    display: none;
+}
+
+.tsd-navigation li.pages-entry.pages-entry-page > a {
+    color: var(--color-text) !important;
+}
+
+ul.tsd-parameter-list h5 {
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+code {
+    border-radius: 0;
+    font-size: 1rem;
+    padding: 0 0.1875rem;
+}
+
+pre {
+    border-radius: 0;
+    margin-top: 1rem;
+}

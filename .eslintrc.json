@@ -1,0 +1,49 @@
+{
+    "env": {
+        "browser": true,
+        "es2021": true,
+        "node": true
+    },
+    "extends": [
+        "eslint:recommended",
+        "plugin:@typescript-eslint/recommended",
+        "prettier"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaVersion": 2021,
+        "sourceType": "module"
+    },
+    "plugins": [
+        "@typescript-eslint"
+    ],
+    "rules": {
+        "curly": ["error", "all"],
+        "eqeqeq": ["error", "always"],
+        "multiline-comment-style": ["error", "starred-block"],
+        "no-array-constructor": "error",
+        "no-else-return": ["error", {
+            "allowElseIf": false
+        }],
+        "no-multi-str": "error",
+        "no-nested-ternary": "error",
+        "no-sequences": "error",
+        "no-unneeded-ternary": "error",
+        "no-unused-expressions": "error",
+        "no-var": "error",
+        "prefer-const": "error",
+        "prefer-rest-params": "warn",
+        "prefer-spread": "error",
+        "yoda": ["error", "never", {
+            "exceptRange": true
+        }],
+        "@typescript-eslint/array-type": ["error", {
+            "default": "generic"
+        }],
+        "@typescript-eslint/no-explicit-any": "error",
+        "no-unused-vars": "off",
+        "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
+        "@typescript-eslint/consistent-indexed-object-style": ["error", "record"],
+        "@typescript-eslint/consistent-type-definitions": ["error", "type"]
+    }
+}

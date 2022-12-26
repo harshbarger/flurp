@@ -1,0 +1,19 @@
+commit-msg:
+  commands:
+    commitlint:
+      run: npx commitlint --edit
+
+pre-commit:
+  parallel: true
+  commands:
+    eslint:
+      glob: "{src,tests}/*.{js,ts,jsx,tsx}"
+      run: npx eslint {staged_files}
+    prettify:
+      glob: "{src,tests}/*.{js,ts,jsx,tsx}"
+      run: npx prettier --write {staged_files}
+
+pre-push:
+  commands:
+    test:
+      run: npx jest

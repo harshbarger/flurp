@@ -1,0 +1,29 @@
+{
+  "entryPoints": [
+    "src/index.ts",
+    "src/logic.ts",
+    "src/array.ts",
+    "src/number.ts",
+    "src/guards.ts",
+    "src/string.ts",
+    "src/pojo.ts",
+    "src/result.ts",
+    "src/pipe.ts"
+  ],
+  "cleanOutputDir": false,
+  "customCss": "src-doc/more.css",
+  "excludeInternal": true,
+  "excludeNotDocumented": true,
+  "favicon": "src-doc/favicon.svg",
+  "hideGenerator": true,
+  "includeVersion": true,
+  "pluginPages": {
+    "source": "src-doc",
+    "pages": [
+      { "title": "Overview", "source": "overview.md"}
+    ]
+  },
+  "sort": "alphabetical",
+  "out": "docs",
+  "visibilityFilters": {}
+}
