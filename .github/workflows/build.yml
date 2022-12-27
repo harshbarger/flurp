@@ -21,5 +21,9 @@ jobs:
       run: npm run test
     - name: build docs and bundle  
       run: npm run build
-        
-        
+    - name: push docs and bundle  
+      run: |
+        git config --global user.name "build workflow"
+        git config --global user.email "no email"
+        git commit -a -m "chore: automated doc and bundle push"
+        git push
