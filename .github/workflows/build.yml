@@ -1,0 +1,29 @@
+name: build
+
+on: 
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+    
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout repo
+      uses: actions/checkout@v2
+    - name: setup node
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18.x'
+    - name: install packages     
+      run: npm ci
+    - name: run the tests
+      run: npm run test
+    - name: build docs and bundle  
+      run: npm run build
+    - name: push docs and bundle  
+      run: |
+        git config --global user.name "build workflow"
+        git config --global user.email "no email"
+        git commit -a -m "chore: automated doc and bundle push"
+        git push
