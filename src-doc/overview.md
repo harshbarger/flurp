@@ -4,4 +4,6 @@ Flurp is a functional programming library written in and for TypeScript. In cont
 
 ## This is very early stage work in progress. Not really ready for production.
 
+## Philosophy
+
 For example, `get(NaN)(myArray)` from Flurp's `array` module would return a nullish value, even though JavaScript's `myArray.at(NaN)` would return `myArray[0]`. 
