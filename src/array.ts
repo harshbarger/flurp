@@ -310,6 +310,36 @@ export function find<T>(condition: (x: T) => boolean) {
 }
 
 /**
+ * Returns an array of all indices of an array that pass `condition`.
+ *
+ * @param condition
+ *
+ * @example
+ * ```ts
+ * import { A } from "flurp";
+ * import * as N from "flurp/number";
+ *
+ * const indicesOfPositive = A.findAllIndices(N.isPositive);
+ * indicesOfPositive([3, -4, -1, 5, -4, 2]);       // [0, 3, 5]
+ * indicesOfPositive([-3, -4, -1, -5, -4, -2]);    // []
+ * ```
+ */
+export function findAllIndices<T>(condition: (x: T) => boolean) {
+  return function (arr: ReadonlyArray<T>) {
+    const len = arr.length;
+    const result = [];
+
+    for (let i = 0; i < len; i++) {
+      if (condition(arr[i])) {
+        result.push(i);
+      }
+    }
+
+    return result;
+  };
+}
+
+/**
  * @remarks
  * Returns `undefined` if no element satisfies `condition`.
  * This behavior differs from the built-in `Array.findIndex()`,
@@ -402,6 +432,67 @@ export function findLastIndex<T>(condition: (x: T) => boolean) {
         return i;
       }
       i--;
+    }
+
+    return undefined;
+  };
+}
+
+/**
+ * Returns the first slice of the array of length `len`
+ * from the right (starting with `slice(len - 1)`,
+ * then `slice(len - 1)`, etc.) which passes `condition`.
+ * Returns `undefined` if no slice of the array ending with
+ * the last element passes.
+ *
+ * @param condition
+ */
+export function findRightSlice<T>(condition: (a: ReadonlyArray<T>) => boolean) {
+  return function (arr: ReadonlyArray<T>) {
+    const len = arr.length;
+    let i = len - 1;
+
+    while (i >= 0) {
+      const slice = arr.slice(i);
+      if (condition(slice)) {
+        return slice;
+      }
+      i--;
+    }
+
+    return undefined;
+  };
+}
+
+/**
+ * Returns the first slice of the array (starting with `slice(0, 0)`, then `slice(0, 1)`, etc.)
+ * which passes `condition`. Returns `undefined` if no slice of the array beginning with
+ * the first element passes.
+ *
+ * @param condition
+ *
+ * @example
+ * ```ts
+ * import { A } from "flurp";
+ * import * as N from "flurp/number";
+ *
+ * const twoPositive = (arr: ReadonlyArray<number>) => A.count(N.isPositive)(arr) >= 2;
+ * const firstSlice = A.findSlice(twoPositive);
+ * firstSlice([2, -4, 1, -5, 6]);      // [2, -4, 1]
+ * firstSlice([2, -4]);                // undefined
+ * ```
+ */
+export function findSlice<T>(condition: (a: ReadonlyArray<T>) => boolean) {
+  return function (arr: ReadonlyArray<T>) {
+    let i = 0;
+    const len = arr.length;
+
+    while (i <= len) {
+      const slice = arr.slice(0, i);
+      if (condition(slice)) {
+        return slice;
+      }
+      i++;
     }
 
     return undefined;
