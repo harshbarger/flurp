@@ -1,0 +1,25 @@
+name: build
+
+on: 
+  push:
+    branches: [ main ]
+  
+permissions:
+  contents: write
+  
+jobs:
+  docs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v3
+
+      - name: build docs
+        run: |
+          npm ci
+          npm run docs
+      - name: deploy docs
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: docs
+
