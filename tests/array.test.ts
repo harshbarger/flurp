@@ -105,6 +105,13 @@ describe("arrays", () => {
     expect(f([])).toBeUndefined();
   });
 
+  test("findAllIndices", () => {
+    const f = A.findAllIndices(N.isPositive);
+    expect(f([3, -4, -1, 5, -4, 2])).toEqual([0, 3, 5]);
+    expect(f([-3, -4, -1, -5, -4, -2])).toEqual([]);
+    expect(f([])).toEqual([]);
+  });
+
   test("findIndex", () => {
     const f = A.findIndex(N.isPositive);
     expect(f([-3, -4, -1, 5, -4, 2])).toBe(3);
@@ -124,6 +131,26 @@ describe("arrays", () => {
     const f = A.findLastIndex(N.isPositive);
     expect(f([-3, -4, 1, -5, 8, -2])).toBe(4);
     expect(f([-3, -4, -1, -5, -8, -2])).toBeUndefined();
+    expect(f([])).toBeUndefined();
+  });
+
+  test("findRightSlice", () => {
+    const twoPos = (arr: ReadonlyArray<number>) =>
+      A.count(N.isPositive)(arr) >= 2;
+    const f = A.findRightSlice(twoPos);
+    expect(f([2, -4, 3, -5, 6])).toEqual([3, -5, 6]);
+    expect(f([2, -4, 3])).toEqual([2, -4, 3]);
+    expect(f([2, -4, -1, -5])).toBeUndefined();
+    expect(f([])).toBeUndefined();
+  });
+
+  test("findSlice", () => {
+    const twoPos = (arr: ReadonlyArray<number>) =>
+      A.count(N.isPositive)(arr) >= 2;
+    const f = A.findSlice(twoPos);
+    expect(f([2, -4, 1, -5, 6])).toEqual([2, -4, 1]);
+    expect(f([2, -4, 1])).toEqual([2, -4, 1]);
+    expect(f([2, -4, -1, -5])).toBeUndefined();
     expect(f([])).toBeUndefined();
   });
 

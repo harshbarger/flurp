@@ -1,1 +1,0 @@
-export { F as FALSE, T as TRUE, b as allFail, a as allPass, c as always, d as anyFail, e as anyPass, f as both, g as branch, h as either, i as equals, j as identity, k as ifElse, m as isIncludedIn, n as neither, o as not, p as nullishTo, u as unless, w as when } from './logic-fc6315d9.js';
