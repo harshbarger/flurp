@@ -11,6 +11,7 @@ export default defineConfig({
     "src/pojo.ts",
     "src/result.ts",
     "src/pipe.ts",
+    "src/comparator.ts",
   ],
   clean: true,
   target: "es2021",

@@ -1040,6 +1040,33 @@ export function slice<T>(startIndex?: number, endIndex?: number) {
 }
 
 /**
+ * Returns a new array sorted according to the `comparator` function.
+ * The {@link !comparator} module contains some useful comparator functions and
+ * utilities for creating others. You may also write your own comparators,
+ * provided that they follow the specifications found in [MDN on `Array.protoptype.sort()`]
+ * (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort).
+ *
+ * @remarks
+ * The built-in `Array.prototype.sort()` has a default comparator that sorts in ascending order
+ * according to the string representation of the items. However, this behavior is rarely the most sound
+ * option for real world use cases, and Flurp has therefore not included such an option among
+ * its comparators.
+ *
+ * @param comparator
+ *
+ * @example
+ * ```ts
+ * import { A, C } from "flurp";
+ *
+ * const sortScores = A.sortWith(C.numericDesc);
+ * sortScores([30, 6, 1, 40, 5]);      // [40, 30, 6, 5, 1]
+ * ```
+ */
+export function sortWith<T>(comparator: (x: T, y: T) => number) {
+  return (arr: ReadonlyArray<T>) => [...arr].sort(comparator);
+}
+
+/**
  * Breaks an array into an array of two arrays. The first contains the
  * elements before `index`, and the second contains the elements at `index`
  * and thereafter.

@@ -399,6 +399,7 @@ export function pipe(): unknown {
  *   tap(console.log),    // prints 10 to the console, passes 10 on to the next function
  *   N.multiply(2)
  * );                     // 20
+ * ```
  */
 export function tap<T>(sideEffect: (v: T) => unknown) {
   return function (val: T) {

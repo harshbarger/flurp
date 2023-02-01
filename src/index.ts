@@ -6,3 +6,4 @@ export * as N from "./number";
 export * as P from "./pojo";
 export * as R from "./result";
 export * as S from "./string";
+export * as C from "./comparator";

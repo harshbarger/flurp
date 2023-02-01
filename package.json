@@ -1,8 +1,27 @@
 {
   "name": "flurp",
-  "version": "0.1.0",
+  "version": "0.5.0",
   "description": "A functional programming library for Typescript with utilities for array, objects, strings, and more",
-  "main": "index.js",
+  "homepage": "https://harshbarger.github.io/flurp/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/harshbarger/flurp"
+  },
+  "files": [
+    "dist/**"
+  ],
+  "bugs": "https://github.com/harshbarger/flurp/issues",
+  "main": "dist/index.js",
+  "keywords": [
+    "functional",
+    "typescript",
+    "library"
+  ],
+  "author": "Donovan Harshbarger",
+  "license": "BSD-3-Clause",
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "test": "jest",
     "bundle": "tsup",
@@ -11,13 +30,6 @@
     "format": "prettier --write src/ tests/",
     "build": "npm run bundle & npm run docs"
   },
-  "keywords": [
-    "functional",
-    "typescript",
-    "library"
-  ],
-  "author": "Donovan Harshbarger",
-  "license": "MIT",
   "devDependencies": {
     "@commitlint/cli": "^17.3.0",
     "@commitlint/config-conventional": "^17.3.0",
@@ -25,6 +37,7 @@
     "@types/jest": "^29.2.3",
     "@typescript-eslint/eslint-plugin": "^5.47.0",
     "@typescript-eslint/parser": "^5.47.0",
+    "copy-file-util": "^0.1.7",
     "eslint": "^8.30.0",
     "eslint-config-prettier": "^8.5.0",
     "jest": "^29.3.1",

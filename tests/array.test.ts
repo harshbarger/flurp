@@ -1,4 +1,4 @@
-import { A, L, N, flow } from "../src/index";
+import { A, C, L, N, flow } from "../src/index";
 
 describe("arrays", () => {
   test("all", () => {
@@ -358,6 +358,22 @@ describe("arrays", () => {
     expect(l([0, 1, 2, 3, 4, 5, 6])).toEqual([0, 1, 2, 3, 4, 5, 6]);
     expect(m([0, 1, 2, 3, 4, 5, 6])).toEqual([]);
     expect(n([0, 1, 2, 3, 4, 5, 6])).toEqual([]);
+  });
+
+  test("sortWith", () => {
+    const f = A.sortWith(C.numericAsc);
+    const g = A.sortWith(C.numericNullableAsc);
+    expect(f([30, 6, 1, NaN, 200, 5])).toEqual([1, 5, 6, 30, 200, NaN]);
+    expect(g([30, NaN, 6, 1, undefined, 200, null, 5])).toEqual([
+      1,
+      5,
+      6,
+      30,
+      200,
+      NaN,
+      null,
+      undefined,
+    ]);
   });
 
   test("split", () => {

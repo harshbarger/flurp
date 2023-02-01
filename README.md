@@ -1,8 +1,10 @@
-# Flurp
 Flurp is a functional programming library written in and for TypeScript. In contains both fundamental FP utilities such as `pipe` and `flow` and a variety of utilities for working with strings, arrays, objects, etc. immutably within pipelines.
 
-# This is early stage work.
-If you've stumbled upon this, you're welcome to use it. But if this hasn't been bumped to v-1.0 yet, assume all sorts of things could change.
+## This is early stage work.
+Until I bump this to v-1.0, I can't rule out breaking changes. I am using this library in a large project of my own, and I anticipate making improvements as I discover issues. And if you spot an issue before I do, feel free to open a GitHub issue.
+
+## Documentation
+The docs are found [here](https://harshbarger.github.io/flurp/).
 
 ## Design Philosophy
 Practicality and simplicity are more valuable than complex FP theory. You don't even need to have heard of monads, functors, or Fantasy Land to use Flurp effectively.
@@ -15,11 +17,13 @@ Flurp functions are designed to be used primarily in pipelines, so (with a few e
 
 ## How is Flurp different?
 
-The big difference between Flurp and similar libraries such as fp-ts (TODO: link) or ts-belt is how error states are handled. Flurp does not have a Maybe or Either monad. Instead, it relies on `undefined` and `null` to represent error states, and it provides utilities in the `result` module to pass such values harmlessly through your pipeline. Essentially, Flurp provides the resilient error-handling of the traditional FP monad pattern, but without so much wrapping and unwrapping.
+The big difference between Flurp and similar libraries such as [fp-ts](https://gcanti.github.io/fp-ts/) or [ts-belt](https://mobily.github.io/ts-belt/) is how error states are handled. Flurp does not have a Maybe or Either monad. Instead, it relies on `undefined` and `null` to represent error states, and it provides utilities in the `result` module to pass such values harmlessly through your pipeline. This gives Flurp the resilient error-handling of the traditional FP monad pattern, but without so much wrapping and unwrapping.
 
 The other difference is simply which utility functions are included. Though Flurp does not attempt to contain every utility function found in other common libraries, it does add some distinctive functions of its own.
 
+## License
 
+BSD 3-clause license, as described in the LICENSE.md file.
 
 
 

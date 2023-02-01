@@ -8,7 +8,8 @@
     "src/string.ts",
     "src/pojo.ts",
     "src/result.ts",
-    "src/pipe.ts"
+    "src/pipe.ts",
+    "src/comparator.ts"
   ],
   "cleanOutputDir": false,
   "customCss": "src-doc/more.css",
@@ -25,5 +26,8 @@
   },
   "sort": "alphabetical",
   "out": "docs",
-  "visibilityFilters": {}
+  "visibilityFilters": {},
+  "navigationLinks": {
+    "GitHub Repo": "https://github.com/harshbarger/flurp"
+  }
 }
