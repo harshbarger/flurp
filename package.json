@@ -1,15 +1,12 @@
 {
   "name": "flurp",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "A functional programming library for Typescript with utilities for array, objects, strings, and more",
   "homepage": "https://harshbarger.github.io/flurp/",
   "repository": {
     "type": "git",
     "url": "https://github.com/harshbarger/flurp"
   },
-  "files": [
-    "dist/**"
-  ],
   "bugs": "https://github.com/harshbarger/flurp/issues",
   "main": "dist/index.js",
   "keywords": [
@@ -29,8 +26,9 @@
     "lint": "eslint --ext .js,.ts --fix src/ tests/",
     "format": "prettier --write src/ tests/",
     "pre-pub": "copyfiles README.md LICENSE.md package.json dist",
-    "pub": "npm run bundle && npm run docs && npm run pre-pub && cd dist && npm publish && cd ..",
-    "pub-dry": "npm run bundle && npm run docs && npm run pre-pub && cd dist && npm publish --dry-run && cd .."
+    "pub": "npm run bundle && npm run pre-pub && cd dist && npm publish && cd .. && npm run post-pub",
+    "pub-dry": "npm run bundle && npm run pre-pub && cd dist && npm publish --dry-run && cd .. && npm run post-pub",
+    "post-pub": "rimraf dist/README.md dist/LICENSE.md dist/package.json"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.3.0",
@@ -50,5 +48,8 @@
     "typedoc": "^0.23.21",
     "typedoc-plugin-extras": "^2.3.1",
     "typescript": "^4.9.3"
+  },
+  "dependencies": {
+    "rimraf": "^4.1.2"
   }
 }
