@@ -1,63 +1,111 @@
-<!DOCTYPE html><html class="default" lang="en"><head><meta charSet="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>Overview | flurp - v0.1.0</title><meta name="description" content="Documentation for flurp - v0.1.0"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="../assets/style.css"/><link rel="stylesheet" href="../assets/highlight.css"/><link rel="stylesheet" href="../assets/custom.css"/><script async src="../assets/search.js" id="search-script"></script><link rel="stylesheet" href="../assets/pages.css"/>	<link rel="icon" href="../favicon.svg" />
+<!DOCTYPE html><html class="default" lang="en"><head><meta charSet="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>Overview | flurp - v0.5.0</title><meta name="description" content="Documentation for flurp - v0.5.0"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="../assets/style.css"/><link rel="stylesheet" href="../assets/highlight.css"/><link rel="stylesheet" href="../assets/custom.css"/><script async src="../assets/search.js" id="search-script"></script><link rel="stylesheet" href="../assets/pages.css"/>	<link rel="icon" href="../favicon.svg" />
 </head><body><script>document.documentElement.dataset.theme = localStorage.getItem("tsd-theme") || "os"</script><header class="tsd-page-toolbar">
 <div class="tsd-toolbar-contents container">
 <div class="table-cell" id="tsd-search" data-base="..">
 <div class="field"><label for="tsd-search-field" class="tsd-widget tsd-toolbar-icon search no-caption"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M15.7824 13.833L12.6666 10.7177C12.5259 10.5771 12.3353 10.499 12.1353 10.499H11.6259C12.4884 9.39596 13.001 8.00859 13.001 6.49937C13.001 2.90909 10.0914 0 6.50048 0C2.90959 0 0 2.90909 0 6.49937C0 10.0896 2.90959 12.9987 6.50048 12.9987C8.00996 12.9987 9.39756 12.4863 10.5008 11.6239V12.1332C10.5008 12.3332 10.5789 12.5238 10.7195 12.6644L13.8354 15.7797C14.1292 16.0734 14.6042 16.0734 14.8948 15.7797L15.7793 14.8954C16.0731 14.6017 16.0731 14.1267 15.7824 13.833ZM6.50048 10.499C4.29094 10.499 2.50018 8.71165 2.50018 6.49937C2.50018 4.29021 4.28781 2.49976 6.50048 2.49976C8.71001 2.49976 10.5008 4.28708 10.5008 6.49937C10.5008 8.70852 8.71314 10.499 6.50048 10.499Z" fill="var(--color-text)"></path></svg></label><input type="text" id="tsd-search-field" aria-label="Search"/></div>
 <div class="field">
-<div id="tsd-toolbar-links"></div></div>
+<div id="tsd-toolbar-links"><a href="https://github.com/harshbarger/flurp">GitHub Repo</a></div></div>
 <ul class="results">
 <li class="state loading">Preparing search index...</li>
-<li class="state failure">The search index is not available</li></ul><a href="../index.html" class="title">flurp - v0.1.0</a></div>
+<li class="state failure">The search index is not available</li></ul><a href="../index.html" class="title">flurp - v0.5.0</a></div>
 <div class="table-cell" id="tsd-widgets"><a href="#" class="tsd-widget tsd-toolbar-icon menu no-caption" data-toggle="menu" aria-label="Menu"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1" y="3" width="14" height="2" fill="var(--color-text)"></rect><rect x="1" y="7" width="14" height="2" fill="var(--color-text)"></rect><rect x="1" y="11" width="14" height="2" fill="var(--color-text)"></rect></svg></a></div></div></header>
 <div class="container container-main">
 <div class="col-8 col-content">
 <div class="tsd-page-title">
 <ul class="tsd-breadcrumb">
-<li><a href="../modules.html">flurp - v0.1.0</a></li>
+<li><a href="../modules.html">flurp - v0.5.0</a></li>
 <li><a href="overview.html">Overview</a></li></ul>
 <h1> Overview</h1></div>
-<div class="tsd-panel tsd-typography">
-<a href="#flurp-an-overview" id="flurp-an-overview" style="color: inherit; text-decoration: none;">
-  <h1>Flurp: An Overview</h1>
-</a>
-<p>Flurp is a functional programming library written in and for TypeScript. In contains both fundamental FP utilities such as <code>pipe</code> and <code>flow</code> and a variety of utilities for working with strings, arrays, objects, etc. immutably within pipelines.</p>
+<div class="tsd-panel tsd-typography"><p>Flurp is a functional programming library written in and for TypeScript. In contains both fundamental FP utilities such as <code>pipe</code> and <code>flow</code> and a variety of utilities for working with strings, arrays, objects, etc. immutably within pipelines.</p>
 
-<a href="#this-is-very-early-stage-work-in-progress-not-really-ready-for-production" id="this-is-very-early-stage-work-in-progress-not-really-ready-for-production" style="color: inherit; text-decoration: none;">
-  <h2>This is very early stage work in progress. Not really ready for production.</h2>
+<a href="#this-is-early-stage-work" id="this-is-early-stage-work" style="color: inherit; text-decoration: none;">
+  <h2>This is early stage work.</h2>
 </a>
+<p>I am &quot;dogfooding&quot; this library in one of my own projects, making improvements as I see issues in the developer experience, function selection, etc. Until I bump this to v-1.0, breaking changes are possible. </p>
 
-<a href="#philosophy" id="philosophy" style="color: inherit; text-decoration: none;">
-  <h2>Philosophy</h2>
+<a href="#installation" id="installation" style="color: inherit; text-decoration: none;">
+  <h2>Installation</h2>
 </a>
+<pre><code><span class="hl-2">npm</span><span class="hl-1"> </span><span class="hl-2">install</span><span class="hl-1"> </span><span class="hl-2">flurp</span>
+</code></pre>
+
+<a href="#null-checks" id="null-checks" style="color: inherit; text-decoration: none;">
+  <h2>Null Checks</h2>
+</a>
+<p>For type inference to work correctly with some modules, you should enable the <code>strictNullChecks</code> property in your <code>tsconfig.json</code>.</p>
+<pre><code class="language-json"><span class="hl-1">{</span><br/><span class="hl-1">  </span><span class="hl-13">&quot;compilerOptions&quot;</span><span class="hl-1">: {</span><br/><span class="hl-1">    </span><span class="hl-13">&quot;strictNullChecks&quot;</span><span class="hl-1">: </span><span class="hl-4">true</span><br/><span class="hl-1">  }</span><br/><span class="hl-1">}</span>
+</code></pre>
+<p>Or, to include other type safety measures generally recommended as best practice as well:</p>
+<pre><code class="language-json"><span class="hl-1">{</span><br/><span class="hl-1">  </span><span class="hl-13">&quot;compilerOptions&quot;</span><span class="hl-1">: {</span><br/><span class="hl-1">    </span><span class="hl-13">&quot;strict&quot;</span><span class="hl-1">: </span><span class="hl-4">true</span><br/><span class="hl-1">  }</span><br/><span class="hl-1">}</span>
+</code></pre>
+
+<a href="#general-principles" id="general-principles" style="color: inherit; text-decoration: none;">
+  <h2>General Principles</h2>
+</a>
+<p>Because functional programming typically uses pipelines, almost all Flurp functions are either unary functions themselves (e.g., <code>S.toUpperCase</code> below), or functions that return unary function (e.g., <code>A.join</code> below). There are no standalone forms of the functions designed for use outside the pipeline, but you can always create and immediately invoke a function as shown in the last example below.</p>
+<pre><code class="language-ts"><span class="hl-8">// A and S are the array and string modules</span><br/><span class="hl-0">import</span><span class="hl-1"> { </span><span class="hl-2">pipe</span><span class="hl-1">, </span><span class="hl-2">flow</span><span class="hl-1">, </span><span class="hl-2">A</span><span class="hl-1">, </span><span class="hl-2">S</span><span class="hl-1"> } </span><span class="hl-0">from</span><span class="hl-1"> </span><span class="hl-3">&quot;flurp&quot;</span><span class="hl-1">;  </span><br/><br/><span class="hl-6">pipe</span><span class="hl-1">(</span><br/><span class="hl-1">  [</span><span class="hl-3">&quot;hello&quot;</span><span class="hl-1">, </span><span class="hl-3">&quot;world&quot;</span><span class="hl-1">],</span><br/><span class="hl-1">  </span><span class="hl-5">A</span><span class="hl-1">.</span><span class="hl-6">join</span><span class="hl-1">(</span><span class="hl-3">&quot; &quot;</span><span class="hl-1">),</span><br/><span class="hl-1">  </span><span class="hl-5">S</span><span class="hl-1">.</span><span class="hl-2">toUpperCase</span><br/><span class="hl-1">);   </span><span class="hl-8">// &quot;HELLO WORLD&quot;</span><br/><br/><span class="hl-8">// Or for point-free style (often useful, but can make type inference more difficult)</span><br/><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">joinAndUpperCase</span><span class="hl-1"> = </span><span class="hl-6">flow</span><span class="hl-1">(</span><br/><span class="hl-1">  </span><span class="hl-5">A</span><span class="hl-1">.</span><span class="hl-6">join</span><span class="hl-1">(</span><span class="hl-3">&quot; &quot;</span><span class="hl-1">),</span><br/><span class="hl-1">  </span><span class="hl-5">S</span><span class="hl-1">.</span><span class="hl-2">toUpperCase</span><br/><span class="hl-1">);</span><br/><span class="hl-6">joinAndUpperCase</span><span class="hl-1">([</span><span class="hl-3">&quot;hello&quot;</span><span class="hl-1">, </span><span class="hl-3">&quot;world&quot;</span><span class="hl-1">]);   </span><span class="hl-8">// &quot;HELLO WORLD&quot;</span><br/><br/><span class="hl-8">// Outside of a pipeline</span><br/><span class="hl-5">A</span><span class="hl-1">.</span><span class="hl-6">join</span><span class="hl-1">(</span><span class="hl-3">&quot; &quot;</span><span class="hl-1">)([</span><span class="hl-3">&quot;hello&quot;</span><span class="hl-1">, </span><span class="hl-3">&quot;world&quot;</span><span class="hl-1">]);  </span><span class="hl-3">&quot;hello world&quot;</span>
+</code></pre>
+<p>In the spirit of TypeScript, things that look like errors tend to be considered errors, even where JavaScript&#39;s specs may be more tolerant. For example, <code>get(NaN)(myArray)</code> from the <code>array</code> module is considered an error, even though JavaScript&#39;s <code>myArray.at(NaN)</code> would return <code>myArray[0]</code>. </p>
+<p>Since this is a functional library that seeks to avoid side effects, it does not throw exceptions. Instead, <code>null</code> and <code>undefined</code> are used to indicate error conditions. Typically, <code>null</code> is used when the inquiry itself appears to be an error, while <code>undefined</code> is used when the inquiry itself is reasonable, but doesn&#39;t work on the data (e.g., an out of bounds array index).</p>
+<pre><code class="language-ts"><span class="hl-0">import</span><span class="hl-1"> { </span><span class="hl-2">A</span><span class="hl-1"> } </span><span class="hl-0">from</span><span class="hl-1"> </span><span class="hl-3">&quot;flurp&quot;</span><span class="hl-1">;</span><br/><br/><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">sillyIndex</span><span class="hl-1"> = </span><span class="hl-5">A</span><span class="hl-1">.</span><span class="hl-6">get</span><span class="hl-1">(</span><span class="hl-7">1.5</span><span class="hl-1">); </span><br/><span class="hl-6">sillyIndex</span><span class="hl-1">([</span><span class="hl-7">1</span><span class="hl-1">, </span><span class="hl-7">2</span><span class="hl-1">, </span><span class="hl-7">3</span><span class="hl-1">]);       </span><span class="hl-8">// null</span><br/><br/><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">outOfBounds</span><span class="hl-1"> = </span><span class="hl-5">A</span><span class="hl-1">.</span><span class="hl-6">get</span><span class="hl-1">(</span><span class="hl-7">5</span><span class="hl-1">);</span><br/><span class="hl-6">outOfBounds</span><span class="hl-1">([</span><span class="hl-7">1</span><span class="hl-1">, </span><span class="hl-7">2</span><span class="hl-1">, </span><span class="hl-7">3</span><span class="hl-1">]);      </span><span class="hl-8">// undefined</span>
+</code></pre>
+<p>Naming conventions are always a challenge since the various existing similar libraries, as well as built-in JavaScript functions, sometimes use different conventions. As a general rule, I have given some deference to existing conventions, though I have chosen to prioritize internal consistency over external conventions. For example, I chose <code>get</code> for obtaining an array element instead of <code>at</code> for consistency with the corresponding functions in the <code>string</code> and <code>pojo</code> modules.</p>
 
 <a href="#pipe-module" id="pipe-module" style="color: inherit; text-decoration: none;">
   <h2><code>pipe</code> module</h2>
 </a>
+<p>The module contains the workhorses of function composition--<a href="https://harshbarger.github.io/flurp/functions/pipe.pipe.html">pipe</a> and <a href="https://harshbarger.github.io/flurp/functions/pipe.flow.html">flow</a>. There is no <code>compose</code> function, because the data-first style of <code>pipe</code> allows TypeScript to infer types more effectively than the data-last style of a <code>compose</code> function would.</p>
+<p>This module also includes <a href="https://harshbarger.github.io/flurp/functions/pipe.tap.html">tap</a>, which is used for side effects in the midst of a pipeline. Its primary use case is to add <code>console.log</code> statements for debugging.</p>
 
 <a href="#array-module" id="array-module" style="color: inherit; text-decoration: none;">
   <h2><code>array</code> module</h2>
 </a>
+<p>Besides the usual functions that act on arrays (or create functions that do), this module contains the array creation utility <a href="">createWith</a>. Functions in this module do not mutate the input arrays.</p>
+<pre><code class="language-ts"><span class="hl-0">import</span><span class="hl-1"> { </span><span class="hl-2">A</span><span class="hl-1"> } </span><span class="hl-0">from</span><span class="hl-1"> </span><span class="hl-3">&quot;flurp&quot;</span><span class="hl-1">;</span><br/><br/><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">lastThree</span><span class="hl-1"> = </span><span class="hl-5">A</span><span class="hl-1">.</span><span class="hl-6">takeLast</span><span class="hl-1">(</span><span class="hl-7">3</span><span class="hl-1">);</span><br/><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">data</span><span class="hl-1"> = [</span><span class="hl-7">10</span><span class="hl-1">, </span><span class="hl-7">20</span><span class="hl-1">, </span><span class="hl-7">30</span><span class="hl-1">, </span><span class="hl-7">40</span><span class="hl-1">, </span><span class="hl-7">50</span><span class="hl-1">];</span><br/><span class="hl-6">lastThree</span><span class="hl-1">(</span><span class="hl-2">data</span><span class="hl-1">);    </span><span class="hl-8">// [30, 40, 50]</span><br/><span class="hl-2">data</span><span class="hl-1">;               </span><span class="hl-8">// still [10, 20, 30, 40, 50]</span>
+</code></pre>
 
 <a href="#pojo-module" id="pojo-module" style="color: inherit; text-decoration: none;">
   <h2><code>pojo</code> module</h2>
 </a>
+<p>This module is named <code>pojo</code> rather than <code>object</code> to emphasize that it is designed for &quot;Plain Old JavaScript Objects&quot;, not any sort of object imaginable. Furthermore, these plain old javascript objects should have only string keys. </p>
+<p>This module contains basic functions for working with objects, but is not extensive. For example, it does not contain a function of the form <code>path(&#39;x&#39;, &#39;y&#39;, &#39;z&#39;)(myObject)</code> to get <code>myObject.x.y.x</code>. As convenient as they seem, such functions are often difficult to type appropriately. If you use deeply nested objects regularly enough to wish for more power than Flurp provides, I recommend that you choose a robust lens library designed for the purpose.</p>
+<pre><code class="language-ts"><span class="hl-0">import</span><span class="hl-1"> { </span><span class="hl-2">P</span><span class="hl-1"> } </span><span class="hl-0">from</span><span class="hl-1"> </span><span class="hl-3">&quot;flurp&quot;</span><span class="hl-1">;</span><br/><br/><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">multiplyByTen</span><span class="hl-1"> = </span><span class="hl-5">P</span><span class="hl-1">.</span><span class="hl-6">map</span><span class="hl-1">(</span><span class="hl-5">N</span><span class="hl-1">.</span><span class="hl-6">multiply</span><span class="hl-1">(</span><span class="hl-7">10</span><span class="hl-1">));</span><br/><span class="hl-6">multiplyByTen</span><span class="hl-1">({ </span><span class="hl-2">x:</span><span class="hl-1"> </span><span class="hl-7">3</span><span class="hl-1">, </span><span class="hl-2">y:</span><span class="hl-1"> </span><span class="hl-7">4</span><span class="hl-1"> });   </span><span class="hl-8">// { x: 30, y: 40 }</span>
+</code></pre>
 
 <a href="#string-module" id="string-module" style="color: inherit; text-decoration: none;">
   <h2><code>string</code> module</h2>
 </a>
+<p>All functions in this module either are functions (or return functions) which act on an string. These are all pure functions that do not mutate the original strings.</p>
+<pre><code class="language-ts"><span class="hl-0">import</span><span class="hl-1"> { </span><span class="hl-2">S</span><span class="hl-1"> } </span><span class="hl-0">from</span><span class="hl-1"> </span><span class="hl-3">&quot;flurp&quot;</span><span class="hl-1">;</span><br/><br/><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">hasVowel</span><span class="hl-1"> = </span><span class="hl-5">S</span><span class="hl-1">.</span><span class="hl-6">includesRegex</span><span class="hl-1">(</span><span class="hl-10">/</span><span class="hl-11">[</span><span class="hl-10">aeiou</span><span class="hl-11">]</span><span class="hl-10">/</span><span class="hl-4">i</span><span class="hl-1">);</span><br/><span class="hl-6">hasVowel</span><span class="hl-1">(</span><span class="hl-3">&quot;weasel&quot;</span><span class="hl-1">);     </span><span class="hl-8">// true</span>
+</code></pre>
 
 <a href="#number-module" id="number-module" style="color: inherit; text-decoration: none;">
   <h2><code>number</code> module</h2>
 </a>
+<p>These are functions that accept a number as input, or return such functions.</p>
+<pre><code class="language-ts"><span class="hl-0">import</span><span class="hl-1"> { </span><span class="hl-2">N</span><span class="hl-1"> } </span><span class="hl-0">from</span><span class="hl-1"> </span><span class="hl-3">&quot;flurp&quot;</span><span class="hl-1">;</span><br/><br/><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">zeroToTen</span><span class="hl-1"> = </span><span class="hl-5">N</span><span class="hl-1">.</span><span class="hl-6">isBetween</span><span class="hl-1">(</span><span class="hl-7">0</span><span class="hl-1">, </span><span class="hl-7">10</span><span class="hl-1">);</span><br/><span class="hl-6">zeroToTen</span><span class="hl-1">(-</span><span class="hl-7">4</span><span class="hl-1">);     </span><span class="hl-8">// false</span>
+</code></pre>
 
 <a href="#guards-module" id="guards-module" style="color: inherit; text-decoration: none;">
   <h2><code>guards</code> module</h2>
 </a>
+<p>This module contains boolean functions that test for common types.</p>
+<pre><code class="language-ts"><span class="hl-0">import</span><span class="hl-1"> </span><span class="hl-4">*</span><span class="hl-1"> </span><span class="hl-0">as</span><span class="hl-1"> </span><span class="hl-2">G</span><span class="hl-1"> </span><span class="hl-0">from</span><span class="hl-1"> </span><span class="hl-3">&quot;flurp/guards&quot;</span><span class="hl-1">;</span><br/><span class="hl-5">G</span><span class="hl-1">.</span><span class="hl-6">isFunction</span><span class="hl-1">(</span><span class="hl-2">x</span><span class="hl-1"> </span><span class="hl-4">=&gt;</span><span class="hl-1"> </span><span class="hl-2">x</span><span class="hl-1"> + </span><span class="hl-7">1</span><span class="hl-1">);     </span><span class="hl-8">// true</span><br/><span class="hl-5">G</span><span class="hl-1">.</span><span class="hl-6">islNullish</span><span class="hl-1">(</span><span class="hl-4">undefined</span><span class="hl-1">);   </span><span class="hl-8">// true</span>
+</code></pre>
 
 <a href="#logic-module" id="logic-module" style="color: inherit; text-decoration: none;">
   <h2><code>logic</code> module</h2>
 </a>
-<p>For example, <code>get(NaN)(myArray)</code> from Flurp&#39;s <code>array</code> module would return a nullish value, even though JavaScript&#39;s <code>myArray.at(NaN)</code> would return <code>myArray[0]</code>.</p>
+<p>This module contains various functions for applying boolean and conditional logic, as well as a handful of functions that don&#39;t quite fit elsewhere.</p>
+<pre><code class="language-ts"><span class="hl-0">import</span><span class="hl-1"> { </span><span class="hl-2">L</span><span class="hl-1">, </span><span class="hl-2">N</span><span class="hl-1"> } </span><span class="hl-0">from</span><span class="hl-1"> </span><span class="hl-3">&quot;flurp&quot;</span><span class="hl-1">;</span><br/><br/><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">negativeText</span><span class="hl-1"> = </span><span class="hl-5">L</span><span class="hl-1">.</span><span class="hl-6">ifElse</span><span class="hl-1">(</span><br/><span class="hl-1">  </span><span class="hl-5">N</span><span class="hl-1">.</span><span class="hl-2">isNegative</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-2">x</span><span class="hl-1"> </span><span class="hl-4">=&gt;</span><span class="hl-1"> </span><span class="hl-3">`</span><span class="hl-4">${</span><span class="hl-2">x</span><span class="hl-4">}</span><span class="hl-3"> is negative.`</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-2">x</span><span class="hl-1"> </span><span class="hl-4">=&gt;</span><span class="hl-1"> </span><span class="hl-3">`</span><span class="hl-4">${</span><span class="hl-2">x</span><span class="hl-4">}</span><span class="hl-3"> is non-negative.`</span><br/><span class="hl-1">);</span><br/><span class="hl-6">negativeTExt</span><span class="hl-1">(-</span><span class="hl-7">4</span><span class="hl-1">);   </span><span class="hl-8">// &#39;-4 is negative.&#39;</span><br/><br/><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">positiveEvenDivBy3</span><span class="hl-1"> = </span><span class="hl-5">L</span><span class="hl-1">.</span><span class="hl-6">allPass</span><span class="hl-1">(</span><br/><span class="hl-1">  </span><span class="hl-5">N</span><span class="hl-1">.</span><span class="hl-2">isPositive</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-5">N</span><span class="hl-1">.</span><span class="hl-2">isEven</span><span class="hl-1">,</span><br/><span class="hl-1">  (</span><span class="hl-2">x</span><span class="hl-1">: </span><span class="hl-9">number</span><span class="hl-1">) </span><span class="hl-4">=&gt;</span><span class="hl-1"> </span><span class="hl-2">x</span><span class="hl-1"> % </span><span class="hl-7">3</span><span class="hl-1"> === </span><span class="hl-7">0</span><br/><span class="hl-1">);</span><br/><span class="hl-6">f</span><span class="hl-1">(</span><span class="hl-7">6</span><span class="hl-1">);   </span><span class="hl-8">// true</span>
+</code></pre>
+
+<a href="#comparator-module" id="comparator-module" style="color: inherit; text-decoration: none;">
+  <h2><code>comparator</code> module</h2>
+</a>
+<p>The functions in this module serve as comparators to use when sorting arrays. They are designed to fix some potentially problematic behaviors of JavaScript&#39;s default comparator (e.g., converting numbers to strings for comparison).</p>
+<pre><code class="language-ts"><span class="hl-0">import</span><span class="hl-1"> { </span><span class="hl-2">A</span><span class="hl-1">, </span><span class="hl-2">C</span><span class="hl-1"> } </span><span class="hl-0">from</span><span class="hl-1"> </span><span class="hl-3">&quot;flurp&quot;</span><span class="hl-1">;</span><br/><br/><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">sortNumbers</span><span class="hl-1"> = </span><span class="hl-5">A</span><span class="hl-1">.</span><span class="hl-6">sortWith</span><span class="hl-1">(</span><span class="hl-5">C</span><span class="hl-1">.</span><span class="hl-2">numericDesc</span><span class="hl-1">);</span><br/><span class="hl-6">sortNumbers</span><span class="hl-1">([</span><span class="hl-7">30</span><span class="hl-1">, </span><span class="hl-7">6</span><span class="hl-1">, </span><span class="hl-7">1</span><span class="hl-1">, </span><span class="hl-4">NaN</span><span class="hl-1">, </span><span class="hl-7">200</span><span class="hl-1">, </span><span class="hl-7">5</span><span class="hl-1">]);      </span><span class="hl-8">// [200, 30, 6, 5, 1, NaN]</span>
+</code></pre>
 </div></div>
 <div class="col-4 col-menu menu-sticky-wrap menu-highlight">
 <div class="tsd-navigation settings">
@@ -71,10 +119,11 @@
 <h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4.93896 8.531L12 15.591L19.061 8.531L16.939 6.409L12 11.349L7.06098 6.409L4.93896 8.531Z" fill="var(--color-text)"></path></svg> Modules</h3></summary>
 <div class="tsd-accordion-details">
 <ul>
-<li class="current"><a href="../modules.html">flurp -<wbr/> v0.1.0</a>
+<li class="current"><a href="../modules.html">flurp -<wbr/> v0.5.0</a>
 <ul>
 <li class="current selected pages-entry pages-entry-page pages-entry-depth-1"><a href="overview.html">Overview</a></li>
 <li class="tsd-kind-module"><a href="../modules/array.html">array</a></li>
+<li class="tsd-kind-module"><a href="../modules/comparator.html">comparator</a></li>
 <li class="tsd-kind-module"><a href="../modules/guards.html">guards</a></li>
 <li class="tsd-kind-module"><a href="../modules/logic.html">logic</a></li>
 <li class="tsd-kind-module"><a href="../modules/number.html">number</a></li>
