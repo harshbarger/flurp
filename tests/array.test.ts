@@ -174,7 +174,7 @@ describe("arrays", () => {
     const j = A.get(-6);
     expect(f([3, 4, 5, 6, 7])).toBe(5);
     expect(g([3, 4, 5, 6, 7])).toBe(3);
-    expect(h([3, 4, 5, 6, 7])).toBe(undefined);
+    expect(h([3, 4, 5, 6, 7])).toBe(null);
     expect(i([3, 4, 5, 6, 7])).toBe(undefined);
     expect(j([3, 4, 5, 6, 7])).toBe(undefined);
   });
@@ -319,6 +319,11 @@ describe("arrays", () => {
     expect(i([2, 3, 4])).toEqual([2]);
     expect(j([2, 3, 4])).toEqual([2, 3, 4]);
     expect(k([2, 3, 4])).toEqual([2, 3, 4]);
+  });
+
+  test("replace", () => {
+    const f = A.replace(N.isNegative, Math.abs);
+    expect(f([-1, 2, -3, 4, -5])).toEqual([1, 2, 3, 4, 5]);
   });
 
   test("reverse", () => {

@@ -10,6 +10,28 @@ I am "dogfooding" this library in one of my own projects, making improvements as
 npm install flurp
 ```
 
+## Null Checks
+
+For type inference to work correctly with some modules, you should enable the `strictNullChecks` property in your `tsconfig.json`.
+
+```json
+{
+  "compilerOptions": {
+    "strictNullChecks": true
+  }
+}
+```
+
+Or, to include other type safety measures generally recommended as best practice as well:
+
+```json
+{
+  "compilerOptions": {
+    "strict": true
+  }
+}
+```
+
 ## General Principles
 
 Because functional programming typically uses pipelines, almost all Flurp functions are either unary functions themselves (e.g., `S.toUpperCase` below), or functions that return unary function (e.g., `A.join` below). There are no standalone forms of the functions designed for use outside the pipeline, but you can always create and immediately invoke a function as shown in the last example below.
@@ -34,6 +56,21 @@ joinAndUpperCase(["hello", "world"]);   // "HELLO WORLD"
 // Outside of a pipeline
 A.join(" ")(["hello", "world"]);  "hello world"
 ```
+In the spirit of TypeScript, things that look like errors tend to be considered errors, even where JavaScript's specs may be more tolerant. For example, `get(NaN)(myArray)` from the `array` module is considered an error, even though JavaScript's `myArray.at(NaN)` would return `myArray[0]`. 
+
+Since this is a functional library that seeks to avoid side effects, it does not throw exceptions. Instead, `null` and `undefined` are used to indicate error conditions. Typically, `null` is used when the inquiry itself appears to be an error, while `undefined` is used when the inquiry itself is reasonable, but doesn't work on the data (e.g., an out of bounds array index).
+
+```ts
+import { A } from "flurp";
+
+const sillyIndex = A.get(1.5); 
+sillyIndex([1, 2, 3]);       // null
+
+const outOfBounds = A.get(5);
+outOfBounds([1, 2, 3]);      // undefined
+```
+
+Naming conventions are always a challenge since the various existing similar libraries, as well as built-in JavaScript functions, sometimes use different conventions. As a general rule, I have given some deference to existing conventions, though I have chosen to prioritize internal consistency over external conventions. For example, I chose `get` for obtaining an array element instead of `at` for consistency with the corresponding functions in the `string` and `pojo` modules.
 
 ## `pipe` module
 
@@ -43,7 +80,7 @@ This module also includes [tap](https://harshbarger.github.io/flurp/functions/pi
 
 ## `array` module
 
-Except for [createWith](), the functions in this module either are functions (or return functions) which act on an array. These are all pure functions that do not mutate the original array.
+Besides the usual functions that act on arrays (or create functions that do), this module contains the array creation utility [createWith](). Functions in this module do not mutate the input arrays.
 
 ```ts
 import { A } from "flurp";
@@ -69,12 +106,66 @@ multiplyByTen({ x: 3, y: 4 });   // { x: 30, y: 40 }
 
 ## `string` module
 
-All functions in this module either are functions (or return functions) which act on an array. These are all pure functions that do not mutate the original array.
+All functions in this module either are functions (or return functions) which act on an string. These are all pure functions that do not mutate the original strings.
+
+```ts
+import { S } from "flurp";
+
+const hasVowel = S.includesRegex(/[aeiou]/i);
+hasVowel("weasel");     // true
+```
 
 ## `number` module
 
+These are functions that accept a number as input, or return such functions.
+
+```ts
+import { N } from "flurp";
+
+const zeroToTen = N.isBetween(0, 10);
+zeroToTen(-4);     // false
+```
+
 ## `guards` module
+
+This module contains boolean functions that test for common types.
+
+```ts
+import * as G from "flurp/guards";
+G.isFunction(x => x + 1);     // true
+G.islNullish(undefined);   // true
+```
 
 ## `logic` module
 
-For example, `get(NaN)(myArray)` from Flurp's `array` module would return a nullish value, even though JavaScript's `myArray.at(NaN)` would return `myArray[0]`. 
+This module contains various functions for applying boolean and conditional logic, as well as a handful of functions that don't quite fit elsewhere.
+
+```ts
+import { L, N } from "flurp";
+
+const negativeText = L.ifElse(
+  N.isNegative,
+  x => `${x} is negative.`,
+  x => `${x} is non-negative.`
+);
+negativeTExt(-4);   // '-4 is negative.'
+
+const positiveEvenDivBy3 = L.allPass(
+  N.isPositive,
+  N.isEven,
+  (x: number) => x % 3 === 0
+);
+f(6);   // true
+```
+
+## `comparator` module
+
+The functions in this module serve as comparators to use when sorting arrays. They are designed to fix some potentially problematic behaviors of JavaScript's default comparator (e.g., converting numbers to strings for comparison).
+
+```ts
+import { A, C } from "flurp";
+
+const sortNumbers = A.sortWith(C.numericDesc);
+sortNumbers([30, 6, 1, NaN, 200, 5]);      // [200, 30, 6, 5, 1, NaN]
+```
+

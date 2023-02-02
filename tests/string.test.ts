@@ -6,19 +6,6 @@ describe("strings", () => {
     expect(f("wea")).toBe("weasel");
   });
 
-  test("at", () => {
-    const f = S.at(2);
-    const g = S.at(-2);
-    const h = S.at(1.5);
-    const i = S.at(-7);
-    const j = S.at(6);
-    expect(f("abcdef")).toBe("c");
-    expect(g("abcdef")).toBe("e");
-    expect(h("abcdef")).toBe(undefined);
-    expect(i("abcdef")).toBe(undefined);
-    expect(j("abcdef")).toBe(undefined);
-  });
-
   test("concat", () => {
     const f = S.concat("e", "ase", "l");
     expect(f("w")).toBe("weasel");
@@ -30,6 +17,19 @@ describe("strings", () => {
     expect(f("weasel")).toBe(true);
     expect(f("sel_")).toBe(false);
     expect(f("el")).toBe(false);
+  });
+
+  test("get", () => {
+    const f = S.get(2);
+    const g = S.get(-2);
+    const h = S.get(1.5);
+    const i = S.get(-7);
+    const j = S.get(6);
+    expect(f("abcdef")).toBe("c");
+    expect(g("abcdef")).toBe("e");
+    expect(h("abcdef")).toBe(undefined);
+    expect(i("abcdef")).toBe(undefined);
+    expect(j("abcdef")).toBe(undefined);
   });
 
   test("includes", () => {

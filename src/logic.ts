@@ -3,10 +3,10 @@
  *
  * @example
  * ```ts
- * import * as L from "flurp/logic";
+ * import { L, N } from "flurp";
  * const f = L.allPass(
- *   x => x > 0,
- *   x => x % 2 === 0,
+ *   N.isPositive,
+ *   N.isEven,
  *   (x: number) => x % 3 === 0
  * );
  * f(6);   // true
@@ -23,10 +23,10 @@ export function allPass<T>(...conditions: Array<(x: T) => boolean>) {
  *
  * @example
  * ```ts
- * import * as L from "flurp/logic";
- * const f = L.allFail(
- *   x => x < 0,
- *   x => x % 2 === 0,
+ * import { L } from "flurp";
+ * const f L.allFail(
+ *   N.isNegative,
+ *   N.isEven,
  *   (x: number) => x % 3 === 0
  * );
  * f(5);    // true;
@@ -44,9 +44,9 @@ export function allFail<T>(...conditions: Array<(x: T) => boolean>) {
  *
  * @example
  * ```ts
- * import * as L from "flurp/logic";
- * const f = L.always(5);
- * f("weasel");   // 5
+ * import { L } from "flurp";
+ * const five = L.always(5);
+ * five("weasel");   // 5
  * ```
  */
 export function always<T>(val: T) {
@@ -58,10 +58,10 @@ export function always<T>(val: T) {
  *
  * @example
  * ```ts
- * import * as L from "flurp/logic";
+ * import { L, N } from "flurp";
  * const f = L.anyFail(
- *   x => x > 0,
- *   x => x < 10,
+ *   N.isPositive,
+ *   N.isLt(10),
  *   (x: number) => x % 3 === 0
  * );
  * f(5);   // true;
@@ -77,10 +77,10 @@ export function anyFail<T>(...conditions: Array<(x: T) => boolean>) {
  *
  * @example
  * ```ts
- * import * as L from "flurp/logic";
+ * import { L } from "flurp";
  * const f = L.anyPass(
- *   x => x > 0,
- *   (x: number) => x % 2 === 0,
+ *   N.isPositive,
+ *   N.isEven,
  *   (x: number) => x % 3 === 0
  * );
  * f(1);  // true;
@@ -97,10 +97,10 @@ export function anyPass<T>(...conditions: Array<(x: T) => boolean>) {
  *
  * @example
  * ```ts
- * import * as L from "flurp/logic";
+ * import { L } from "flurp";
  * const f = L.both(
- *   x => x > 0,
- *   x => x < 10
+ *   N.isPositive,
+ *   N.isLt(10)
  * );
  * f(3);     // true;
  * f(-3);    // false;
@@ -123,6 +123,8 @@ export function both<T>(
  *
  * @example
  * ```ts
+ * import { L } from "flurp";
+ *
  * const f = L.branch(
  *   [N.isGt(100), N.multiply(0.9)],
  *   [N.isGt(50), N.subtract(5)],
@@ -158,7 +160,7 @@ export function branch<T, U>(...args: Array<[(x: T) => boolean, (x: T) => U]>) {
  *
  * @example
  * ```ts
- * import * as L from "flurp/logic";
+ * import { L } from "flurp";
  * import * as N from "flurp/number";
  *
  * const f = L.either(
@@ -181,11 +183,11 @@ export function either<T>(
  *
  * @example
  * ```ts
- * import * as L from "flurp/logic";
- * const f = L.equals(0);
- * f(0);       // true;
- * f(1);       // false;
- * f(false);   // false;
+ * import { L } from "flurp";
+ * const isZero = L.equals(0);
+ * isZero(0);       // true;
+ * isZero(1);       // false;
+ * isZero(false);   // false;
  * ```
  */
 export function equals<T, U>(val: T) {
@@ -197,7 +199,7 @@ export function equals<T, U>(val: T) {
  *
  * @example
  * ```ts
- * import * as L from "flurp/logic";
+ * import { L } from "flurp";
  * L.FALSE("weasel");       // false
  * ```
  */
@@ -210,7 +212,7 @@ export function FALSE(_: unknown) {
  *
  * @example
  * ```ts
- * import * as L from "flurp/logic";
+ * import { L } from "flurp";
  * L.identity(5);   // 5
  * ```
  */
@@ -225,10 +227,10 @@ export function identity<T>(a: T) {
  *
  * @example
  * ```ts
- * import * as L from "flurp/logic";
+ * import { L } from "flurp";
  *
  * const f = L.ifElse(
- *   x => x < 0,
+ *   N.isNegative,
  *   x => `${x} is negative.`,
  *   x => `${x} is non-negative.`
  * );
@@ -249,7 +251,7 @@ export function ifElse<T, U>(
  *
  * @example
  * ```ts
- * import * as L from "flurp/logic";
+ * import { L } from "flurp";
  *
  * const isVowel = L.isOneOf(["a", "e", "i", "o", "u"]);
  * isVowel("i");      // true
@@ -266,11 +268,11 @@ export function isIncludedIn<T>(arr: ReadonlyArray<T>) {
  *
  * @example
  * ```ts
- * import * as L from "flurp/logic";
+ * import { L } from "flurp";
  *
  * const f = L.neither(
- *   x => x > 0,
- *   x => x % 2 === 0
+ *   N.isPositive,
+ *   N.isEven
  * );
  * f(-5);   // true
  * f(5);    // false
@@ -293,9 +295,9 @@ export function neither<T>(
  *
  * @example
  * ```ts
- * const f = L.not(L.equals(5));
- * f(5);    // false
- * f(4);    // true
+ * const notFive = L.not(L.equals(5));
+ * notFive(5);    // false
+ * notFive(4);    // true
  * ```
  */
 export function not(f: (...args: Array<unknown>) => boolean) {
@@ -309,7 +311,7 @@ export function not(f: (...args: Array<unknown>) => boolean) {
  *
  * @example
  *  ```ts
- * import * as L from "flurp/logic";
+ * import { L } from "flurp";
  * const f = L.nullishTo(3);
  * f(undefined);   // 3
  * f(null);        // 3;
@@ -324,7 +326,7 @@ export function nullishTo<T, U>(val: U) {
  *
  * @example
  * ```ts
- * import * as L from "flurp/logic";
+ * import { L } from "flurp";
  * L.TRUE("weasel");       // true
  * ```
  */
@@ -340,10 +342,10 @@ export function TRUE(_: unknown) {
  *
  * @example
  * ```ts
- * import * as L from "flurp/logic";
+ * import { L } from "flurp";
  * const f = L.unless(
- *   x => x > 0,
- *   (x: number) => x * 2
+ *   N.isPositive,
+ *   N.multiply(2)
  * );
  * f(5);   // 5;
  * f(-5);  // -10;
@@ -361,10 +363,10 @@ export function unless<T, U>(condition: (x: T) => boolean, f: (x: T) => U) {
  *
  * @example
  * ```ts
- * import * as L from "flurp/logic";
+ * import { L } from "flurp";
  * const f = L.when(
- *   x => x > 0,
- *   (x: number) => x * 2
+ *   N.isPositive,
+ *   N.multiply(2)
  * );
  * f(5);    // 10;
  * f(-5);   // -5;

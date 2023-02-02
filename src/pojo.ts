@@ -219,6 +219,31 @@ export function mergeInto<T, U>(objToMergeInto: POJO<U>) {
 }
 
 /**
+ * Transforms an object to have only the keys found in the `keys` array. If a key is
+ * not contained in `keys`, it will be inserted with a value of undefined.
+ *
+ * @param keys
+ *
+ * @example
+ * ```ts
+ * import { P } from "flurp";
+ *
+ * const justXY = P.pick(["x", "Y"]);
+ * justXY({ x: 3, y: 4, z: 5 });    // { x: 3, y: 4 }
+ * justXY({ x: 3 });                // { x: 3, y: undefined }
+ * ```
+ */
+export function pick<T>(keys: Array<string>) {
+  return function (obj: POJO<T>) {
+    const result: Record<string, T | undefined> = {};
+    keys.forEach((k) => {
+      result[k] = Object.hasOwn(obj, k) ? obj[k] : undefined;
+    });
+    return result;
+  };
+}
+
+/**
  * @param key
  * @param val
  *

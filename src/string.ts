@@ -27,35 +27,6 @@ export function append(str: string) {
 }
 
 /**
- * Negative indices count backwards from the beginning of the string.
- *
- * @remarks
- * Non-integer or out of bounds indices return undefined.
- *
- * @param i the index
- *
- * @example
- * ```ts
- * import * as S from "flurp/string";
- * const f = S.at(2);
- * const g = S.at(-2);
- * f("abcdef");    // c
- * g("abcdef");    // e
- * ```
- */
-export function at(i: number) {
-  return function (s: string) {
-    const idx = adjIndex(s, i);
-
-    if (typeof idx === "number") {
-      return s[idx];
-    }
-
-    return undefined;
-  };
-}
-
-/**
  * @param strs
  *
  * @example
@@ -84,6 +55,35 @@ export function concat(...strs: Array<string>) {
  */
 export function endsWith(str: string) {
   return (s: string) => s.endsWith(str);
+}
+
+/**
+ * Negative indices count backwards from the beginning of the string.
+ *
+ * @remarks
+ * Non-integer or out of bounds indices return undefined.
+ *
+ * @param i the index
+ *
+ * @example
+ * ```ts
+ * import * as S from "flurp/string";
+ * const f = S.at(2);
+ * const g = S.at(-2);
+ * f("abcdef");    // c
+ * g("abcdef");    // e
+ * ```
+ */
+export function get(i: number) {
+  return function (s: string) {
+    const idx = adjIndex(s, i);
+
+    if (typeof idx === "number") {
+      return s[idx];
+    }
+
+    return undefined;
+  };
 }
 
 /**

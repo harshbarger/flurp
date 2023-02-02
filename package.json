@@ -28,7 +28,9 @@
     "docs": "typedoc",
     "lint": "eslint --ext .js,.ts --fix src/ tests/",
     "format": "prettier --write src/ tests/",
-    "build": "npm run bundle & npm run docs"
+    "pre-pub": "copyfiles README.md LICENSE.md package.json dist",
+    "pub": "npm run bundle && npm run docs && npm run pre-pub && cd dist && npm publish && cd ..",
+    "pub-dry": "npm run bundle && npm run docs && npm run pre-pub && cd dist && npm publish --dry-run && cd .."
   },
   "devDependencies": {
     "@commitlint/cli": "^17.3.0",
@@ -37,7 +39,7 @@
     "@types/jest": "^29.2.3",
     "@typescript-eslint/eslint-plugin": "^5.47.0",
     "@typescript-eslint/parser": "^5.47.0",
-    "copy-file-util": "^0.1.7",
+    "copyfiles": "^2.4.1",
     "eslint": "^8.30.0",
     "eslint-config-prettier": "^8.5.0",
     "jest": "^29.3.1",

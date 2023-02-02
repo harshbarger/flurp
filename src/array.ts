@@ -6,8 +6,12 @@
  */
 
 function adjIndex(arr: ReadonlyArray<unknown>, i: number) {
-  if (i >= arr.length || i < -arr.length || !Number.isInteger(i)) {
+  if (!Number.isInteger(i)) {
     return null;
+  }
+
+  if (i >= arr.length || i < -arr.length) {
+    return undefined;
   }
 
   return i >= 0 ? i : arr.length + i;
@@ -563,7 +567,7 @@ export function flatten<T>(levels = 1) {
 export function get<T>(index: number) {
   return function (arr: ReadonlyArray<T>) {
     const idx = adjIndex(arr, index);
-    return typeof idx === "number" ? arr[idx] : undefined;
+    return typeof idx === "number" ? arr[idx] : idx;
   };
 }
 
@@ -953,6 +957,32 @@ export function remove<T>(startIndex: number, endIndex?: number) {
     ...arr.slice(0, startIndex),
     ...arr.slice(endIndex),
   ];
+}
+
+/**
+ * A convenience function to streamline some `map` operations. Apoplies `transform` to those
+ * elements which satisfy `condition` while leaving other elements unchanged.
+ *
+ * @param condition
+ * @param transform
+ *
+ * @example
+ * ```ts
+ * import { A, L, N } from "flurp";
+ *
+ * const negativeToPositive = A.replace(N.isNegative, Math.abs);
+ * negativeToPositive([-1, 2, -3, 4, -5]);      // [1, 2, 3, 4, 5]
+ *
+ * const zeroToOne = A.replace(L.equals(0), always(1));
+ * zeroToOne([0, 3, 4, 0]);                  // [1, 3, 4, 1]
+ * ```
+ */
+export function replace<T, U>(
+  condition: (x: T) => boolean,
+  transform: (x: T) => U
+) {
+  return (arr: ReadonlyArray<T>) =>
+    arr.map((x) => (condition(x) ? transform(x) : x));
 }
 
 /**
