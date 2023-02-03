@@ -1,6 +1,6 @@
 {
   "name": "flurp",
-  "version": "0.5.4",
+  "version": "0.5.5",
   "description": "A functional programming library for Typescript with utilities for array, objects, strings, and more",
   "homepage": "https://harshbarger.github.io/flurp/",
   "repository": {
@@ -9,6 +9,45 @@
   },
   "bugs": "https://github.com/harshbarger/flurp/issues",
   "main": "index.js",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "types": "./index.d.ts",
+      "default": "./index.js"
+    },
+    "./array": {
+        "types": "./array.d.ts",
+        "default": "./array.js"
+    },
+    "./comparator": {
+      "types": "./comparator.d.ts",
+      "default": "./comparator.js"
+    },
+    "./guard": {
+      "types": "./guard.d.ts",
+      "default": "./guard.js"
+    },
+    "./logic": {
+      "types": "./logic.d.ts",
+      "default": "./logic.js"
+    },
+    "./number": {
+      "types": "./number.d.ts",
+      "default": "./number.js"
+    },
+    "./pojo": {
+      "types": "./pojo.d.ts",
+      "default": "./pojo.js"
+    },
+    "./result": {
+      "types": "./result.d.ts",
+      "default": "./result.js"
+    },
+    "./string": {
+      "types": "./string.d.ts",
+      "default": "./string.js"
+    }
+  },
   "keywords": [
     "functional",
     "typescript",

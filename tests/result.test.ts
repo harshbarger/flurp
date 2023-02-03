@@ -1,4 +1,5 @@
-import { R, A } from "../src/index";
+import * as R from "../src/result";
+import * as A from "../src/array";
 
 describe("result", () => {
   test("catchAsNull", () => {

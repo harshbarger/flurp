@@ -1,4 +1,8 @@
-import { A, C, L, N, flow } from "../src/index";
+import { flow } from "../src/index";
+import * as A from "../src/array";
+import * as C from "../src/comparator";
+import * as L from "../src/logic";
+import * as N from "../src/number";
 
 describe("arrays", () => {
   test("all", () => {

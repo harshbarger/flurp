@@ -17,7 +17,7 @@ function isKeyOf<T extends POJO<unknown>>(
  *
  * @example
  * ```ts
- *import { P } from "flurp";
+ * import * as P from "flurp/pojo";
  *
  * const getEntries = P.entries("x");
  * getEntries({x: 5, y: 10});       // [["x", 5], ["y", 10]]
@@ -34,7 +34,7 @@ export function entries<T>(obj: POJO<T>) {
  *
  * @example
  * ```ts
- * import { P } from "flurp";
+ * import * as P from "flurp/pojo";
  *
  * const keepPositive = P.filter(N.isPositive);
  * keepPositive({ x: 3, y: -4, z: 5 });     // { x: 3, z: 5 }
@@ -59,7 +59,7 @@ export function filter<T>(condition: (x: T) => boolean) {
  *
  * @example
  * ```ts
- *import { P } from "flurp";
+ *import * as P from "flurp/pojo";
  *
  * const moreThanTwoChars = P.filterWithKey((s: string) => s.length > 2);
  * moreThanTwoChars({ x: 3, yy: -4, zzz: 5 });         // { zzz: 5 }
@@ -86,7 +86,7 @@ export function filterWithKey<T>(condition: (k: string, v: T) => boolean) {
  *
  * @example
  * ```ts
- * import { P } from "flurp";
+ * import * as P from "flurp/pojo";
  *
  * const getX = P.getOr("x");
  * getX({x: 5});       // 5
@@ -113,7 +113,7 @@ export function getOr<T, U>(key: string, defaultValue?: U) {
  *
  * @example
  * ```ts
- * import { P } from "flurp";
+ * import * as P from "flurp/pojo";
  *
  * const hasX = P.hasKey("x");
  * hasX({x: 5});       // true
@@ -131,7 +131,7 @@ export function hasKey<T>(key: string) {
  *
  * @example
  * ```ts
- * import { P } from "flurp";
+ * import * as P from "flurp/pojo";
  *
  * P.isEmpty({});           // true
  * P.isEmpty({x: 4});       // false
@@ -146,7 +146,7 @@ export function isEmpty(obj: POJO<unknown>) {
  *
  * @example
  * ```ts
- * import { P } from "flurp";
+ * import * as P from "flurp/pojo";
  *
  * P.keys({x: 3, y: 4, x: 5});      // ["x", "y", "z"]
  * ```
@@ -162,7 +162,7 @@ export function keys<T>(obj: POJO<T>) {
  *
  * @example
  * ```ts
- * import { P } from "flurp";
+ * import * as P from "flurp/pojo";
  *
  * const multiplyByTen = P.map(N.multiply(10));
  * multiplyByTen({ x: 3, y: 4 });   // { x: 30, y: 40 }
@@ -189,7 +189,7 @@ export function map<T, U>(f: (x: T) => U) {
  *
  * @example
  * ```ts
- * import { P } from "flurp";
+ * import * as P from "flurp/pojo";
  *
  * const mergeX = P.merge({ x: 2 });
  * mergeX({ y: 5 });           // { x: 2, y: 5 }
@@ -208,7 +208,7 @@ export function merge<T, U>(objToMerge: POJO<U>) {
  *
  * @example
  * ```ts
- * import { P } from "flurp";
+ * import * as P from "flurp/pojo";
  *
  * const mergeIntoXZ = P.mergeInto({ x: 2, z: 4 });
  * mergeIntoXZ({ x: 3, y: 5 });     // { x: 3, y: 5, z: 4 }
@@ -226,7 +226,7 @@ export function mergeInto<T, U>(objToMergeInto: POJO<U>) {
  *
  * @example
  * ```ts
- * import { P } from "flurp";
+ * import * as P from "flurp/pojo";
  *
  * const justXY = P.pick(["x", "Y"]);
  * justXY({ x: 3, y: 4, z: 5 });    // { x: 3, y: 4 }
@@ -249,7 +249,7 @@ export function pick<T>(keys: Array<string>) {
  *
  * @example
  * ```ts
- * import { P } from "flurp";
+ * import * as P from "flurp/pojo";
  *
  * const xIsFive = P.propEquals("x", 5);
  * xIsFive({ x: 5, y: 3 });      // true
@@ -290,7 +290,7 @@ export function propPasses<T>(key: string, condition: (x: T) => boolean) {
  *
  * @example
  * ```ts
- * import { P } from "flurp";
+ * import * as P from "flurp/pojo";
  *
  * const removeX = P.remove("x");
  * removeX({x: 3, y: 4, z: 5});    // {y: 4, z: 5}
@@ -323,7 +323,7 @@ export function remove<T>(keys: string | Array<string>) {
  *
  *@example
  * ```ts
- * import { P } from "flurp";
+ * import * as P from "flurp/pojo";
  *
  * const setX = P.set("x", 5);
  * setX({x: 3});              // {x: 5}
@@ -348,7 +348,7 @@ export function set<T>(key: string, newVal: T, createIfNotFound = true) {
  *
  * @example
  * ```ts
- * import { P } from "flurp";
+ * import * as P from "flurp/pojo";
  *
  * P.values({x: 3, y: 4, x: 5});      // [3, 4, 5]
  * ```

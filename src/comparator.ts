@@ -12,6 +12,15 @@
  *
  * @param a
  * @param b
+ *
+ * @example
+ * ```ts
+ * import * as A from "flurp/array";
+ * import * as C from "flurp/comparator";
+ *
+ * const sortAlpha = A.sortWith(C.alphabeticalNullable);
+ * sortSv(["a", "a c", "ab", "Ab"]);      // ["a", "Ab", "ab", "a c"]
+ * ```
  */
 export function alphabetical(a: string, b: string) {
   // Math.sign because browsers not required to use 1/-1; some may use 2/-2
@@ -40,6 +49,15 @@ export function alphabetical(a: string, b: string) {
  *
  * @param a
  * @param b
+ *
+ * @example
+ * ```ts
+ * import * as A from "flurp/array";
+ * import * as C from "flurp/comparator";
+ *
+ * const sortAlpha = A.sortWith(C.alphabeticalNullable);
+ * sortSv(["a", "a c", null, "ab", "Ab"]);      // ["a", "Ab", "ab", "a c", null]
+ * ```
  */
 export function alphabeticalNullable(
   a: string | null | undefined,
@@ -80,6 +98,15 @@ export function alphabeticalNullable(
  *
  * @param locales
  * @param options
+ *
+ * @example
+ * ```ts
+ * import * as A from "flurp/array";
+ * import * as C from "flurp/comparator";
+ *
+ * const sortSv = A.sortWith(C.alphaLocaleNullable("sv", { sensitivity: "base" }));
+ * sortSv(["a", "ä"]);      // ["a", "ä"]
+ * ```
  */
 export function alphaLocale(
   locales?: string | Array<string>,
@@ -100,6 +127,15 @@ export function alphaLocale(
  *
  * @param locales
  * @param options
+ *
+ * @example
+ * ```ts
+ * import * as A from "flurp/array";
+ * import * as C from "flurp/comparator";
+ *
+ * const sortSv = A.sortWith(C.alphaLocaleNullable("sv", { sensitivity: "base" }));
+ * sortSv([null, "a", "ä"]);      // ["a", "ä", null]
+ * ```
  */
 export function alphaLocaleNullable(
   locales?: string | Array<string>,
@@ -148,7 +184,8 @@ export function compareBy<T, U>(
  *
  * @example
  * ```ts
- * import { A, C } from "flurp";
+ * import * as A from "flurp/array";
+ * import * as C from "flurp/comparator";
  *
  * const sortNumbers = A.sortWith(C.numericAsc);
  * sortNumbers([30, 6, 1, NaN, 200, 5]);      // [1, 5, 6, 30, 200, NaN]
@@ -184,7 +221,8 @@ export function numericAsc(x: number, y: number) {
  *
  * @example
  * ```ts
- * import { A, C } from "flurp";
+ * import * as A from "flurp/array";
+ * import * as C from "flurp/comparator";
  *
  * const sortNumbers = A.sortWith(C.numericDesc);
  * sortNumbers([30, 6, 1, NaN, 200, 5]);      // [200, 30, 6, 5, 1, NaN]
@@ -227,7 +265,8 @@ export function numericDesc(x: number, y: number) {
  *
  * @example
  * ```ts
- * import { A, C } from "flurp";
+ * import * as A from "flurp/array";
+ * import * as C from "flurp/comparator";
  *
  * const sortNumbers = A.sortWith(C.numericNullableAsc);
  * sortNumbers([30, NaN, 6, 1, undefined, 200, null, 5]);      // [1, 5, 6, 30, 200, NaN, null, undefined]
@@ -289,7 +328,8 @@ export function numericNullableAsc(
  *
  * @example
  * ```ts
- * import { A, C } from "flurp";
+ * import * as A from "flurp/array";
+ * import * as C from "flurp/comparator";
  *
  * const sortNumbers = A.sortWith(C.numericNullableDesc);
  * sortNumbers([30, NaN, 6, 1, undefined, 200, null, 5]);      // [200, 30, 6, 5, 1, NaN, null, undefined]

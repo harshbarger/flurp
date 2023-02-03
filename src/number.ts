@@ -3,7 +3,7 @@
  *
  * @example
  * ```ts
- * import { N } from "flurp";
+ * import * as N from "flurp/number";
  *
  * const addFive = N.add(5);
  * addFive(2);     // 7
@@ -21,7 +21,7 @@ export function add(y: number) {
  *
  * @example
  * ```ts
- * import { N } from "flurp";
+ * import * as N from "flurp/number";
  *
  * const zeroToTen = N.clamp(0, 10);
  * zeroToTen(-2);     // 0
@@ -38,7 +38,7 @@ export function clamp(min: number, max: number) {
  *
  * @example
  * ```ts
- * import { N } from "flurp";
+ * import * as N from "flurp/number";
  *
  * const divideByTwo = N.divide(2);
  * divideByTwo(10);     // 2
@@ -55,7 +55,7 @@ export function divide(y: number) {
  *
  * @example
  * ```ts
- * import { N } from "flurp";
+ * import * as N from "flurp/number";
  *
  * const twoDividedBy = N.divideInto(2);
  * twoDividedBy(10);       // 0.2
@@ -73,7 +73,7 @@ export function divideInto(y: number) {
  * @param max
  *
  * @example
- * import { N } from "flurp";
+ * import * as N from "flurp/number";
  *
  * const zeroToTen = N.isBetween(0, 10);
  * zeroToTen(-4);     // false
@@ -90,7 +90,7 @@ export function isBetween(min: number, max: number) {
  *
  * @example
  * ```ts
- * import { N } from "flurp";
+ * import * as N from "flurp/number";
  *
  * const isVeryNearFive = N.isCloseTo(5);
  * isVeryNearFive(5 + 1e-16);     // true
@@ -109,7 +109,7 @@ export function isCloseTo(y: number, tolerance = 1e-15) {
  * @param x
  *
  * @example
- * import { N } from "flurp";
+ * import * as N from "flurp/number";
  *
  * N.isEven(4);     // true
  * N.isEven(-4);    // true
@@ -125,7 +125,7 @@ export function isEven(x: number) {
  *
  * @example
  * ```ts
- * import { N } from "flurp";
+ * import * as N from "flurp/number";
  *
  * const moreThanFour = N.isGt(4);
  * moreThanFour(6);      // true
@@ -142,7 +142,7 @@ export function isGt(y: number) {
  *
  * @example
  * ```ts
- * import { N } from "flurp";
+ * import * as N from "flurp/number";
  *
  * const atLeastFour = N.isGte(4);
  * atLeastFour(6);     // true
@@ -159,7 +159,7 @@ export function isGte(y: number) {
  *
  * @example
  * ```ts
- * import { N } from "flurp";
+ * import * as N from "flurp/number";
  *
  * const lessThanFour = N.isLt(4);
  * lessThanFour(2);      // true
@@ -176,7 +176,7 @@ export function isLt(y: number) {
  *
  * @example
  * ```ts
- * import { N } from "flurp";
+ * import * as N from "flurp/number";
  *
  * const noMoreThanFour = N.isLte(4);
  * noMoreThanFour(2);      // true
@@ -196,7 +196,7 @@ export function isLte(y: number) {
  *
  * @example
  * ```ts
- * import { N } from "flurp";
+ * import * as N from "flurp/number";
  *
  * N.isNegative(-3);     // true
  * N.isNegative(0);      // false
@@ -215,7 +215,7 @@ export function isNegative(x: number) {
  *
  * @example
  * ```ts
- * import { N } from "flurp";
+ * import * as N from "flurp/number";
  *
  * N.isNonNegative(3);     // true
  * N.isNonNegative(0);     // true
@@ -229,7 +229,7 @@ export function isNonNegative(x: number) {
 /**
  * @example
  * ```ts
- * import { N } from "flurp";
+ * import * as N from "flurp/number";
  *
  * N.isOdd(3);     // true
  * N.isOdd(-3);    // true
@@ -250,7 +250,7 @@ export function isOdd(x: number) {
  *
  * @example
  * ```ts
- * import { N } from "flurp";
+ * import * as N from "flurp/number";
  *
  * N.isPositive(3);     // true
  * N.isPositive(0);     // false
@@ -271,7 +271,7 @@ export function isPositive(x: number) {
  *
  * @example
  * ```ts
- * import { N } from "flurp";
+ * import * as N from "flurp/number";
  *
  * const hueIn0to360 = N.mathModulo(360);
  * hueIn0to360(390);     // 30
@@ -292,7 +292,7 @@ export function mathModulo(y: number) {
  *
  * @example
  * ```ts
- * import { N } from "flurp";
+ * import * as N from "flurp/number";
  *
  * const modTen = N.modulo(10);
  * modTen(12);         // 2.5
@@ -308,7 +308,7 @@ export function modulo(y: number) {
  *
  * @example
  * ```ts
- * import { N } from "flurp";
+ * import * as N from "flurp/number";
  *
  * const triple = N.multiply(3);
  * f(10);     // 30
@@ -323,7 +323,7 @@ export function multiply(y: number) {
  *
  * @example
  * ```ts
- * import { N } from "flurp";
+ * import * as N from "flurp/number";
  *
  * const cubeRoot = N.nthRoot(3);
  * cubeRoot(8);     // 2
@@ -344,7 +344,7 @@ export function nthRoot(root: number) {
  *
  * @example
  * ```ts
- * import { N } from "flurp";
+ * import * as N from "flurp/number";
  *
  * const square = N.pow(2);
  * square(5);     // 25
@@ -364,7 +364,7 @@ export function pow(exponent: number) {
  *
  * @example
  * ```ts
- * import { N } from "flurp";
+ * import * as N from "flurp/number";
  *
  * const toTwoPlaces = N.round(2);
  * toTwoPlaces(12345.6789);      // 12345.68
@@ -387,7 +387,7 @@ export function round(places = 0) {
  *
  * @example
  * ```ts
- * import { N } from "flurp";
+ * import * as N from "flurp/number";
  *
  * const subtractFive = N.subtract(5);
  * subtractFive(2);       // -3
@@ -404,7 +404,7 @@ export function subtract(y: number) {
  *
  * @example
  * ```ts
- * import { N } from "flurp";
+ * import * as N from "flurp/number";
  *
  * const subtractFromFive = N.subtractFrom(5);
  * subtractFromFive(2);      // 3

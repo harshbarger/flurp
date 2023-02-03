@@ -3,7 +3,8 @@
  *
  * @example
  * ```ts
- * import * as G from "flurp/guards";
+ * import * as G from "flurp/guard";
+ *
  * G.isArray([3, 4]);         // true
  * G.isArray({x: 3, y: 4});   // false
  * ```
@@ -17,7 +18,8 @@ export function isArray(x: unknown) {
  *
  * @example
  * ```ts
- * import * as G from "flurp/guards";
+ * import * as G from "flurp/guard";
+ *
  * G.isBoolean(false);    // true
  * G.isBoolean(0);        // false
  * ```
@@ -31,7 +33,8 @@ export function isBoolean(x: unknown) {
  *
  * @example
  * ```ts
- * import * as G from "flurp/guards";
+ * import * as G from "flurp/guard";
+ *
  * G.isFunction(x => x + 1);     // true
  * G.isFunction("x => x + 1");   // false
  * ```
@@ -47,7 +50,8 @@ export function isFunction(x: unknown) {
  *
  * @example
  * ```ts
- * import * as G from "flurp/guards";
+ * import * as G from "flurp/guard";
+ *
  * G.isNotNullish({});           // true
  * G.isNotNullish(null);         // false
  * G.isNullNullish(undefined);   // false
@@ -62,7 +66,8 @@ export function isNotNullish(x: unknown) {
  *
  * @example
  * ```ts
- * import * as G from "flurp/guards";
+ * import * as G from "flurp/guard";
+ *
  * G.isNull(null);        // true
  * G.isNull(undefined);   // false
  * ```
@@ -78,7 +83,8 @@ export function isNull(x: unknown) {
  *
  * @example
  * ```ts
- * import * as G from "flurp/guards";
+ * import * as G from "flurp/guard";
+ *
  * G.isNullish(null);         // true
  * G.islNullish(undefined);   // true
  * G.isNullish({});           // false
@@ -93,7 +99,7 @@ export function isNullish(x: unknown) {
  *
  * @example
  * ```ts
- * import * as G from "flurp/guards";
+ * import * as G from "flurp/guard";
  * G.isNumber(42);    // true
  * G.isNumber("42");  // false
  * ```
@@ -113,7 +119,8 @@ export function isNumber(x: unknown) {
  *
  * @example
  * ```ts
- * import * as G from "flurp/guards";
+ * import * as G from "flurp/guard";
+ *
  * G.isPOJO({x: 3});         // true
  * G.isPOJO({});             // true
  * G.isPOJO([]);             // false
@@ -131,7 +138,8 @@ export function isPOJO(x: unknown) {
  *
  * @example
  * ```ts
- * import * as G from "flurp/guards";
+ * import * as G from "flurp/guard";
+ *
  * G.isString("42");    // true
  * G.isString(42);      // false
  * ```
@@ -145,7 +153,8 @@ export function isString(x: unknown) {
  *
  * @example
  * ```ts
- * import * as G from "flurp/guards";
+ * import * as G from "flurp/guard";
+ *
  * G.isUndefined(undefined);    // true
  * G.isUndefined(null);         // false
  * ```

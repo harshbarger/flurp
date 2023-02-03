@@ -22,7 +22,7 @@ function adjIndex(arr: ReadonlyArray<unknown>, i: number) {
  *
  * @example
  * ```ts
- * import { A } from "flurp";
+ * import * as A from "flurp/array";
  * import * as N from "flurp/number";
  *
  * const allPositive = A.all(N.isPositive);
@@ -48,7 +48,7 @@ export function all<T>(condition: (x: T) => boolean) {
  *
  * @example
  * ```ts
- * import { A } from "flurp";
+ * import * as A from "flurp/array";
  * import * as N from "flurp/number";
  *
  * const hasAPositive = A.any(N.isPositive);
@@ -78,7 +78,7 @@ export function any<T>(condition: (x: T) => boolean) {
  *
  * @example
  * ```ts
- * import { A } from "flurp";
+ * import * as A from "flurp/array";
  *
  * const makeTriples = A.aperture(3);
  * makeTriples([2, 4, 6, 8, 10, 12, 14]);
@@ -118,7 +118,7 @@ export function aperture<T>(size: number) {
  *
  * @example
  * ```ts
- * import { A } from "flurp";
+ * import * as A from "flurp/array";
  *
  * const appendOne = A.append(7);
  * appendOne([5, 6]);    // [5, 6, 7]
@@ -140,7 +140,7 @@ export function append<T>(elems: T | Array<T>) {
  *
  * @example
  * ```ts
- * import { A } from "flurp";
+ * import * as A from "flurp/array";
  *
  * A.concat([[3], [6], [9, 12]]);        // [3, 6, 9, 12]
  * ```
@@ -157,7 +157,7 @@ export function concat<T>(arrays: Array<ReadonlyArray<T>>) {
  *
  * @example
  * ```ts
- * import { A } from "flurp";
+ * import * as A from "flurp/array";
  * import * as N from "flurp/number";
  *
  * const countPositive = A.count(isPositive);
@@ -188,7 +188,8 @@ export function count<T>(condition: (x: T) => boolean) {
  *
  * @example
  * ```ts
- * import { A, L } from "flurp";
+ * import * as A from "flurp/array";
+ * import * as L from "flurp/logic";
  *
  * A.createWith(4, L.always(5));              // [5, 5, 5, 5]
  * A.createWith(3, L.identity)                // [0, 1, 2]
@@ -223,7 +224,7 @@ export function createWith<T>(
  *
  * @example
  * ```ts
- * import { A } from "flurp";
+ * import * as A from "flurp/array";
  *
  * const withoutFirstThree = A.dropLast(3);
  * withoutFirstThree([10, 20, 30, 40, 50]);    // [40, 50]
@@ -246,7 +247,7 @@ export function drop<T>(count: number) {
  *
  * @example
  * ```ts
- * import { A } from "flurp";
+ * import * as A from "flurp/array";
  *
  * const withoutLastThree = A.dropLast(3);
  * withoutLastThree([10, 20, 30, 40, 50]);    // [10, 20]
@@ -266,7 +267,7 @@ export function dropLast<T>(count: number) {
  *
  * @example
  * ```ts
- * import { A } from "flurp";
+ * import * as A from "flurp/array";
  * import * as N from "flurp/number";
  *
  * const justPositive = A.filter(N.isPositive);
@@ -282,7 +283,7 @@ export function filter<T>(condition: (x: T) => boolean) {
  *
  * @example
  * ```ts
- * import { A } from "flurp";
+ * import * as A from "flurp/array";
  * import * as N from "flurp/number";
  *
  * const positiveEvenIndex = A.filterWithIndex((i, x) => N.isPositive(x) && N.isEven(i));
@@ -301,7 +302,7 @@ export function filterWithIndex<T>(condition: (i: number, x: T) => boolean) {
  *
  * @example
  * ```ts
- * import { A } from "flurp";
+ * import * as A from "flurp/array";
  * import * as N from "flurp/number";
  *
  * const firstPositive = A.find(N.isPositive);
@@ -320,7 +321,7 @@ export function find<T>(condition: (x: T) => boolean) {
  *
  * @example
  * ```ts
- * import { A } from "flurp";
+ * import * as A from "flurp/array";
  * import * as N from "flurp/number";
  *
  * const indicesOfPositive = A.findAllIndices(N.isPositive);
@@ -353,7 +354,7 @@ export function findAllIndices<T>(condition: (x: T) => boolean) {
  *
  * @example
  * ```ts
- * import { A } from "flurp";
+ * import * as A from "flurp/array";
  * import * as N from "flurp/number";
  *
  * const firstPositiveIndex = A.findIndex(N.isPositive);
@@ -376,7 +377,7 @@ export function findIndex<T>(condition: (x: T) => boolean) {
  *
  * @example
  * ```ts
- * import { A } from "flurp";
+ * import * as A from "flurp/array";
  * import * as N from "flurp/number";
  *
  * const lastPositiveIndex = A.findLast(N.isPositive);
@@ -414,7 +415,7 @@ export function findLast<T>(condition: (x: T) => boolean) {
  *
  * @example
  * ```ts
- * import { A } from "flurp";
+ * import * as A from "flurp/array";
  * import * as N from "flurp/number";
  *
  * const lastPositiveIndex = A.findLastIndex(N.isPositive);
@@ -477,7 +478,7 @@ export function findRightSlice<T>(condition: (a: ReadonlyArray<T>) => boolean) {
  *
  * @example
  * ```ts
- * import { A } from "flurp";
+ * import * as A from "flurp/array";
  * import * as N from "flurp/number";
  *
  * const twoPositive = (arr: ReadonlyArray<number>) => A.count(N.isPositive)(arr) >= 2;
@@ -511,7 +512,7 @@ export function findSlice<T>(condition: (a: ReadonlyArray<T>) => boolean) {
  *
  * @example
  * ```ts
- * import { A } from "flurp";
+ * import * as A from "flurp/array";
  *
  * A.first([4, 5, 6]);    // 4
  * A.first([]);           // undefined
@@ -532,7 +533,7 @@ export function first<T>(arr: ReadonlyArray<T>) {
  *
  * @example
  * ```ts
- * import { A } from "flurp";
+ * import * as A from "flurp/array";
  *
  * const flattenOneLevel = A.flatten();
  * flattenOneLevel([[3, 4], [], [5, 6, 7, [8, 9]]]);  // [3, 4, 5, 6, 7, [8, 9]]
@@ -555,7 +556,7 @@ export function flatten<T>(levels = 1) {
  *
  * @example
  * ```ts
- * import { A } from "flurp";
+ * import * as A from "flurp/array";
  *
  * const indexTwo = A.get(2);
  * indexTwo([3, 4, 5, 6, 7]);        // 5
@@ -576,7 +577,7 @@ export function get<T>(index: number) {
  *
  * @example
  * ```ts
- * import { A } from "flurp";
+ * import * as A from "flurp/array";
  *
  * const hasTwo = A.includes(2);
  * hasTwo([2, 3, 4]);    // true
@@ -601,7 +602,7 @@ export function includes<T>(elem: T) {
  *
  * @example
  * ```ts
- * import { A } from "flurp";
+ * import * as A from "flurp/array";
  *
  * const insertOne = A.insert(2, 10);
  * insertOne([0, 1, 2, 3, 4]);    // [0, 1, 10, 2, 3, 4]
@@ -633,7 +634,7 @@ export function insert<T>(index: number, elems: T | Array<T>) {
  *
  * @example
  * ```ts
- * import { A } from "flurp";
+ * import * as A from "flurp/array";
  *
  * A.isEmpty([]);          // true
  * A.isEmpty([2]);         // false
@@ -648,7 +649,7 @@ export function isEmpty<T>(arr: ReadonlyArray<T>) {
  *
  * @example
  * ```ts
- * import { A } from "flurp";
+ * import * as A from "flurp/array";
  *
  * const justJoin = A.join();
  * justJoin(["a", "b", "c"]));    // "abc"
@@ -669,7 +670,7 @@ export function join(separator = "") {
  *
  * @example
  * ```ts
- * import { A } from "flurp";
+ * import * as A from "flurp/array";
  *
  * A.last([4, 5, 6]);    // 6
  * A.last([]);           // undefined
@@ -684,7 +685,7 @@ export function last<T>(arr: ReadonlyArray<T>) {
  *
  * @example
  * ```ts
- * import { A } from "flurp";
+ * import * as A from "flurp/array";
  *
  * A.length([4, 5, 6]);    // 3
  * ```
@@ -698,7 +699,8 @@ export function length<T>(arr: ReadonlyArray<T>) {
  *
  * @example
  * ```ts
- * import { A, N } from "flurp";
+ * import * as A from "flurp/array";
+ * import * as N from "flurp/number";
  *
  * const double = A.map(N.multiply(2));
  * double([3, 4, 5]);    // [6, 8, 10]
@@ -713,7 +715,7 @@ export function map<T, U>(transform: (x: T) => U) {
  *
  * @example
  * ```ts
- * import { A } from "flurp";
+ * import * as A from "flurp/array";
  *
  * const multiplyByIndex = A.mapWithIndex((i: number, x: number) => x * i);
  * multiplyByIndex([3, 4, 5, 6]);    // [0, 4, 10, 18]
@@ -728,7 +730,7 @@ export function mapWithIndex<T, U>(transform: (i: number, x: T) => U) {
  *
  * @example
  * ```ts
- * import { A } from "flurp";
+ * import * as A from "flurp/array";
  *
  * const hasNoPositive = A.none(N.isPositive);
  * hasNoPositive([-3, -5, -6]));     // true
@@ -756,7 +758,7 @@ export function none<T>(condition: (x: T) => boolean) {
  *
  * @example
  * ```ts
- * import { A } from "flurp";
+ * import * as A from "flurp/array";
  *
  * const prependOne = prepend(7);
  * prependOne([5, 6]);       // [7, 5, 6]
@@ -781,7 +783,7 @@ export function prepend<T>(elems: T | Array<T>) {
  *
  * @example
  * ```ts
- * import { A } from "flurp";
+ * import * as A from "flurp/array";
  *
  * A.product([2, 3, 5]);    // 30
  * A.product([2]);          // 2
@@ -798,7 +800,7 @@ export function product(arr: ReadonlyArray<number>) {
  *
  * @example
  * ```ts
- * import { A } from "flurp";
+ * import * as A from "flurp/array";
  *
  * const concatWithLabel = A.reduce((acc, next) => acc + next, "reduced: ");
  * concatWithLabel(["a", "b", "c"]);     // "reduced: abc"
@@ -820,7 +822,7 @@ export function reduce<T>(accumulator: (acc: T, next: T) => T, initial?: T) {
  *
  * @example
  * ```ts
- * import { A } from "flurp";
+ * import * as A from "flurp/array";
  *
  * const concatWithLabel = A.reduceRight((acc, next) => acc + next, "reduced: ");
  * concatWithLabel(["a", "b", "c"]);    // "reduced: abc"
@@ -845,7 +847,7 @@ export function reduceRight<T>(
  *
  * @example
  * ```ts
- * import { A } from "flurp";
+ * import * as A from "flurp/array";
  *
  * const concatEveryOther = A.reduceRightWithIndex(
  *   (acc: string, next: string, index: number) =>
@@ -871,7 +873,7 @@ export function reduceRightWithIndex<T>(
  *
  * @example
  * ```ts
- * import { A } from "flurp";
+ * import * as A from "flurp/array";
  *
  * const addEvenIndexed = A.reduceWithIndex(
  *       (acc: number, next: number, index: number) =>
@@ -899,7 +901,8 @@ export function reduceWithIndex<T>(
  *
  * @example
  * ```ts
- * import { A, N } from "flurp";
+ * import * as A from "flurp/array";
+ * import * as N from "flurp/number";
  *
  * const tossOutNegative = A.reject(N.isNegative);
  * tossOutNegative([0, 2, -4, 6, 8]);    // [0, 2, 6, 8]
@@ -926,7 +929,7 @@ export function reject<T>(condition: (x: T) => boolean) {
  *
  * @example
  * ```ts
- * import { A } from "flurp";
+ * import * as A from "flurp/array";
  *
  * const removeSecond = A.remove(1);
  * removeSecond([10, 20, 30, 40]);            // [10, 30, 40]
@@ -968,7 +971,9 @@ export function remove<T>(startIndex: number, endIndex?: number) {
  *
  * @example
  * ```ts
- * import { A, L, N } from "flurp";
+ * import * as A from "flurp/array";
+ * import * as L from "flurp/logic";
+ * import * as N from "flurp/number";
  *
  * const negativeToPositive = A.replace(N.isNegative, Math.abs);
  * negativeToPositive([-1, 2, -3, 4, -5]);      // [1, 2, 3, 4, 5]
@@ -990,7 +995,7 @@ export function replace<T, U>(
  *
  * @example
  * ```ts
- * import { A } from "flurp";
+ * import * as A from "flurp/array";
  *
  * A.reverse([1, 2, 3]);    // [3, 2, 1]
  * ```
@@ -1009,7 +1014,7 @@ export function reverse<T>(arr: ReadonlyArray<T>) {
  *
  * @example
  * ```ts
- * import { A } from "flurp";
+ * import * as A from "flurp/array";
  *
  * const firstToTen = A.set(0, 10);
  * firstToTen([3, 4, 5, 6]);   // [10, 4, 5, 6]
@@ -1044,7 +1049,7 @@ export function set<T>(index: number, newVal: T) {
  *
  * @example
  * ```ts
- * import { A } from "flurp";
+ * import * as A from "flurp/array";
  *
  * const fromIndexTwo = A.slice(2);
  * fromIndexTwo([0, 1, 2, 3, 4, 5, 6]);        // [2, 3, 4, 5, 6]
@@ -1086,7 +1091,8 @@ export function slice<T>(startIndex?: number, endIndex?: number) {
  *
  * @example
  * ```ts
- * import { A, C } from "flurp";
+ * import * as A from "flurp/array";
+ * import * as C from "flurp/comparator";
  *
  * const sortScores = A.sortWith(C.numericDesc);
  * sortScores([30, 6, 1, 40, 5]);      // [40, 30, 6, 5, 1]
@@ -1109,7 +1115,7 @@ export function sortWith<T>(comparator: (x: T, y: T) => number) {
  *
  * @example
  * ```ts
- * import { A } from "flurp";
+ * import * as A from "flurp/array";
  *
  * const split = A.split(3);
  * split([0, 1, 2, 3, 4]);     // [[0, 1, 2], [3, 4]]
@@ -1140,7 +1146,7 @@ export function split<T>(index: number) {
  *
  * @example
  * ```ts
- * import { A } from "flurp";
+ * import * as A from "flurp/array";
  *
  * const splitFirstAndLastPairs = A/split(2, -2);
  * splitFirstAndLastPairs([0, 1, 2, 3, 4, 5, 6, 7]);    // [[0, 1], [2, 3, 4], [6, 7]]
@@ -1168,7 +1174,7 @@ export function splitMulti<T>(indices: Array<number>) {
  *
  *@example
  * ```ts
- * import { A } from "flurp";
+ * import * as A from "flurp/array";
  *
  * A.sum([3, 4, 5]);    // 12
  * ```
@@ -1184,7 +1190,7 @@ export function sum(arr: ReadonlyArray<number>) {
  *
  *@example
  * ```ts
- * import { A } from "flurp";
+ * import * as A from "flurp/array";
  * import * as N from "flurp/number";
  *
  * const sumOfSquares = A.sumWith(N.pow(2));
@@ -1208,7 +1214,7 @@ export function sumWith<T>(transformation: (x: T) => number) {
  *
  * @example
  * ```ts
- * import { A } from "flurp";
+ * import * as A from "flurp/array";
  *
  * const firstThree = A.take(3);
  * firstThree([10, 20, 30, 40, 50]);    // [10, 20, 30]
@@ -1235,7 +1241,7 @@ export function take<T>(count: number) {
  *
  * @example
  * ```ts
- * import { A } from "flurp";
+ * import * as A from "flurp/array";
  *
  * const lastThree = A.takeLast(3);
  * lastThree([10, 20, 30, 40, 50]);    // [30, 40, 50]
@@ -1258,7 +1264,7 @@ export function takeLast<T>(count: number) {
  *
  * @example
  * ```ts
- * import { A } from "flurp";
+ * import * as A from "flurp/array";
  *
  * A.unique([1, 4, 4, 1, 1, 4]);    // [1, 4]
  * ```

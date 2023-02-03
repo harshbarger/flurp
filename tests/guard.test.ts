@@ -1,6 +1,6 @@
-import * as G from "../src/guards";
+import * as G from "../src/guard";
 
-describe("guards", () => {
+describe("guard", () => {
   test("isArray", () => {
     expect(G.isArray([5])).toBe(true);
     expect(G.isArray([])).toBe(true);

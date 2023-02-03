@@ -1,4 +1,4 @@
-import { N } from "../src/index";
+import * as N from "../src/number";
 
 describe("numbers", () => {
   test("add", () => {

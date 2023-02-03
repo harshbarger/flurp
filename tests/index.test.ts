@@ -1,4 +1,5 @@
-import { pipe, flow, tap, N } from "../src/index";
+import { pipe, flow, tap } from "../src/index";
+import * as N from "../src/number";
 
 describe("pipe", () => {
   test("pipe 1", () => {

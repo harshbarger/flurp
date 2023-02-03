@@ -1,6 +1,6 @@
 import * as P from "../src/pojo";
 import * as N from "../src/number";
-import * as G from "../src/guards";
+import * as G from "../src/guard";
 
 describe("object", () => {
   test("entries", () => {

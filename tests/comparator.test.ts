@@ -1,4 +1,5 @@
-import { C, P } from "../src/index";
+import * as C from "../src/comparator";
+import * as P from "../src/pojo";
 
 describe("comparators", () => {
   test("alphabetical", () => {

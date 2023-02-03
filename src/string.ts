@@ -18,8 +18,9 @@ function adjIndex(s: string, i: number) {
  * @example
  * ```ts
  * import * as S from "flurp/string";
- * const f = S.append("sel");
- * f("wea");    // "weasel"
+ *
+ * const appendSel = S.append("sel");
+ * appendSel("wea");    // "weasel"
  * ```
  */
 export function append(str: string) {
@@ -32,9 +33,10 @@ export function append(str: string) {
  * @example
  * ```ts
  * import * as S from "flurp/string";
- * const f = S.concat("e", "ase", "l");
- * f("w");    // "weasel"
- * f("");    // "easel"
+ *
+ * const concatenate = S.concat("e", "ase", "l");
+ * concatenate("w");    // "weasel"
+ * concatenate("");     // "easel"
  * ```
  */
 export function concat(...strs: Array<string>) {
@@ -47,10 +49,11 @@ export function concat(...strs: Array<string>) {
  * @example
  * ```ts
  * import * as S from "flurp/string";
- * const f = S.endsWith("sel");
- * f("weasel");    // true
- * f("_sel");      // false
- * f("el");        // false
+ *
+ * const endsWithSel = S.endsWith("sel");
+ * endsWithSel("weasel");    // true
+ * endsWithSel("_sel");      // false
+ * endsWithSel("el");        // false
  * ```
  */
 export function endsWith(str: string) {
@@ -68,10 +71,11 @@ export function endsWith(str: string) {
  * @example
  * ```ts
  * import * as S from "flurp/string";
- * const f = S.at(2);
- * const g = S.at(-2);
- * f("abcdef");    // c
- * g("abcdef");    // e
+ *
+ * const third = S.get(2);
+ * const secondToLast = S.get(-2);
+ * third("abcdef");           // c
+ * secondToLast("abcdef");    // e
  * ```
  */
 export function get(i: number) {
@@ -93,9 +97,9 @@ export function get(i: number) {
  * ```ts
  * import * as S from "flurp/string";
  *
- * const f = S.includes("as");
- * f("weasel");    // true
- * f("hippo");     // false
+ * const hasAs = S.includes("as");
+ * hasAs("weasel");    // true
+ * hasAs("hippo");     // false
  * ```
  */
 export function includes(str: string) {
@@ -132,6 +136,7 @@ export function includesRegex(regex: RegExp) {
  * @example
  * ```ts
  * import * as S from "flurp/string";
+ *
  * const f = S.insert(2, "__");
  * const g = S.insert(6, "__");
  * const h = S.insert(-2, "__");
@@ -162,6 +167,7 @@ export function insert(index: number, s: string) {
  * @example
  * ```ts
  * import * as S from "flurp/string";
+ *
  * S.length("weasel");   // 6
  * S.length("");         // 0
  * ```
@@ -271,12 +277,13 @@ export function matchGroupsAll(regex: RegExp) {
  * @example
  * ```ts
  * import * as S from "flurp/string";
- * const f = S.padLeft("10, ".");
- * const g = S.padLeft(10, "_.");
- * f("weasel");      // "....weasel"
- * f("grayweasel")   // "grayweasel"
- * g("weasel")       // "_._.weasel";
- * g("aweasel")      // "_._aweasel";
+ *
+ * const leftDot = S.padLeft("10, ".");
+ * const leftMulti = S.padLeft(10, "_.");
+ * leftDot("weasel");        // "....weasel"
+ * leftDot("grayweasel")     // "grayweasel"
+ * leftMulti("weasel")       // "_._.weasel";
+ * leftMulti("aweasel")      // "_._aweasel";
  * ```
  */
 export function padLeft(len: number, str = " ") {
@@ -303,12 +310,13 @@ export function padLeft(len: number, str = " ") {
  * @example
  * ```ts
  * import * as S from "flurp/string";
- * const f = S.padRight("10, ".");
- * const g = S.padRight(10, "_.");
- * f("weasel");      // "weasel...."
- * f("grayweasel")   // "grayweasel"
- * g("weasel")       // "weasel_._.";
- * g("aweasel")      // "aweasel_._";
+ *
+ * const rightDot = S.padRight("10, ".");
+ * const rightMulti = S.padRight(10, "_.");
+ * rightDot("weasel");        // "weasel...."
+ * rightDot("grayweasel")     // "grayweasel"
+ * rightMulti("weasel")       // "weasel_._.";
+ * rightMulti("aweasel")      // "aweasel_._";
  * ```
  */
 export function padRight(len: number, str = " ") {
@@ -334,8 +342,9 @@ export function padRight(len: number, str = " ") {
  * @example
  * ```ts
  * import * as S from "flurp/string";
- * const f = S.prepend("wea");
- * f("sel");    // "weasel"
+ *
+ * const prependWea = S.prepend("wea");
+ * prependWea("sel");    // "weasel"
  * ```
  */
 export function prepend(str: string) {
@@ -343,6 +352,8 @@ export function prepend(str: string) {
 }
 
 /**
+ * Replaces the first instance of a string or regular expression.
+ *
  * @remarks
  * Implemented with the built-in String.replace(), which allows for additional features
  * documented at [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace)
@@ -354,10 +365,11 @@ export function prepend(str: string) {
  * @example
  * ```ts
  * import * as S from "flurp/string";
- * const f = S.replace("e", "_");
- * const g = S.replace(/[a-e]/, S.toUpperCase);
- * f("weasel");       // "w_asel"
- * g("weasel");       // "wEasel"
+ *
+ * const underscoreForE = S.replace("e", "_");
+ * const vowelToUpper = S.replace(/[aeiou]/, S.toUpperCase);
+ * underscoreForE("weasel");       // "w_asel"
+ * vowelToUpper("weasel");       // "wEasel"
  * ```
  */
 export function replace(
@@ -379,10 +391,11 @@ export function replace(
  * @example
  * ```ts
  * import * as S from "flurp/string";
- * const f = S.replaceAll("e", "_");
- * const g = S.replaceAll(/[a-e]/g, S.toUpperCase);
- * f("weasel");       // "w_as_l"
- * g("weasel");       // "wEAsEl"
+ *
+ * const underscoreForE = S.replace("e", "_");
+ * const vowelToUpper = S.replace(/[aeiou]/, S.toUpperCase);
+ * underscoreForE("weasel");       // "w_as_l"
+ * vowelToUpper("weasel");         // "wEAsEl"
  * ```
  */
 export function replaceAll(
@@ -410,6 +423,7 @@ export function replaceAll(
  * @example
  * ```ts
  * import * as S from "flurp/string";
+ *
  * const f = S.slice(2);
  * const g = S.slice(-2);
  * const h = S.slice(2, 3);
@@ -434,6 +448,7 @@ export function slice(start: number, end?: number) {
  * @example
  * ```ts
  * import * as S from "flurp/string";
+ *
  * const f = S.split("as");
  * f("class of weasels");    // ["cl", "s of we", "els"]
  * ```
@@ -465,6 +480,7 @@ export function startsWith(str: string) {
  * @example
  * ```ts
  * import * as S from "flurp/string";
+ *
  * S.toLowerCase("WEASEL");   // "weasel"
  * ```
  */
@@ -478,6 +494,7 @@ export function toLowerCase(s: string) {
  * @example
  * ```ts
  * import * as S from "flurp/string";
+ *
  * S.toUpperCase("weasel");   // "WEASEL"
  * ```
  */
@@ -491,6 +508,7 @@ export function toUpperCase(s: string) {
  * @example
  * ```ts
  * import * as S from "flurp/string";
+ *
  * S.trim("  weasel  ");   // "weasel"
  * ```
  */
@@ -504,6 +522,7 @@ export function trim(s: string) {
  * @example
  * ```ts
  * import * as S from "flurp/string";
+ *
  * S.trimLeft("  weasel  ");   // "weasel  "
  * ```
  */
@@ -517,6 +536,7 @@ export function trimLeft(s: string) {
  * @example
  * ```ts
  * import * as S from "flurp/string";
+ *
  * S.trimRightt("  weasel  ");   // "  weasel"
  * ```
  */

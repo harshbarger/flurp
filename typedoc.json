@@ -4,11 +4,10 @@
     "src/logic.ts",
     "src/array.ts",
     "src/number.ts",
-    "src/guards.ts",
+    "src/guard.ts",
     "src/string.ts",
     "src/pojo.ts",
     "src/result.ts",
-    "src/pipe.ts",
     "src/comparator.ts"
   ],
   "cleanOutputDir": false,

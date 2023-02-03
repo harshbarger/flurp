@@ -1,4 +1,4 @@
-import { S } from "../src/index";
+import * as S from "../src/string";
 
 describe("strings", () => {
   test("append", () => {

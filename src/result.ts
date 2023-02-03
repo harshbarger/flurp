@@ -6,7 +6,7 @@
  *
  * @example
  * ```ts
- * import { R } from "flurp";
+ * import * as R from "flurp/result";
  *
  * const tryMath = R.catchAsNull((s: string) => Math[s](1));
  * tryMath("log");              // 0
@@ -31,14 +31,14 @@ export function catchAsNull<T, U>(transform: (val: T) => U | undefined | null) {
 
 /**
  * @remarks
- * Identical to {@link guards! isNull} from the {@link guards} module. Use whichever you find
+ * Identical to {@link guard! isNull} from the {@link guard} module. Use whichever you find
  * more appropriate.
  *
  * @param val
  *
  * @example
  * ```ts
- * import { R } from "flurp";
+ * import * as R from "flurp/result";
  *
  * R.isNull(null);            // true
  * R.isNull(undefined);       // false
@@ -50,14 +50,14 @@ export function isNull(val: unknown) {
 
 /**
  * @remarks
- * Identical to {@link guards! `isUndefined`} from the {@link guards} module. Use whichever you find
+ * Identical to {@link guard! `isUndefined`} from the {@link guard} module. Use whichever you find
  * more appropriate.
  *
  * @param val
  *
  * @example
  * ```ts
- * import { R } from "flurp";
+ * import * as R from "flurp/result";
  *
  * R.isUndefined(undefined);        // true
  * R.isUndefined(null);             // false
@@ -80,7 +80,8 @@ export function isUndefined(val: unknown) {
  *
  * @example
  * ```ts
- * import { R, N } from "flurp";
+ * import * as R from "flurp/result";
+ * import * as N from "flurp/number";
  *
  * const double = R.map(N.multiply(2));
  * double(5);             // 10
@@ -100,7 +101,7 @@ export function map<T, U>(transform: (val: T) => U | null | undefined) {
  *
  * @example
  * ```ts
- * import { R } from "flurp";
+ * import * as R from "flurp/result";
  *
  * const nullToFive = R.nullTo(5);
  * nullToFive(null);          // 5
@@ -120,7 +121,7 @@ export function nullTo<T, U>(newVal: U) {
  *
  * @example
  * ```ts
- * import { R } from "flurp";
+ * import * as R from "flurp/result";
  *
  * const emptyToNull = R.map(A.isEmpty);
  * emptyToNull([]);            // null
@@ -146,7 +147,7 @@ export function toNullIf<T>(condition: (val: T) => boolean) {
  *
  * @example
  * ```ts
- * import { R } from "flurp";
+ * import * as R from "flurp/result";
  *
  * const emptyToUndefined = R.map(A.isEmpty);
  * emptyToUndefined([]);            // undefined
@@ -171,7 +172,7 @@ export function toUndefinedIf<T>(condition: (val: T) => boolean) {
  *
  * @example
  * ```ts
- * import { R } from "flurp";
+ * import * as R from "flurp/result";
  *
  * const undefinedToFive = R.undefinedTo(5);
  * undefinedToFive(undefined);     // 5
