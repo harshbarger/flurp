@@ -1,4 +1,4 @@
-<!DOCTYPE html><html class="default" lang="en"><head><meta charSet="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>pow | flurp - v0.6.0</title><meta name="description" content="Documentation for flurp - v0.6.0"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="../assets/style.css"/><link rel="stylesheet" href="../assets/highlight.css"/><link rel="stylesheet" href="../assets/custom.css"/><script async src="../assets/search.js" id="search-script"></script><link rel="stylesheet" href="../assets/pages.css"/>	<link rel="icon" href="../favicon.svg" />
+<!DOCTYPE html><html class="default" lang="en"><head><meta charSet="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>isDivisibleBy | flurp - v0.6.0</title><meta name="description" content="Documentation for flurp - v0.6.0"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="../assets/style.css"/><link rel="stylesheet" href="../assets/highlight.css"/><link rel="stylesheet" href="../assets/custom.css"/><script async src="../assets/search.js" id="search-script"></script><link rel="stylesheet" href="../assets/pages.css"/>	<link rel="icon" href="../favicon.svg" />
 </head><body><script>document.documentElement.dataset.theme = localStorage.getItem("tsd-theme") || "os"</script><header class="tsd-page-toolbar">
 <div class="tsd-toolbar-contents container">
 <div class="table-cell" id="tsd-search" data-base="..">
@@ -15,39 +15,40 @@
 <ul class="tsd-breadcrumb">
 <li><a href="../modules.html">flurp - v0.6.0</a></li>
 <li><a href="../modules/number.html">number</a></li>
-<li><a href="number.pow.html">pow</a></li></ul>
-<h1>Function pow</h1></div>
+<li><a href="number.isDivisibleBy.html">isDivisibleBy</a></li></ul>
+<h1>Function isDivisibleBy</h1></div>
 <section class="tsd-panel">
 <ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
-<li class="tsd-signature tsd-anchor-link" id="pow">pow<span class="tsd-signature-symbol">(</span>exponent<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">(</span>x<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><a href="#pow" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none" id="icon-anchor-a"></path><path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" id="icon-anchor-b"></path><path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" id="icon-anchor-c"></path></svg></a></li>
+<li class="tsd-signature tsd-anchor-link" id="isDivisibleBy">is<wbr/>Divisible<wbr/>By<span class="tsd-signature-symbol">(</span>y<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, tolerance<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">(</span>x<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><a href="#isDivisibleBy" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none" id="icon-anchor-a"></path><path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" id="icon-anchor-b"></path><path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" id="icon-anchor-c"></path></svg></a></li>
 <li class="tsd-description">
 <div class="tsd-comment tsd-typography">
-<h3>Remarks</h3><p><code>pow</code> is implemented with <code>Math.pow</code>, so it has the same limitations.
-For example, <code>N.pow(-8)(1/3)</code> will be <code>NaN</code> rather than <code>-2</code>. See <a href="number.nthRoot.html">nthRoot</a>
-for a more robust function for roots.</p>
+<h3>Remarks</h3><p>You may set a non-zero tolerance to account for floating point errors when dealing with
+non-integers.</p>
 
-<h3>Example</h3><pre><code class="language-ts"><span class="hl-0">import</span><span class="hl-1"> </span><span class="hl-2">*</span><span class="hl-1"> </span><span class="hl-0">as</span><span class="hl-1"> </span><span class="hl-3">N</span><span class="hl-1"> </span><span class="hl-0">from</span><span class="hl-1"> </span><span class="hl-4">&quot;flurp/number&quot;</span><span class="hl-1">;</span><br/><br/><span class="hl-2">const</span><span class="hl-1"> </span><span class="hl-5">square</span><span class="hl-1"> = </span><span class="hl-5">N</span><span class="hl-1">.</span><span class="hl-6">pow</span><span class="hl-1">(</span><span class="hl-7">2</span><span class="hl-1">);</span><br/><span class="hl-6">square</span><span class="hl-1">(</span><span class="hl-7">5</span><span class="hl-1">);     </span><span class="hl-8">// 25</span>
+<h3>Example</h3><pre><code class="language-ts"><span class="hl-0">import</span><span class="hl-1"> </span><span class="hl-2">*</span><span class="hl-1"> </span><span class="hl-0">as</span><span class="hl-1"> </span><span class="hl-3">N</span><span class="hl-1"> </span><span class="hl-0">from</span><span class="hl-1"> </span><span class="hl-4">&quot;flurp/number&quot;</span><span class="hl-1">;</span><br/><br/><span class="hl-2">const</span><span class="hl-1"> </span><span class="hl-5">divisibleByThree</span><span class="hl-1"> = </span><span class="hl-5">N</span><span class="hl-1">.</span><span class="hl-6">isDivisibleBy</span><span class="hl-1">(</span><span class="hl-7">3</span><span class="hl-1">);</span><br/><span class="hl-6">divisibleByThree</span><span class="hl-1">(</span><span class="hl-7">6</span><span class="hl-1">);     </span><span class="hl-8">// true</span><br/><span class="hl-6">divisibleByThree</span><span class="hl-1">(</span><span class="hl-7">5</span><span class="hl-1">);     </span><span class="hl-8">// false</span><br/><br/><span class="hl-2">const</span><span class="hl-1"> </span><span class="hl-5">almostEven</span><span class="hl-1"> = </span><span class="hl-5">N</span><span class="hl-1">.</span><span class="hl-6">isDivisibleBy</span><span class="hl-1">(</span><span class="hl-7">2</span><span class="hl-1">, </span><span class="hl-7">1e-12</span><span class="hl-1">);</span><br/><span class="hl-6">almostEven</span><span class="hl-1">(</span><span class="hl-7">4</span><span class="hl-1"> - </span><span class="hl-7">1e-13</span><span class="hl-1">);    </span><span class="hl-8">// true</span>
 </code></pre>
 </div>
 <div class="tsd-parameters">
 <h4 class="tsd-parameters-title">Parameters</h4>
 <ul class="tsd-parameter-list">
 <li>
-<h5>exponent: <span class="tsd-signature-type">number</span></h5></li></ul></div>
-<h4 class="tsd-returns-title">Returns <span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">(</span>x<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span></h4>
+<h5>y: <span class="tsd-signature-type">number</span></h5></li>
+<li>
+<h5>tolerance: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = 0</span></h5></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">(</span>x<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span></h4>
 <ul class="tsd-parameters">
 <li class="tsd-parameter-signature">
 <ul class="tsd-signatures tsd-kind-type-literal">
-<li class="tsd-signature" id="pow.__type.__type-1"><span class="tsd-signature-symbol">(</span>x<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
+<li class="tsd-signature" id="isDivisibleBy.__type.__type-1"><span class="tsd-signature-symbol">(</span>x<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
 <li class="tsd-description">
 <div class="tsd-parameters">
 <h4 class="tsd-parameters-title">Parameters</h4>
 <ul class="tsd-parameter-list">
 <li>
 <h5>x: <span class="tsd-signature-type">number</span></h5></li></ul></div>
-<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4></li></ul></li></ul><aside class="tsd-sources">
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4></li></ul></li></ul><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/harshbarger/flurp/blob/749ea50/src/number.ts#L384">number.ts:384</a></li></ul></aside></li></ul></section></div>
+<li>Defined in <a href="https://github.com/harshbarger/flurp/blob/749ea50/src/number.ts#L128">number.ts:128</a></li></ul></aside></li></ul></section></div>
 <div class="col-4 col-menu menu-sticky-wrap menu-highlight">
 <div class="tsd-navigation settings">
 <details class="tsd-index-accordion"><summary class="tsd-accordion-summary">
@@ -80,7 +81,7 @@ for a more robust function for roots.</p>
 <li class="tsd-kind-function tsd-parent-kind-module"><a href="number.divideInto.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-64-path"></use><use href="#icon-64-text"></use></svg>divide<wbr/>Into</a></li>
 <li class="tsd-kind-function tsd-parent-kind-module"><a href="number.isBetween.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-64-path"></use><use href="#icon-64-text"></use></svg>is<wbr/>Between</a></li>
 <li class="tsd-kind-function tsd-parent-kind-module"><a href="number.isCloseTo.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-64-path"></use><use href="#icon-64-text"></use></svg>is<wbr/>Close<wbr/>To</a></li>
-<li class="tsd-kind-function tsd-parent-kind-module"><a href="number.isDivisibleBy.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-64-path"></use><use href="#icon-64-text"></use></svg>is<wbr/>Divisible<wbr/>By</a></li>
+<li class="current tsd-kind-function tsd-parent-kind-module"><a href="number.isDivisibleBy.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-64-path"></use><use href="#icon-64-text"></use></svg>is<wbr/>Divisible<wbr/>By</a></li>
 <li class="tsd-kind-function tsd-parent-kind-module"><a href="number.isEven.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-64-path"></use><use href="#icon-64-text"></use></svg>is<wbr/>Even</a></li>
 <li class="tsd-kind-function tsd-parent-kind-module"><a href="number.isGt.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-64-path"></use><use href="#icon-64-text"></use></svg>is<wbr/>Gt</a></li>
 <li class="tsd-kind-function tsd-parent-kind-module"><a href="number.isGte.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-64-path"></use><use href="#icon-64-text"></use></svg>is<wbr/>Gte</a></li>
@@ -94,7 +95,7 @@ for a more robust function for roots.</p>
 <li class="tsd-kind-function tsd-parent-kind-module"><a href="number.modulo.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-64-path"></use><use href="#icon-64-text"></use></svg>modulo</a></li>
 <li class="tsd-kind-function tsd-parent-kind-module"><a href="number.multiply.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-64-path"></use><use href="#icon-64-text"></use></svg>multiply</a></li>
 <li class="tsd-kind-function tsd-parent-kind-module"><a href="number.nthRoot.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-64-path"></use><use href="#icon-64-text"></use></svg>nth<wbr/>Root</a></li>
-<li class="current tsd-kind-function tsd-parent-kind-module"><a href="number.pow.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-64-path"></use><use href="#icon-64-text"></use></svg>pow</a></li>
+<li class="tsd-kind-function tsd-parent-kind-module"><a href="number.pow.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-64-path"></use><use href="#icon-64-text"></use></svg>pow</a></li>
 <li class="tsd-kind-function tsd-parent-kind-module"><a href="number.round.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-64-path"></use><use href="#icon-64-text"></use></svg>round</a></li>
 <li class="tsd-kind-function tsd-parent-kind-module"><a href="number.subtract.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-64-path"></use><use href="#icon-64-text"></use></svg>subtract</a></li>
 <li class="tsd-kind-function tsd-parent-kind-module"><a href="number.subtractFrom.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-64-path"></use><use href="#icon-64-text"></use></svg>subtract<wbr/>From</a></li></ul></nav></div></div>
