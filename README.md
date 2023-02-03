@@ -1,6 +1,11 @@
 Flurp is a functional programming library written in and for TypeScript. In contains both fundamental FP utilities such as `pipe` and `flow` and a variety of utilities for working with strings, arrays, objects, etc. immutably within pipelines.
 
 ## This is early stage work.
+
+DO NOT USE THIS YET. I'VE DISCOVERED AN ISSUE THAT WILL BREAK IMPORTS WHEN I FIX IT.
+
+Hopefully I can get this fixed in the morning??? Please bear with me. I am a noob to making npm packages, but I'm learning.
+
 Until I bump this to v-1.0, I can't rule out breaking changes. I am using this library in a large project of my own, and I anticipate making improvements as I discover issues. If you spot an issue before I do, feel free to open a GitHub issue.
 
 ## Documentation
