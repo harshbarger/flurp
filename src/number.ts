@@ -106,6 +106,37 @@ export function isCloseTo(y: number, tolerance = 1e-15) {
 }
 
 /**
+ * @remarks
+ * You may set a non-zero tolerance to account for floating point errors when dealing with
+ * non-integers.
+ *
+ * @param y
+ * @param tolerance
+ *
+ * @example
+ * ```ts
+ * import * as N from "flurp/number";
+ *
+ * const divisibleByThree = N.isDivisibleBy(3);
+ * divisibleByThree(6);     // true
+ * divisibleByThree(5);     // false
+ *
+ * const almostEven = N.isDivisibleBy(2, 1e-12);
+ * almostEven(4 - 1e-13);    // true
+ * ```
+ */
+export function isDivisibleBy(y: number, tolerance = 0) {
+  if (tolerance === 0) {
+    return (x: number) => x % y === 0;
+  }
+
+  return function (x: number) {
+    const closestMultiple = Math.round(x / y) * y;
+    return Math.abs(x - closestMultiple) <= tolerance;
+  };
+}
+
+/**
  * @param x
  *
  * @example

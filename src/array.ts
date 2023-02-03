@@ -726,6 +726,40 @@ export function mapWithIndex<T, U>(transform: (i: number, x: T) => U) {
 }
 
 /**
+ * Calculates the average of an array of numbers
+ *
+ * @param arr
+ *
+ * ```ts
+ * import * as A from "flurp/array";
+ *
+ * A.mean([3, 5, 10]);    // 6
+ * ```
+ */
+export function mean(arr: ReadonlyArray<number>) {
+  return arr.reduce((acc, next) => next + acc, 0) / arr.length;
+}
+
+/**
+ * Applies a transformation to an array of numbers and averages the results
+ *
+ * @param transformation
+ *
+ * ```ts
+ * import * as A from "flurp/array";
+ * import * as N from "flurp/number";
+ *
+ * const meanOfSquares = A.meanWith(N.pow(2));
+ * meanOfSquares([3, 4, 2, 1]);    // 7.5    i.e., (3^2 + 4^2 + 2^2 + 1^2) / 4
+ * ```
+ */
+export function meanWith<T>(transformation: (x: T) => number) {
+  return (arr: ReadonlyArray<T>) =>
+    arr.reduce((acc: number, next: T) => transformation(next) + acc, 0) /
+    arr.length;
+}
+
+/**
  * @param condition
  *
  * @example

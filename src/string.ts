@@ -28,6 +28,31 @@ export function append(str: string) {
 }
 
 /**
+ * Capitalizes the first letter of each word. If `allOthersLowerCase` is true, then all
+ * characters other than the first character of each word will also be changed to lower case.
+ *
+ * @param allOthersLowerCase
+ *
+ * @example
+ * ```ts
+ * import * as S from "flurp/string";
+ *
+ * const firstCap = S.capitalizeWords();
+ * const firstCapOthersLower = S.capitalizeWords(true);
+ * firstCap("weaSEL and FERret");                    // "WeaSEL And FERret"
+ * firstCapOthersLower("weaSEL and FERret"));         // "Weasel And Ferret"
+ * ```
+ */
+export function capitalizeWords(allOthersLowerCase = false) {
+  if (!allOthersLowerCase) {
+    return (s: string) => s.replaceAll(/^\w|\s\w/g, (s) => s.toUpperCase());
+  }
+
+  return (s: string) =>
+    s.toLowerCase().replaceAll(/^\w|\s\w/g, (s) => s.toUpperCase());
+}
+
+/**
  * @param strs
  *
  * @example

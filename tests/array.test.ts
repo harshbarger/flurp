@@ -238,6 +238,15 @@ describe("arrays", () => {
     expect(f([3, 4, 5, 6])).toEqual([0, 4, 10, 18]);
   });
 
+  test("mean", () => {
+    expect(A.mean([3, 5, 10])).toBe(6);
+  });
+
+  test("meanWith", () => {
+    const f = A.meanWith(N.pow(2));
+    expect(f([4, 3, 2, 1])).toBe(7.5);
+  });
+
   test("none", () => {
     const f = A.none(N.isPositive);
     expect(f([-3, -5, -6])).toBe(true);

@@ -1,4 +1,4 @@
-Flurp is a functional programming library written in and for TypeScript. In contains both fundamental FP utilities such as `pipe` and `flow` and a variety of utilities for working with strings, arrays, objects, etc. immutably within pipelines.
+Flurp is a functional programming library written in and for TypeScript. It contains fundamental FP utilities such as `pipe` and `flow` as well as a variety of utilities for working with strings, arrays, objects, etc. immutably.
 
 ## This is early stage work.
 
@@ -74,11 +74,11 @@ outOfBounds([1, 2, 3]);      // undefined
 
 Naming conventions are always a challenge since the various existing similar libraries, as well as built-in JavaScript functions, sometimes use different conventions. As a general rule, I have given some deference to existing conventions, though I have chosen to prioritize internal consistency over external conventions. For example, I chose `get` for obtaining an array element instead of `at` for consistency with the corresponding functions in the `string` and `pojo` modules.
 
-## `pipe` module
+## `index` module 
 
-The module contains the workhorses of function composition--[pipe](https://harshbarger.github.io/flurp/functions/pipe.pipe.html) and [flow](https://harshbarger.github.io/flurp/functions/pipe.flow.html). There is no `compose` function, because the data-first style of `pipe` allows TypeScript to infer types more effectively than the data-last style of a `compose` function would.
+The main module contains the workhorses of function composition--[pipe](https://harshbarger.github.io/flurp/functions/index.pipe.html) and [flow](https://harshbarger.github.io/flurp/functions/index.flow.html). There is no `compose` function, because the data-first style of `pipe` allows TypeScript to infer types more effectively than the data-last style of a `compose` function would.
 
-This module also includes [tap](https://harshbarger.github.io/flurp/functions/pipe.tap.html), which is used for side effects in the midst of a pipeline. Its primary use case is to add `console.log` statements for debugging.
+This module also includes [tap](https://harshbarger.github.io/flurp/functions/index.tap.html), which is used for side effects in the midst of a pipeline. Its primary use case is to add `console.log` statements for debugging.
 
 ## `array` module
 

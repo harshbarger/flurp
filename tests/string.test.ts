@@ -6,6 +6,13 @@ describe("strings", () => {
     expect(f("wea")).toBe("weasel");
   });
 
+  test("capitalizeWords", () => {
+    const f = S.capitalizeWords();
+    const g = S.capitalizeWords(true);
+    expect(f("weaSEL and FERret")).toBe("WeaSEL And FERret");
+    expect(g("weaSEL and FERret")).toBe("Weasel And Ferret");
+  });
+
   test("concat", () => {
     const f = S.concat("e", "ase", "l");
     expect(f("w")).toBe("weasel");

@@ -43,6 +43,19 @@ describe("numbers", () => {
     expect(f(10)).toBe(false);
   });
 
+  test("isDivisibleBy", () => {
+    const f = N.isDivisibleBy(3);
+    const g = N.isDivisibleBy(3, 1e-9);
+    expect(f(6)).toBe(true);
+    expect(f(0)).toBe(true);
+    expect(f(-6)).toBe(true);
+    expect(f(5)).toBe(false);
+    expect(f(6 + 1e-12)).toBe(false);
+    expect(g(6 + 1e-12)).toBe(true);
+    expect(g(6 - 1e-12)).toBe(true);
+    expect(g(5)).toBe(false);
+  });
+
   test("isEven", () => {
     const f = N.isEven;
     expect(f(4)).toBe(true);
