@@ -841,7 +841,6 @@ export function product(arr: ReadonlyArray<number>) {
  * import * as A from "flurp/array";
  *
  * const concatWithLabel = A.reduce((acc, next) => acc + next, "reduced: ");
- * concatWithLabel(["a", "b", "c"]);     // "reduced: abc"
  * ```
  */
 export function reduce<T, U>(accumulator: (acc: T, next: U) => T, initial: T) {
@@ -862,7 +861,6 @@ export function reduce<T, U>(accumulator: (acc: T, next: U) => T, initial: T) {
  * import * as A from "flurp/array";
  *
  * const concatWithLabel = A.reduceRight((acc, next) => acc + next, "reduced: ");
- * concatWithLabel(["a", "b", "c"]);    // "reduced: abc"
  * ```
  */
 export function reduceRight<T, U>(
