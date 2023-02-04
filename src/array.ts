@@ -1284,6 +1284,41 @@ export function takeLast<T>(count: number) {
 }
 
 /**
+ * Applies a `transformation` to the value of an array at the specified `index`.
+ *
+ * Negative indices count backwards from the end of the array.
+ * If `index` is fractional or otherwise invalid, returns a shallow copy
+ * of the array.
+ *
+ * @param index
+ * @param transformation
+ *
+ * @example
+ * ```ts
+ * import * as A from "flurp/array";
+ * import * as N from "flurp/number";
+ *
+ * const doubleFirst = A.update(0, N.multiply(2));
+ * doubleFirst([3, 4, 5, 6]);   // [6, 4, 5, 6]
+ *
+ * const doubleLast = A.update(-1, N.multiply(2));
+ * doubleLast([3, 4, 5, 6]);   // [3, 4, 5, 12]
+ * ```
+ */
+export function update<T>(index: number, transformation: (x: T) => T) {
+  return function (arr: ReadonlyArray<T>) {
+    const copy = [...arr];
+    const idx = adjIndex(arr, index);
+
+    if (typeof idx === "number") {
+      copy[idx] = transformation(arr[idx]);
+    }
+
+    return copy;
+  };
+}
+
+/**
  * Returns a new array with duplicate values removed
  *
  * @param arr

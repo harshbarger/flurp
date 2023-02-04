@@ -468,6 +468,19 @@ describe("arrays", () => {
     expect(i([0, 1, 2, 3, 4])).toEqual([0, 1, 2, 3, 4]);
   });
 
+  test("update", () => {
+    const f = A.update(2, N.multiply(2));
+    const g = A.update(-4, N.multiply(2));
+    const h = A.update(1.99999999999, N.multiply(2));
+    const i = A.update(4, N.multiply(2));
+    const j = A.update(-5, N.multiply(2));
+    expect(f([3, 4, 5, 6])).toEqual([3, 4, 10, 6]);
+    expect(g([3, 4, 5, 6])).toEqual([6, 4, 5, 6]);
+    expect(h([3, 4, 5])).toEqual([3, 4, 5]);
+    expect(i([3, 4, 5])).toEqual([3, 4, 5]);
+    expect(j([3, 4, 5])).toEqual([3, 4, 5]);
+  });
+
   test("unique", () => {
     expect(A.unique([2, 3, 4, 4])).toEqual([2, 3, 4]);
     expect(A.unique([2])).toEqual([2]);
