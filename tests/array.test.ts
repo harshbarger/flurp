@@ -269,7 +269,7 @@ describe("arrays", () => {
 
   test("reduce", () => {
     const f = A.reduce((acc, next) => acc + next, "reduced: ");
-    const g = A.reduce((acc, next: string) => acc + next);
+    const g = A.reduce((acc, next: string) => acc + next, "");
     expect(f(["a", "b", "c"])).toBe("reduced: abc");
     expect(g(["a", "b", "c"])).toBe("abc");
     expect(f([])).toBe("reduced: ");
@@ -277,7 +277,7 @@ describe("arrays", () => {
 
   test("reduceRight", () => {
     const f = A.reduceRight((acc, next) => acc + next, "reduced: ");
-    const g = A.reduceRight((acc, next: string) => acc + next);
+    const g = A.reduceRight((acc, next: string) => acc + next, "");
     expect(f(["a", "b", "c"])).toBe("reduced: cba");
     expect(g(["a", "b", "c"])).toBe("cba");
     expect(f([])).toBe("reduced: ");
@@ -291,7 +291,8 @@ describe("arrays", () => {
     );
     const g = A.reduceRightWithIndex(
       (acc: string, next: string, index: number) =>
-        acc + (N.isEven(index) ? next : "")
+        acc + (N.isEven(index) ? next : ""),
+      ""
     );
     expect(f(["a", "b", "c", "d", "e"])).toBe("right: eca");
     expect(g(["a", "b", "c", "d", "e"])).toBe("eca");
@@ -306,7 +307,8 @@ describe("arrays", () => {
     );
     const g = A.reduceWithIndex(
       (acc: number, next: number, index: number) =>
-        acc + (N.isEven(index) ? next : 0)
+        acc + (N.isEven(index) ? next : 0),
+      0
     );
     expect(f([1, 4, 6, 7, 3])).toBe(20);
     expect(g([1, 4, 6, 7, 3])).toBe(10);

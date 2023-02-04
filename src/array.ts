@@ -829,6 +829,10 @@ export function product(arr: ReadonlyArray<number>) {
 }
 
 /**
+ * @remarks
+ * The `initial` value is mandatory. This is required so `accumulator` can accept
+ * different types for `acc` and `next`.
+ *
  * @param accumulator
  * @param initial
  *
@@ -838,21 +842,20 @@ export function product(arr: ReadonlyArray<number>) {
  *
  * const concatWithLabel = A.reduce((acc, next) => acc + next, "reduced: ");
  * concatWithLabel(["a", "b", "c"]);     // "reduced: abc"
- *
- * const justConcat = A.reduce((acc, next: string) => acc + next);
- * justConcat(["a", "b", "c"]);          // "abc"
  * ```
  */
-export function reduce<T>(accumulator: (acc: T, next: T) => T, initial?: T) {
+export function reduce<T, U>(accumulator: (acc: T, next: U) => T, initial: T) {
   // separate functions required due to typing of init in Array.reduce
-  return initial === undefined
-    ? (arr: ReadonlyArray<T>) => arr.reduce(accumulator)
-    : (arr: ReadonlyArray<T>) => arr.reduce(accumulator, initial);
+  return (arr: ReadonlyArray<U>) => arr.reduce(accumulator, initial);
 }
 
 /**
+ * @remarks
+ * The `initial` value is mandatory. This is required so `accumulator` can accept
+ * different types for `acc` and `next`.
+ *
  * @param accumulator
- * @param initial?
+ * @param initial
  *
  * @example
  * ```ts
@@ -860,19 +863,14 @@ export function reduce<T>(accumulator: (acc: T, next: T) => T, initial?: T) {
  *
  * const concatWithLabel = A.reduceRight((acc, next) => acc + next, "reduced: ");
  * concatWithLabel(["a", "b", "c"]);    // "reduced: abc"
- *
- * const justConcat = A.reduceRight((acc, next: string) => acc + next);
- * justConcat(["a", "b", "c"]);         // "abc"
  * ```
  */
-export function reduceRight<T>(
-  accumulator: (acc: T, next: T) => T,
-  initial?: T
+export function reduceRight<T, U>(
+  accumulator: (acc: T, next: U) => T,
+  initial: T
 ) {
   // separate functions required due to typing of init in Array.reduce()
-  return initial === undefined
-    ? (arr: ReadonlyArray<T>) => arr.reduceRight(accumulator)
-    : (arr: ReadonlyArray<T>) => arr.reduceRight(accumulator, initial);
+  return (arr: ReadonlyArray<U>) => arr.reduceRight(accumulator, initial);
 }
 
 /**
@@ -891,19 +889,17 @@ export function reduceRight<T>(
  * f(["a", "b", "c", "d", "e"]);   // "every other from right: eca"
  * ```
  */
-export function reduceRightWithIndex<T>(
-  accumulator: (acc: T, next: T, index: number) => T,
-  initial?: T
+export function reduceRightWithIndex<T, U>(
+  accumulator: (acc: T, next: U, index: number) => T,
+  initial: T
 ) {
   // separate functions required due to typing of init in Array.reduce()
-  return initial === undefined
-    ? (arr: ReadonlyArray<T>) => arr.reduceRight(accumulator)
-    : (arr: ReadonlyArray<T>) => arr.reduceRight(accumulator, initial);
+  return (arr: ReadonlyArray<U>) => arr.reduceRight(accumulator, initial);
 }
 
 /**
  * @param accumulator
- * @param initial?
+ * @param initial
  *
  * @example
  * ```ts
@@ -917,14 +913,12 @@ export function reduceRightWithIndex<T>(
  * addEvenIndexed([1, 4, 6, 7, 3]);    // 10
  * ```
  */
-export function reduceWithIndex<T>(
-  accumulator: (acc: T, next: T, index: number) => T,
-  initial?: T
+export function reduceWithIndex<T, U>(
+  accumulator: (acc: T, next: U, index: number) => T,
+  initial: T
 ) {
   // separate functions required due to typing of init in Array.reduce()
-  return initial === undefined
-    ? (arr: ReadonlyArray<T>) => arr.reduce(accumulator)
-    : (arr: ReadonlyArray<T>) => arr.reduce(accumulator, initial);
+  return (arr: ReadonlyArray<U>) => arr.reduce(accumulator, initial);
 }
 
 /**
