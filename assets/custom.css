@@ -87,6 +87,10 @@ h1, h2, h3, h4, h5, h6 {
     color: var(--color-text) !important;
 }
 
+.tsd-typography {
+    line-height: 1.4em;
+}
+
 ul.tsd-parameter-list h5 {
     margin-top: 0.5rem;
     margin-bottom: 1rem;
@@ -98,11 +102,12 @@ code {
     padding: 0 0.1875rem;
 }
 
+h1, h2 {
+    color: var(--color-ts-private);
+}
+
 pre {
     border-radius: 0;
     margin-top: 1rem;
 }
 
-h1, h2 {
-    color: var(--color-ts-private);
-}
