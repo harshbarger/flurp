@@ -1,6 +1,17 @@
 import * as G from "../src/guard";
+import * as L from "../src/logic";
+import * as N from "../src/number";
 
 describe("guard", () => {
+  test("ifIsNumber", () => {
+    const f = G.ifIsNumber<unknown>(N.multiply(2));
+    const g = G.ifIsNumber<unknown>(N.multiply(2), L.always(undefined));
+    expect(f(2)).toBe(4);
+    expect(f("2")).toBe("2");
+    expect(g(2)).toBe(4);
+    expect(g("2")).toBeUndefined();
+  });
+
   test("isArray", () => {
     expect(G.isArray([5])).toBe(true);
     expect(G.isArray([])).toBe(true);

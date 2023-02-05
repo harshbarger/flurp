@@ -1,4 +1,39 @@
 /**
+ * Applies `numberTransform` if the argument is a number,
+ * and a different transform (defaults to identity) otherwise.
+ *
+ * @param numberTransform
+ * @param otherTransform
+ *
+ * @example
+ * ```ts
+ * import * as G from "flurp/guard";
+ * import * as N from "flurp/guard";
+ * import * as L from "flurp/logic";
+ *
+ * const doubleOrUnchanged = G.ifIsNumber<number | string>(N.multiply(2));
+ * doubleOrUnchanged(f(3));       // 6
+ * doubleOrUnchanged(f("3"));     // "3"
+ *
+ * const doubleOrUndefined = G.ifIsNumber<number | undefined>(N.multiply(2), L.always(undefined);
+ * doubleOrUndefined(f(3));       // 6
+ * doubleOrUndefined(f("3"));     // undefined
+ * ```
+ */
+export function ifIsNumber<T>(
+  numberTransform: (x: number) => T,
+  otherTransform: (x: T) => T = (x) => x
+) {
+  return function (x: T) {
+    if (typeof x === "number") {
+      return numberTransform(x);
+    }
+
+    return otherTransform(x);
+  };
+}
+
+/**
  * @param x
  *
  * @example
