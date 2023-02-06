@@ -197,8 +197,8 @@ export function either<T>(
  * isZero(false);   // false;
  * ```
  */
-export function equals<T, U>(val: T) {
-  return (a: T | U) => a === val;
+export function equals<T>(val: T) {
+  return (a: T) => a === val;
 }
 
 /**
@@ -311,7 +311,7 @@ export function neither<T>(
  * notFive(4);    // true
  * ```
  */
-export function not(f: (...args: Array<unknown>) => boolean) {
+export function not<T extends (...args: Array<never>) => boolean>(f: T) {
   return (...args: Parameters<typeof f>) => !f(...args);
 }
 

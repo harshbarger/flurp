@@ -68,7 +68,7 @@ describe("logic", () => {
   });
 
   test("equals", () => {
-    const f = L.equals(0);
+    const f = L.equals<unknown>(0);
     expect(f(0)).toBe(true);
     expect(f(1)).toBe(false);
     expect(f(false)).toBe(false);
@@ -107,8 +107,11 @@ describe("logic", () => {
 
   test("not", () => {
     const f = L.not(L.equals(5));
+    const g = L.not(N.isBetween(0, 10));
     expect(f(5)).toBe(false);
     expect(f(4)).toBe(true);
+    expect(g(-5)).toBe(true);
+    expect(g(5)).toBe(false);
   });
 
   test("nullishTo", () => {
