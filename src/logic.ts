@@ -120,12 +120,18 @@ export function both<T>(
 }
 
 /**
- * Applies the transform corresponding to the first matching condition
+ * Applies the transform corresponding to the first matching condition, or returns
+ * the element unchanged if no condition matches.
  *
  * @remarks
- * Returns null if no condition is met. Consider using {@link TRUE} as a final condition to
- * prevent this.
+ * The onus is on you to ensure that all conditions are accounted for, since the TS compiler
+ * cannot determine this reliably. Consider using {@link TRUE} as a final condition to provide
+ * an explicit and appropriate fallback.
  *
+ * An earlier version of this function returned `null` as the fallback to enforce complete
+ * coverage more forcefully. It was removed, however, because always having `null` as a
+ * possible return type (unavoidable since TS can't identify coverage) made for
+ * poor developer experience.
  *
  * @example
  * ```ts
@@ -145,7 +151,7 @@ export function both<T>(
  * ```
  */
 export function branch<T, U>(...args: Array<[(x: T) => boolean, (x: T) => U]>) {
-  return function (x: T): U | null {
+  return function (x: T) {
     let i = 0;
     const len = args.length;
 
@@ -156,7 +162,8 @@ export function branch<T, U>(...args: Array<[(x: T) => boolean, (x: T) => U]>) {
       }
       i++;
     }
-    return null;
+
+    return x;
   };
 }
 

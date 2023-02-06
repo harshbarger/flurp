@@ -56,7 +56,7 @@ describe("logic", () => {
     expect(f(500)).toBe(450);
     expect(f(100)).toBe(95);
     expect(f(30)).toBe(30);
-    expect(f(0)).toBeNull();
+    expect(f(-10)).toBe(-10);
   });
 
   test("either", () => {
