@@ -40,6 +40,21 @@ describe("arrays", () => {
     expect(g([5, 6])).toEqual([5, 6, 7]);
   });
 
+  test("chunk", () => {
+    const f = A.chunk(2, false);
+    const g = A.chunk(2);
+    const h = A.chunk(1);
+    const i = A.chunk(2.5);
+    expect(f([3, 4, 5, 6, 7, 8, 9])).toEqual([
+      [3, 4],
+      [5, 6],
+      [7, 8],
+    ]);
+    expect(g([3, 4, 5, 6, 7, 8, 9])).toEqual([[3, 4], [5, 6], [7, 8], [9]]);
+    expect(h([3, 4, 5])).toEqual([[3], [4], [5]]);
+    expect(i([3, 4, 5])).toBeNull();
+  });
+
   test("concat", () => {
     expect(A.concat([[3], [6]])).toEqual([3, 6]);
     expect(A.concat<string | number>([[3], [], [9, 12], ["a"]])).toEqual([
@@ -55,6 +70,22 @@ describe("arrays", () => {
   test("count", () => {
     const f = A.count(N.isPositive);
     expect(f([4, 5, -2, 6, -1])).toBe(3);
+  });
+
+  test("createRange", () => {
+    expect(A.createRange(2, 22, { points: 5 })).toEqual([2, 7, 12, 17, 22]);
+    expect(A.createRange(2, 22, { intervals: 5 })).toEqual([
+      2, 6, 10, 14, 18, 22,
+    ]);
+    expect(A.createRange(2, 22, { space: 4.05 })).toEqual([
+      2, 6, 10, 14, 18, 22,
+    ]);
+    expect(A.createRange(2, 22, { space: 100 })).toEqual([2, 22]);
+    expect(A.createRange(2, 22, { space: 20 })).toEqual([2, 22]);
+    expect(A.createRange(2, 22, { points: 1 })).toEqual([]);
+    expect(A.createRange(2, 22, { points: 1.5 })).toEqual([]);
+    expect(A.createRange(2, 22, { intervals: 0 })).toEqual([]);
+    expect(A.createRange(2, 22, { intervals: 1.5 })).toEqual([]);
   });
 
   test("createWith", () => {
