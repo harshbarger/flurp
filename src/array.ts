@@ -157,7 +157,11 @@ export function append<T>(elems: T | Array<T>) {
  * justPairs([1, 2, 3, 4, 5, 6, 7]);     // [[1, 2], [3, 4], [5, 6]]
  * ```
  */
-export function chunk<T>(size: number, useRemaining = true) {
+export function chunk<T>(
+  size: number,
+  useRemaining = true
+): (arr: Array<T>) => Array<Array<T>> {
+  // explicit return type needed to prevent TS from inferring return type as array of tuple
   if (!(Number.isInteger(size) && size >= 1)) {
     return () => [[]];
   }
