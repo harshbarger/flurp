@@ -52,7 +52,7 @@ describe("arrays", () => {
     ]);
     expect(g([3, 4, 5, 6, 7, 8, 9])).toEqual([[3, 4], [5, 6], [7, 8], [9]]);
     expect(h([3, 4, 5])).toEqual([[3], [4], [5]]);
-    expect(i([3, 4, 5])).toBeNull();
+    expect(i([3, 4, 5])).toEqual([[]]);
   });
 
   test("concat", () => {

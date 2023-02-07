@@ -159,7 +159,7 @@ export function append<T>(elems: T | Array<T>) {
  */
 export function chunk<T>(size: number, useRemaining = true) {
   if (!(Number.isInteger(size) && size >= 1)) {
-    return () => null;
+    return () => [[]];
   }
 
   return function (arr: ReadonlyArray<T>) {
@@ -1181,6 +1181,7 @@ export function set<T>(index: number, newVal: T) {
  *
  * const shallowCopy = A.slice();
  * shallowCopy([0, 1, 2, 3, 4, 5, 6]);         // [0, 1, 2, 3, 4, 5, 6]
+ * ```
  */
 export function slice<T>(startIndex?: number, endIndex?: number) {
   if (

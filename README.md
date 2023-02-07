@@ -2,7 +2,9 @@ Flurp is a functional programming library written in and for TypeScript. In cont
 
 ## This is early stage work.
 
-Until I bump this to v-1.0, I can't rule out breaking changes. I am using this library in a large project of my own, and I anticipate making improvements as I discover issues. If you spot an issue before I do, feel free to open a GitHub issue.
+Right now, this is a better project to watch than to use. I'm "dogfooding" this library in a large project of my own, and I'm fixing issues as I discover them. While the unit tests ensure that the functions do what they claim to do, I'm finding a fair number of issues related to types and related developer experience. In some cases, I'm changing fallback and error behavior to make types more predictable.
+
+When I believe this library is ready, I will bump the version to 1.0.
 
 ## Documentation
 The docs are found [here](https://harshbarger.github.io/flurp/).
