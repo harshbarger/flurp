@@ -74,6 +74,13 @@ describe("logic", () => {
     expect(f(false)).toBe(false);
   });
 
+  test("equalsOneOf", () => {
+    const f = L.equalsOneOf<string | number>([0, 2, 4]);
+    expect(f(0)).toBe(true);
+    expect(f(1)).toBe(false);
+    expect(f("weasel")).toBe(false);
+  });
+
   test("FALSE", () => {
     expect(L.FALSE("weasel")).toBe(false);
   });

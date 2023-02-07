@@ -209,6 +209,28 @@ export function equals<T>(val: T) {
 }
 
 /**
+ * @remarks
+ * This function functions equivalently to (and is implemented with) the built-in
+ * `Array.includes`. It is included in Flurp partly for its expressive semantics,
+ * because mostly because `equalsOneOf` can use a more concise type annotation when
+ * the type of possible inputs is wider than the elements of the array.
+ *
+ * @param arr
+ *
+ * ```ts
+ * import * as L from "flurp/logic";
+ *
+ * const isVowel = L.equals<string | number>(["a", "e", "i", 'o", "u"]);
+ * isVowel("a");       // true;
+ * isVowel("b");       // false;
+ * isVowel(5);         // false;
+ * ```
+ */
+export function equalsOneOf<T>(arr: Array<T>) {
+  return (x: T) => arr.includes(x);
+}
+
+/**
  * Always returns false
  *
  * @example
