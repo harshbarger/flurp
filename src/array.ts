@@ -173,6 +173,12 @@ export function chunk<T>(size: number, useRemaining = true) {
 }
 
 /**
+ * Concatenates an array of arrays and/or single elements into a single array
+ *
+ * @remarks
+ * This may seem redundant with a one-level `flatten`, but `concat` has a much less
+ * complex type since it doesn't have to account for deeper nesting.
+ *
  * @param arrays
  *
  * @example
@@ -180,13 +186,16 @@ export function chunk<T>(size: number, useRemaining = true) {
  * import * as A from "flurp/array";
  *
  * A.concat([[3], [6], [9, 12]]);        // [3, 6, 9, 12]
+ * A.concat([[3], 6, [9, 12]]);          // [3, 6, 9, 12]
  * ```
  */
-export function concat<T>(arrays: Array<ReadonlyArray<T>>) {
+export function concat<T>(arrays: Array<ReadonlyArray<T> | T>) {
   if (arrays.length === 0) {
     return [];
   }
-  return arrays[0].concat(...arrays.slice(1));
+
+  const allAsArrays = arrays.map((a) => (Array.isArray(a) ? a : [a]));
+  return allAsArrays[0].concat(...allAsArrays.slice(1));
 }
 
 /**

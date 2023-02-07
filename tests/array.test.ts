@@ -63,6 +63,12 @@ describe("arrays", () => {
       12,
       "a",
     ]);
+    expect(A.concat<string | number>([3, [9, 12], "a"])).toEqual([
+      3,
+      9,
+      12,
+      "a",
+    ]);
     expect(A.concat([[5]])).toEqual([5]);
     expect(A.concat([])).toEqual([]);
   });
