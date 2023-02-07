@@ -7,39 +7,27 @@ import * as S from "../src/string";
 
 describe("guard", () => {
   test("ifIsArray", () => {
-    const f = G.ifIsArray(A.length);
-    const g = G.ifIsArray(A.length, L.always(undefined));
+    const f = G.ifIsArray(A.length, L.always(undefined));
     expect(f([5])).toBe(1);
-    expect(f(5)).toBe(5);
-    expect(g([5])).toBe(1);
-    expect(g(5)).toBe(undefined);
+    expect(f(5)).toBe(undefined);
   });
 
   test("ifIsNumber", () => {
-    const f = G.ifIsNumber(N.multiply(2));
-    const g = G.ifIsNumber(N.multiply(2), L.always(undefined));
+    const f = G.ifIsNumber(N.multiply(2), L.always(undefined));
     expect(f(2)).toBe(4);
-    expect(f("2")).toBe("2");
-    expect(g(2)).toBe(4);
-    expect(g("2")).toBeUndefined();
+    expect(f("2")).toBeUndefined();
   });
 
   test("ifIsPOJO", () => {
-    const f = G.ifIsPOJO(P.getOr("x"));
-    const g = G.ifIsPOJO(P.getOr("x"), L.FALSE);
+    const f = G.ifIsPOJO(P.getOr("x"), L.FALSE);
     expect(f({ x: 5 })).toBe(5);
-    expect(f([5])).toEqual([5]);
-    expect(g({ x: 5 })).toBe(5);
-    expect(g([5])).toBe(false);
+    expect(f([5])).toBe(false);
   });
 
   test("ifIsString", () => {
-    const f = G.ifIsString(S.length);
-    const g = G.ifIsString(S.length, L.always(0));
+    const f = G.ifIsString(S.length, L.always(0));
     expect(f("5")).toBe(1);
-    expect(f(5)).toBe(5);
-    expect(g("5")).toBe(1);
-    expect(g(5)).toBe(0);
+    expect(f(5)).toBe(0);
   });
 
   test("isArray", () => {

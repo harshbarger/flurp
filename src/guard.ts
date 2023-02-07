@@ -1,8 +1,8 @@
 import { POJO } from "../src/pojo";
 
 /**
- * Applies `arrayTransform` if the argument is a number,
- * and an optional different transform otherwise.
+ * Applies `arrayTransform` if the argument is an array,
+ * and `otherTransform` if it is not.
  *
  * @param arrayTransform
  * @param otherTransform
@@ -10,12 +10,8 @@ import { POJO } from "../src/pojo";
  * @example
  * ```ts
  * import * as G from "flurp/guard";
- * import * as N from "flurp/guard";
+ * import * as A from "flurp/array";
  * import * as L from "flurp/logic";
- *
- * const lengthOrUnchanged = G.ifIsArray(A.length);
- * lengthOrUnchanged([3]);       // 1
- * lengthOrUnchanged(3);         // 3
  *
  * const lengthOrZero = G.ifIsArray(A.length, L.always(0));
  * lengthOrZero([3]);            // 1
@@ -24,18 +20,8 @@ import { POJO } from "../src/pojo";
  */
 export function ifIsArray<T, U>(
   arrayTransform: (x: Array<unknown>) => U,
-  otherTransform?: (x: T) => U
+  otherTransform: (x: T) => U
 ) {
-  if (otherTransform === undefined) {
-    return function (x: T) {
-      if (Array.isArray(x)) {
-        return arrayTransform(x);
-      }
-
-      return x;
-    };
-  }
-
   return function (x: T) {
     if (Array.isArray(x)) {
       return arrayTransform(x);
@@ -47,7 +33,7 @@ export function ifIsArray<T, U>(
 
 /**
  * Applies `numberTransform` if the argument is a number,
- * and an optional different transform otherwise.
+ * and `otherTransform` if it is not.
  *
  * @param numberTransform
  * @param otherTransform
@@ -58,10 +44,6 @@ export function ifIsArray<T, U>(
  * import * as N from "flurp/number";
  * import * as L from "flurp/logic";
  *
- * const doubleOrUnchanged = G.ifIsNumber(N.multiply(2));
- * doubleOrUnchanged(3);       // 6
- * doubleOrUnchanged("3");     // "3"
- *
  * const doubleOrUndefined = G.ifIsNumber(N.multiply(2), L.always(undefined);
  * doubleOrUndefined(3);       // 6
  * doubleOrUndefined("3");     // undefined
@@ -69,18 +51,8 @@ export function ifIsArray<T, U>(
  */
 export function ifIsNumber<T, U>(
   numberTransform: (x: number) => U,
-  otherTransform?: (x: T) => U
+  otherTransform: (x: T) => U
 ) {
-  if (otherTransform === undefined) {
-    return function (x: T) {
-      if (typeof x === "number") {
-        return numberTransform(x);
-      }
-
-      return x;
-    };
-  }
-
   return function (x: T) {
     if (typeof x === "number") {
       return numberTransform(x);
@@ -92,7 +64,7 @@ export function ifIsNumber<T, U>(
 
 /**
  * Applies `pojoTransform` if the argument is a "Plain Old JavaScript Object",
- * and an optional different transform otherwise.
+ * and `otherTransform` if it is not.
  *
  * @remarks
  * A "Plain Old JavaScript Object) is not anything that broadly derives
@@ -108,10 +80,6 @@ export function ifIsNumber<T, U>(
  * import * as P from "flurp/pojo";
  * import * as L from "flurp/logic";
  *
- * const xOrUnchanged = G.ifIsPOJO(P.getOr("x"));
- * xOrUnchanged({x: 5});       // 5
- * xOrUnchanged([5]);          // [5]
- *
  * const xOrFalse = G.ifIsPOJO(P.getOr("x"), L.FALSE);
  * xOrFalse({x: 5});           // 5
  * xOrFalse([5]);              // false
@@ -120,18 +88,8 @@ export function ifIsNumber<T, U>(
  */
 export function ifIsPOJO<T, U>(
   pojoTransform: (x: POJO<unknown>) => U,
-  otherTransform?: (x: T) => U
+  otherTransform: (x: T) => U
 ) {
-  if (otherTransform === undefined) {
-    return function (x: T) {
-      if (x?.constructor === Object) {
-        return pojoTransform(x);
-      }
-
-      return x;
-    };
-  }
-
   return function (x: T) {
     if (x?.constructor === Object) {
       return pojoTransform(x);
@@ -142,8 +100,8 @@ export function ifIsPOJO<T, U>(
 }
 
 /**
- * Applies `numberTransform` if the argument is a number,
- * and an optional different transform otherwise.
+ * Applies `stringTransform` if the argument is a string,
+ * and `otherTransform` if it is not.
  *
  * @param stringTransform
  * @param otherTransform
@@ -154,10 +112,6 @@ export function ifIsPOJO<T, U>(
  * import * as S from "flurp/string";
  * import * as L from "flurp/logic";
  *
- * const lengthOrUnchanged = G.ifIsString(S.length);
- * lengthOrUnchanged("50");       // 2
- * lengthOrUnchanged(50);         // 50
- *
  * const lengthOrZero = G.ifIsString(S.length, L.always(0));
  * lengthOrZero("50");            // 2
  * lengthOrZero(50);              // 0
@@ -165,18 +119,8 @@ export function ifIsPOJO<T, U>(
  */
 export function ifIsString<T, U>(
   stringTransform: (x: string) => U,
-  otherTransform?: (x: T) => U
+  otherTransform: (x: T) => U
 ) {
-  if (otherTransform === undefined) {
-    return function (x: T) {
-      if (typeof x === "string") {
-        return stringTransform(x);
-      }
-
-      return x;
-    };
-  }
-
   return function (x: T) {
     if (typeof x === "string") {
       return stringTransform(x);
