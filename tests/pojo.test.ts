@@ -1,6 +1,7 @@
 import * as P from "../src/pojo";
 import * as N from "../src/number";
 import * as G from "../src/guard";
+import * as A from "../src/array";
 
 describe("object", () => {
   test("entries", () => {
@@ -22,6 +23,15 @@ describe("object", () => {
     const f = P.filterWithKey((k: string, v: string) => v === k);
     expect(f({ x: "x", y: "weasel", z: "z" })).toEqual({ x: "x", z: "z" });
     expect(f({})).toEqual({});
+  });
+
+  test("fromSpec", () => {
+    const f = P.fromSpec({
+      first: A.first,
+      last: A.last,
+    });
+
+    expect(f([3, 4, 5, 6])).toEqual({ first: 3, last: 6 });
   });
 
   test("getOr", () => {

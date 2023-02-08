@@ -81,6 +81,38 @@ export function filterWithKey<T>(condition: (k: string, v: T) => boolean) {
 }
 
 /**
+ * Builds an object from a `spec` object whose values are transformations
+ * of the argument
+ *
+ * @param spec
+ *
+ * @example
+ * ```ts
+ * import * as P from "flurp/pojo";
+ * import * as A from "flurp/array";
+ *
+ * const ends = P.fromSpec({
+ *   first: A.first,
+ *   last: A.last,
+ * });
+ *
+ * ends([3, 4, 5, 6]);    // { first: 3, last: 6 }
+ * ```
+ */
+export function fromSpec<T, U extends POJO<unknown>>(
+  spec: POJO<(x: T) => unknown>
+): (x: T) => U {
+  return function (x: T) {
+    const result: Partial<Record<keyof U, unknown>> = {};
+    Object.entries(spec).forEach(([k, v]: [keyof U, (x: T) => unknown]) => {
+      result[k] = v(x);
+    });
+
+    return result as U;
+  };
+}
+
+/**
  * @param key
  * @param defaultValue
  *
