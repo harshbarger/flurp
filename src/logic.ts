@@ -120,29 +120,21 @@ export function both<T>(
 }
 
 /**
- * Applies the transform corresponding to the first matching condition, or returns
- * the element unchanged if no condition matches.
+ * Applies the transform corresponding to the first matching condition, or the `fallback`
+ * transform if no predicate from 'conditions` matches.
  *
- * @remarks
- * The onus is on you to ensure that all conditions are accounted for, since the TS compiler
- * cannot determine this reliably. Consider using {@link TRUE} as a final condition to provide
- * an explicit and appropriate fallback.
- *
- * An earlier version of this function returned `null` as the fallback to enforce complete
- * coverage more forcefully. It was removed, however, because always having `null` as a
- * possible return type (unavoidable since TS can't identify coverage) made for
- * poor developer experience.
+ * @param conditions
+ * @param fallback
  *
  * @example
  * ```ts
  * import * as L from "flurp/logic";
  *
- * const f = L.branch(
+ * const f = L.branch([
  *   [N.isGt(100), N.multiply(0.9)],
  *   [N.isGt(50), N.subtract(5)],
  *   [N.isGt(0), L.identity],
- *   [L.TRUE, L.always(0)],
- * );
+ * ], L.always(0));
  *
  * f(500);     // 450
  * f(100);     // 95
@@ -150,20 +142,23 @@ export function both<T>(
  * f(-10)      // 0
  * ```
  */
-export function branch<T, U>(...args: Array<[(x: T) => boolean, (x: T) => U]>) {
+export function branch<T, U>(
+  conditions: Array<[(x: T) => boolean, (x: T) => U]>,
+  fallback: (x: T) => U
+) {
   return function (x: T) {
     let i = 0;
-    const len = args.length;
+    const len = conditions.length;
 
     while (i < len) {
-      const [cond, f] = args[i];
+      const [cond, f] = conditions[i];
       if (cond(x)) {
         return f(x);
       }
       i++;
     }
 
-    return x;
+    return fallback(x);
   };
 }
 

@@ -48,15 +48,16 @@ describe("logic", () => {
 
   test("branch", () => {
     const f = L.branch(
-      [N.isGt(100), N.multiply(0.9)],
-      [N.isGt(50), N.subtract(5)],
-      [N.isGt(0), L.identity]
+      [
+        [N.isGt(100), N.multiply(0.9)],
+        [N.isGt(50), N.subtract(5)],
+      ],
+      L.identity
     );
 
     expect(f(500)).toBe(450);
     expect(f(100)).toBe(95);
     expect(f(30)).toBe(30);
-    expect(f(-10)).toBe(-10);
   });
 
   test("either", () => {
