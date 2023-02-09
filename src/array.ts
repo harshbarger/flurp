@@ -1122,6 +1122,31 @@ export function replace<T, U>(
     arr.map((x) => (condition(x) ? transform(x) : x));
 }
 
+/**
+ * Replaces the elements from `startIndex` to (but not including) `endIndex` with `replacement`.
+ * Returns a shallow copy without replacement if `startIndex >= endIndex` or if one or both indices
+ * is not an integer.
+ *
+ * Negative indices count backwards from the end of the array.
+ *
+ *
+ * @param startIndex
+ * @param endIndex
+ * @param replacement
+ *
+ * @example
+ * ```ts
+ * import * as A from "flurp/array";
+ * import * as L from "flurp/logic";
+ * import * as N from "flurp/number";
+ *
+ * const replaceSecondAndThird = A.replaceSlice(1, 3, [10, 11, 12]);
+ * replaceSecondAndThird([1, 2, 3, 4, 5]);   // [1, 10, 11, 12, 4, 5]
+ *
+ * const replaceSecondToLast = A.replaceSlice(-2, -1, [10, 11, 12]);
+ * replaceSecondToLast([1, 2, 3, 4, 5]);     // [1, 2, 3, 10, 11, 12, 5];
+ * ```
+ */
 export function replaceSlice<T>(
   startIndex: number,
   endIndex: number,
@@ -1164,6 +1189,38 @@ export function replaceSlice<T>(
  */
 export function reverse<T>(arr: ReadonlyArray<T>) {
   return [...arr].reverse();
+}
+
+/**
+ * Returns `true` if the array element at `index` exists and satisfies `condition`.
+ * Negative indices count backwards from the end of the array.
+ *
+ * @remarks
+ * This function is designed to improve developer experience by eliminating the need
+ * to account for the `undefined` type when accessing an array element.
+ *
+ * @param index
+ * @param condition
+ *
+ * @example
+ * ```ts
+ * import * as A from "flurp/array";
+ * import * as N from "flurp/number";
+ *
+ * const indexTwoPositive = A.satisfies(3, N.isPositive);
+ * indexTwoPositive([1, -2, 3, -4]);     // true
+ * indexTwoPositive([-1, 2, -3, 4]);     // false
+ * indexTwoPositive([1, 2]);             // false
+ *
+ * const lastPositive = A.satisfies(-1, N.isPositive);
+ * lastPositive([1, -2, 3]);             // true
+ * ```
+ */
+export function satisfies<T>(index: number, condition: (x: T) => boolean) {
+  return function (arr: ReadonlyArray<T>) {
+    const idx = adjIndex(arr, index);
+    return typeof idx === "number" ? condition(arr.at(idx)!) : false;
+  };
 }
 
 /**

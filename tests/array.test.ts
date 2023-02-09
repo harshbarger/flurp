@@ -396,6 +396,17 @@ describe("arrays", () => {
     expect(A.reverse([])).toEqual([]);
   });
 
+  test("satisfies", () => {
+    const f = A.satisfies(1, L.equals(5));
+    const g = A.satisfies(3, N.isPositive);
+    const h = A.satisfies(-1, L.equals(6));
+    const i = A.satisfies(-4, N.isPositive);
+    expect(f([4, 5, 6])).toBe(true);
+    expect(g([4, 5, 6])).toBe(false);
+    expect(h([4, 5, 6])).toBe(true);
+    expect(i([4, 5, 6])).toBe(false);
+  });
+
   test("set", () => {
     const f = A.set(2, 10);
     const g = A.set(-4, 10);
