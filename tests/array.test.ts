@@ -378,6 +378,19 @@ describe("arrays", () => {
     expect(f([-1, 2, -3, 4, -5])).toEqual([1, 2, 3, 4, 5]);
   });
 
+  test("replaceSlice", () => {
+    const f = A.replaceSlice(1, 4, [10, 11]);
+    const g = A.replaceSlice(-3, -1, [12]);
+    const h = A.replaceSlice(0, 8, [12]);
+    const i = A.replaceSlice(0, 3.4, [12]);
+    const j = A.replaceSlice(4, 2, [12]);
+    expect(f([1, 2, 3, 4, 5, 6])).toEqual([1, 10, 11, 5, 6]);
+    expect(g([1, 2, 3, 4, 5, 6])).toEqual([1, 2, 3, 12, 6]);
+    expect(h([1, 2, 3, 4, 5, 6])).toEqual([12]);
+    expect(i([1, 2, 3, 4, 5, 6])).toEqual([1, 2, 3, 4, 5, 6]);
+    expect(j([1, 2, 3, 4, 5, 6])).toEqual([1, 2, 3, 4, 5, 6]);
+  });
+
   test("reverse", () => {
     expect(A.reverse([1, 2, 3])).toEqual([3, 2, 1]);
     expect(A.reverse([])).toEqual([]);
@@ -405,7 +418,7 @@ describe("arrays", () => {
     const k = A.slice();
     const l = A.slice(-10);
     const m = A.slice(2.5);
-    const n = A.slice(2, 2.5);
+    const n = A.slice(2, 3.5);
     expect(f([0, 1, 2, 3, 4, 5, 6])).toEqual([2, 3, 4, 5, 6]);
     expect(g([0, 1, 2, 3, 4, 5, 6])).toEqual([5, 6]);
     expect(h([0, 1, 2, 3, 4, 5, 6])).toEqual([2]);

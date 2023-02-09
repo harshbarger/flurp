@@ -1122,6 +1122,36 @@ export function replace<T, U>(
     arr.map((x) => (condition(x) ? transform(x) : x));
 }
 
+export function replaceSlice<T>(
+  startIndex: number,
+  endIndex: number,
+  replacement: Array<T>
+) {
+  if (
+    (typeof startIndex === "number" && !Number.isInteger(startIndex)) ||
+    (typeof endIndex === "number" && !Number.isInteger(endIndex))
+  ) {
+    return (arr: ReadonlyArray<T>) => [...arr];
+  }
+
+  return function (arr: ReadonlyArray<T>) {
+    const start = Math.max(
+      0,
+      startIndex >= 0 ? startIndex : arr.length + startIndex
+    );
+    const end = Math.min(
+      arr.length,
+      endIndex >= 0 ? endIndex : arr.length + endIndex
+    );
+
+    if (start >= end) {
+      return [...arr];
+    }
+
+    return [...arr.slice(0, start), ...replacement, ...arr.slice(end)];
+  };
+}
+
 /**
  * @param arr
  *
@@ -1199,7 +1229,7 @@ export function set<T>(index: number, newVal: T) {
 export function slice<T>(startIndex?: number, endIndex?: number) {
   if (
     (typeof startIndex === "number" && !Number.isInteger(startIndex)) ||
-    (typeof endIndex === "number" && !Number.isInteger(startIndex))
+    (typeof endIndex === "number" && !Number.isInteger(endIndex))
   ) {
     return (_: ReadonlyArray<T>) => [];
   }
