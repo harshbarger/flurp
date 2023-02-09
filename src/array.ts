@@ -1046,7 +1046,7 @@ export function reject<T>(condition: (x: T) => boolean) {
 
 /**
  * Removes the element `startIndex`, or the elements from `startIndex` to
- * (but not including) `endIndex', from the array.
+ * (but not including) `endIndex`, from the array.
  *
  * Negative indices count backwards from the end of the array.
  * If `index` is fractional or otherwise invalid, returns a shallow copy
@@ -1095,7 +1095,7 @@ export function remove<T>(startIndex: number, endIndex?: number) {
 }
 
 /**
- * A convenience function to streamline some `map` operations. Apoplies `transform` to those
+ * A convenience function to streamline some `map` operations. Applies `transform` to those
  * elements which satisfy `condition` while leaving other elements unchanged.
  *
  * @param condition
@@ -1152,10 +1152,7 @@ export function replaceSlice<T>(
   endIndex: number,
   replacement: Array<T>
 ) {
-  if (
-    (typeof startIndex === "number" && !Number.isInteger(startIndex)) ||
-    (typeof endIndex === "number" && !Number.isInteger(endIndex))
-  ) {
+  if (!Number.isInteger(startIndex) || !Number.isInteger(endIndex)) {
     return (arr: ReadonlyArray<T>) => [...arr];
   }
 
@@ -1295,10 +1292,62 @@ export function slice<T>(startIndex?: number, endIndex?: number) {
 }
 
 /**
+ * Returns `true` if each element from the slice beginning at `startIndex` and continuing
+ * with as many elements as there are in `conditions` exist and pass their corresponding conditions.
+ * In other words, the first element in the slice passes the first condition, the next element
+ * passes the second condition, etc.
+ *
+ * Negative `startIndex` values count backwards from the end of the array.
+ *
+ * @param startIndex
+ * @param conditions
+ *
+ * @example
+ * ```ts
+ *
+ * import * as A from "flurp/array";
+ * import * as L from "flurp/logic";
+ * import * as N from "flurp/number";
+ *
+ * const posNegPos = A.sliceSatisfies(1, [N.isPositive, N.isNegative, N.isPositive]);
+ * posNegPos([0, 2, -2, 2, 0, 0]);     // true
+ * posNegPos([0, 2, -2, -2, 0, 0]);    // false
+ * posNegPos([2, -2, 2, 0, 0]);        // false
+ *
+ * const endsNineTen = A.sliceSatisfies(-2, [L.equals(9), L.equals(10)]);
+ * endsNineTen([5, 9, 10]);            // true
+ * endsNineTen([9, 10, 5]);            // false
+ * endsNineTen([9]);                   // false
+ * ```
+ */
+export function sliceSatisfies<T>(
+  startIndex: number,
+  conditions: Array<(x: T) => boolean>
+) {
+  return function (arr: ReadonlyArray<T>) {
+    const start = adjIndex(arr, startIndex);
+    if (typeof start !== "number") {
+      return false;
+    }
+
+    let i = 0;
+    while (i < conditions.length) {
+      const elem = arr.at(start + i);
+      if (elem === undefined || !conditions[i](elem)) {
+        return false;
+      }
+      i++;
+    }
+
+    return true;
+  };
+}
+
+/**
  * Returns a new array sorted according to the `comparator` function.
  * The {@link !comparator} module contains some useful comparator functions and
  * utilities for creating others. You may also write your own comparators,
- * provided that they follow the specifications found in [MDN on `Array.protoptype.sort()`]
+ * provided that they follow the specifications found in [MDN on `Array.prototype.sort()`]
  * (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort).
  *
  * @remarks

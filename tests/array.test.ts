@@ -441,6 +441,21 @@ describe("arrays", () => {
     expect(n([0, 1, 2, 3, 4, 5, 6])).toEqual([]);
   });
 
+  test("sliceSatisfies", () => {
+    const f = A.sliceSatisfies(0, [N.isPositive, N.isNegative, N.isPositive]);
+    const g = A.sliceSatisfies(1, [N.isPositive, N.isNegative, N.isPositive]);
+    const h = A.sliceSatisfies(-4, [N.isPositive, N.isNegative, N.isPositive]);
+    const i = A.sliceSatisfies(NaN, [N.isPositive, N.isNegative, N.isPositive]);
+    expect(f([1, -2, 3, 0, 0])).toBe(true);
+    expect(f([1, 2, 3])).toBe(false);
+    expect(f([1, -2])).toBe(false);
+    expect(g([0, 2, -3, 4])).toBe(true);
+    expect(g([0, 2, -3, -4])).toBe(false);
+    expect(h([1, -2, 3, 4])).toBe(true);
+    expect(h([1, -2, 3])).toBe(false);
+    expect(i([1, -2, 3])).toBe(false);
+  });
+
   test("sortWith", () => {
     const f = A.sortWith(C.numericAsc);
     const g = A.sortWith(C.numericNullableAsc);

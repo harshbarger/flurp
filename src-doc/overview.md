@@ -122,7 +122,7 @@ multiplyByTen({ x: 3, y: 4 });   // { x: 30, y: 40 }
 
 ## `string` module
 
-All functions in this module either are functions (or return functions) which act on an string. These are all pure functions that do not mutate the original strings.
+All functions in this module either are functions (or return functions) which act on a string. These are all pure functions that do not mutate the original strings.
 
 ```ts
 import * as S from "flurp/string";
