@@ -89,9 +89,19 @@ export function isUndefined(val: unknown) {
  * double(null);          // null
  * ```
  */
-export function map<T, U>(transform: (val: T) => U | null | undefined) {
-  return (val: T | null | undefined) =>
-    val === null || val === undefined ? val : transform(val);
+export function map<T, U>(transform: (val: T) => U) {
+  return (val: T | null | undefined) => {
+    // simpler versions let TS think return type could include T
+    if (val === null) {
+      return null;
+    }
+
+    if (val === undefined) {
+      return undefined;
+    }
+
+    return transform(val);
+  };
 }
 
 /**
