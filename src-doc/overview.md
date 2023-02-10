@@ -78,25 +78,32 @@ Naming conventions are always a challenge since the various existing similar lib
 
 The main module contains the workhorses of function composition--[pipe](https://harshbarger.github.io/flurp/functions/index.pipe.html) and [flow](https://harshbarger.github.io/flurp/functions/index.flow.html). There is no `compose` function, because the data-first style of `pipe` allows TypeScript to infer types more effectively than the data-last style of a `compose` function would.
 
+The `safe` function, which allows nullish values to be passed safely through a pipeline without accounting for them in each individual function, and the `safeCatch` function, which allows for try/catch scenarios without throwing exceptions, are found here as well.
+
 This module also includes [tap](https://harshbarger.github.io/flurp/functions/index.tap.html), which is used for side effects in the midst of a pipeline. Its primary use case is to add `console.log` statements for debugging.
+
+```ts
+import { pipe, safe, tap } from "flurp";
+import * as N from "flurp/number";
+
+pipe(
+  5,
+  N.multiply(2),
+  tap(console.log),    // prints 10 to console
+  N.add(3),      
+);   // 13
+
+pipe(
+  undefined,
+  safe(N.multiply(2)),   // would be NaN without safe
+  safe(N.add(3)),        
+);   // undefined
+
+```
 
 ## `array` module
 
 Besides the usual functions that act on arrays (or create functions that do), this module contains the array creation utility [createWith](). Functions in this module do not mutate the input arrays.
-
-## `result` module
-
-These functions help supply the resilient error handling capabilities provided by the Maybe monad in some other languages and libraries. Flurp uses `null` and `undefined` to represent error conditions, but supplies wrappers to pass error values through and bypass function execution, as would happen with a monad's `map` function.
-
-```ts
-import * as R from "flurp/result";
-import * as N from "flurp/number";
-
-const double = R.map(N.multiply(2));
-double(5);             // 10
-double(undefined);     // undefined
-double(null);          // null
-```
 
 ```ts
 import * as A from "flurp/array";

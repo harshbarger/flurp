@@ -9,7 +9,6 @@ export default defineConfig({
     "src/guard.ts",
     "src/string.ts",
     "src/pojo.ts",
-    "src/result.ts",
     "src/comparator.ts",
   ],
   clean: true,

@@ -385,6 +385,68 @@ export function pipe(): unknown {
 }
 
 /**
+ * Wraps a `transform` function to passes nullish values (`null` and `undefined`)
+ * through unchanged instead of applying the transform.
+ *
+ * @remarks
+ * This is intended to solve the same problem as the Maybe monad in other functional languages
+ * and libraries. It allows you to use nullish for error conditions, and to pass
+ * potentially nullish values safely through a pipeline even when the individual functions
+ * do not accept them as input.
+ *
+ * @param transform
+ *
+ * @example
+ * ```ts
+ * import { safe } from "flurp";
+ * import * as N from "flurp/number";
+ *
+ * const safeDouble = safe(N.multiply(2));
+ * safeDouble(5);                 // 10
+ * safeDouble(undefined);         // undefined
+ * safeDouble(null);              // null
+ * ```
+ */
+export function safe<T, U>(transform: (x: T) => U) {
+  return function (val: T | null | undefined) {
+    if (val === null) {
+      return null;
+    }
+
+    if (val === undefined) {
+      return undefined;
+    }
+
+    return transform(val);
+  };
+}
+
+/**
+ * Tries to execute function `transform`. In case of an exception, it returns
+ * `fallback` instead.
+ *
+ * @param transform
+ *
+ * @example
+ * ```ts
+ * import { safeCatch } from "flurp";
+ *
+ * const tryMath = E.safeCatch((s: string) => Math[s](1), null);
+ * tryMath("log");                  // 0
+ * tryMath("no-such-function")      // null
+ * ```
+ */
+export function safeCatch<T, U>(transform: (val: T) => U, fallback: U) {
+  return function (val: T) {
+    try {
+      return transform(val);
+    } catch {
+      return fallback;
+    }
+  };
+}
+
+/**
  * Applies a function `sideEffect` to the input, then returns the input.
  * The primary use case for `tap` is debugging values in the middle of a
  * pipe or flow chain.

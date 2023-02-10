@@ -32,6 +32,64 @@ export function ifIsArray<T, U>(
 }
 
 /**
+ * Transforms `null` to `nullValue`, and applies `otherTransform` to all
+ * other values.
+ *
+ * @param nullValue
+ * @param otherTransform
+ *
+ * @example
+ * ```ts
+ * import * as G from "flurp/guard";
+ * import * as L from "flurp/logic";
+ *
+ * const nullToEmpty = G.ifIsNull([], L.identity);
+ * nullToEmpty(null);          // []
+ * nullToEmpty([3, 4, 5]);     // [3, 4, 5]
+ * ```
+ */
+export function ifIsNull<T, U>(nullValue: U, otherTransform: (x: T) => U) {
+  return function (x: T) {
+    if (x === null) {
+      return nullValue;
+    }
+
+    return otherTransform(x);
+  };
+}
+
+/**
+ * Applies `nullishTransform` if the argument is nullish, i.e., `null` or `undefined`,
+ * and `otherTransform` if it is not.
+ *
+ * @param nullishTransform
+ * @param otherTransform
+ *
+ * @example
+ * ```ts
+ * import * as G from "flurp/guard";
+ * import * as L from "flurp/logic";
+ *
+ * const nullishToEmpty = G.ifIsNullish(L.always([]), L.identity);
+ * nullishToEmpty(null);               // []
+ * nullishToEmpty(undefined);          // []
+ * nullishToEmpty([3, 4, 5]);          // [3, 4, 5]
+ * ```
+ */
+export function ifIsNullish<T, U>(
+  nullishTransform: (x: T) => U,
+  otherTransform: (x: T) => U
+) {
+  return function (x: T) {
+    if (x === null || x === undefined) {
+      return nullishTransform(x);
+    }
+
+    return otherTransform(x);
+  };
+}
+
+/**
  * Applies `numberTransform` if the argument is a number,
  * and `otherTransform` if it is not.
  *
@@ -124,6 +182,36 @@ export function ifIsString<T, U>(
   return function (x: T) {
     if (typeof x === "string") {
       return stringTransform(x);
+    }
+
+    return otherTransform(x);
+  };
+}
+
+/**
+ * Transforms `undefined` to `undefinedValue`, and applies `otherTransform` to all
+ * other values.
+ *
+ * @param undefinedValue
+ * @param otherTransform
+ *
+ * @example
+ * ```ts
+ * import * as G from "flurp/guard";
+ * import * as L from "flurp/logic";
+ *
+ * const undefinedToEmpty = G.ifIsUndefined([], L.identity);
+ * undefinedToEmpty(undefined);          // []
+ * undefinedToEmpty([3, 4, 5]);          // [3, 4, 5]
+ * ```
+ */
+export function ifIsUndefined<T, U>(
+  undefinedValue: U,
+  otherTransform: (x: T) => U
+) {
+  return function (x: T) {
+    if (x === undefined) {
+      return undefinedValue;
     }
 
     return otherTransform(x);

@@ -12,6 +12,19 @@ describe("guard", () => {
     expect(f(5)).toBe(undefined);
   });
 
+  test("ifIsNull", () => {
+    const f = G.ifIsNull([], L.identity);
+    expect(f([3, 4, 5])).toEqual([3, 4, 5]);
+    expect(f(null)).toEqual([]);
+  });
+
+  test("ifIsNullish", () => {
+    const f = G.ifIsNullish(L.always([]), L.identity);
+    expect(f([3, 4, 5])).toEqual([3, 4, 5]);
+    expect(f(null)).toEqual([]);
+    expect(f(undefined)).toEqual([]);
+  });
+
   test("ifIsNumber", () => {
     const f = G.ifIsNumber(N.multiply(2), L.always(undefined));
     expect(f(2)).toBe(4);
@@ -28,6 +41,12 @@ describe("guard", () => {
     const f = G.ifIsString(S.length, L.always(0));
     expect(f("5")).toBe(1);
     expect(f(5)).toBe(0);
+  });
+
+  test("ifIsUndefined", () => {
+    const f = G.ifIsUndefined([], L.identity);
+    expect(f([3, 4, 5])).toEqual([3, 4, 5]);
+    expect(f(undefined)).toEqual([]);
   });
 
   test("isArray", () => {
