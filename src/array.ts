@@ -764,8 +764,8 @@ export function isEmpty<T>(arr: ReadonlyArray<T>) {
  * joinDots(["a", "b", "c"]));    // "a...b...c"
  * ```
  */
-export function join(separator = "") {
-  return (arr: ReadonlyArray<string>) => arr.join(separator);
+export function join<T>(separator = "") {
+  return (arr: ReadonlyArray<T>) => arr.join(separator);
 }
 
 /**

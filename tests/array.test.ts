@@ -254,6 +254,7 @@ describe("arrays", () => {
     const g = A.join("...");
     expect(f(["a", "b", "c"])).toBe("abc");
     expect(g(["a", "b", "c"])).toBe("a...b...c");
+    expect(f([4, "5", 6])).toBe("456");
   });
 
   test("last", () => {
