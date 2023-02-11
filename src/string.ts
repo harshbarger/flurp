@@ -193,12 +193,41 @@ export function insert(index: number, s: string) {
  * ```ts
  * import * as S from "flurp/string";
  *
+ * S.isEmpty("");          // true
+ * S.isEmpty("weasel");   // false
+ */
+export function isEmpty(s: string) {
+  return s.length === 0;
+}
+
+/**
+ * @param s
+ *
+ * @example
+ * ```ts
+ * import * as S from "flurp/string";
+ *
  * S.length("weasel");   // 6
  * S.length("");         // 0
  * ```
  */
 export function length(s: string) {
   return s.length;
+}
+
+/**
+ * @param len
+ *
+ * @example
+ * ```ts
+ * import * as S from "flurp/string";
+ *
+ * const lengthIsTwo = S.lengthEquals(2);
+ * lengthIsTwo("we");        // true
+ * lengthIsTwo("weasel");    // false
+ */
+export function lengthEquals(len: number) {
+  return (s: string) => s.length === len;
 }
 
 /**

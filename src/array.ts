@@ -801,6 +801,21 @@ export function length<T>(arr: ReadonlyArray<T>) {
 }
 
 /**
+ * @param len
+ *
+ * @example
+ * ```ts
+ * import * as A from "flurp/array";
+ *
+ * const lengthIsTwo = A.lengthEquals(2);
+ * lengthIsTwo([3, 4]);          // true
+ * lengthIsTwo([3, 4, 5, 6]);    // false
+ */
+export function lengthEquals<T>(len: number) {
+  return (arr: ReadonlyArray<T>) => arr.length === len;
+}
+
+/**
  * @param transform
  *
  * @example

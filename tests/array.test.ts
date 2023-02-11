@@ -3,6 +3,7 @@ import * as A from "../src/array";
 import * as C from "../src/comparator";
 import * as L from "../src/logic";
 import * as N from "../src/number";
+import * as S from "../src/string";
 
 describe("arrays", () => {
   test("all", () => {
@@ -264,6 +265,13 @@ describe("arrays", () => {
 
   test("length", () => {
     expect(A.length([4, 5, 6])).toBe(3);
+  });
+
+  test("lengthEquals", () => {
+    const f = A.lengthEquals(2);
+    expect(f([3, 4])).toBe(true);
+    expect(f([3, 4, 5, 6])).toBe(false);
+    expect(f([])).toBe(false);
   });
 
   test("map", () => {

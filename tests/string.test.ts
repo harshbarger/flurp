@@ -68,9 +68,21 @@ describe("strings", () => {
     expect(k("gra")).toBe("gra");
   });
 
+  test("isEmpty", () => {
+    expect(S.isEmpty("weasel")).toBe(false);
+    expect(S.isEmpty("")).toBe(true);
+  });
+
   test("length", () => {
     expect(S.length("weasel")).toBe(6);
     expect(S.length("")).toBe(0);
+  });
+
+  test("lengthEquals", () => {
+    const f = S.lengthEquals(2);
+    expect(f("we")).toBe(true);
+    expect(f("weasel")).toBe(false);
+    expect(f("")).toBe(false);
   });
 
   test("matches", () => {
