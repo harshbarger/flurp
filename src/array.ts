@@ -220,6 +220,30 @@ export function count<T>(condition: (x: T) => boolean) {
 }
 
 /**
+ * @param condition
+ * @param satisfies
+ *
+ * @example
+ * ```ts
+ * import * as A from "flurp/array";
+ * import * as N from "flurp/number";
+ *
+ * const atLeastTwoPositive = A.countSatisfies(N.isPositive, N.isGte(2))
+ * atLeastTwoPositive([4, -5, -2, 3, -1]);         // true
+ * atLeastTwoPositive([4, -5, -2, -3, -1]);        // false
+ * ```
+ */
+export function countSatisfies<T>(
+  condition: (x: T) => boolean,
+  satisfies: (x: number) => boolean
+) {
+  return (arr: ReadonlyArray<T>) => {
+    const elementCount = count(condition)(arr);
+    return satisfies(elementCount);
+  };
+}
+
+/**
  * Creates an array of equally spaced numbers from `start` to `end`. You may control
  * the spacing or number of points by setting any of the following:
  * - `n.intervals` e.g., [1, 2, 3] would have two intervals--1 to 2 and 2 to 3 (minimum 1).
@@ -550,32 +574,6 @@ export function findLastIndex<T>(condition: (x: T) => boolean) {
 }
 
 /**
- * Returns the first slice of the array of length `len`
- * from the right (starting with `slice(len - 1)`,
- * then `slice(len - 1)`, etc.) which passes `condition`.
- * Returns `undefined` if no slice of the array ending with
- * the last element passes.
- *
- * @param condition
- */
-export function findRightSlice<T>(condition: (a: ReadonlyArray<T>) => boolean) {
-  return function (arr: ReadonlyArray<T>) {
-    const len = arr.length;
-    let i = len - 1;
-
-    while (i >= 0) {
-      const slice = arr.slice(i);
-      if (condition(slice)) {
-        return slice;
-      }
-      i--;
-    }
-
-    return undefined;
-  };
-}
-
-/**
  * Returns the first slice of the array (starting with `slice(0, 0)`, then `slice(0, 1)`, etc.)
  * which passes `condition`. Returns `undefined` if no slice of the array beginning with
  * the first element passes.
@@ -604,6 +602,43 @@ export function findSlice<T>(condition: (a: ReadonlyArray<T>) => boolean) {
         return slice;
       }
       i++;
+    }
+
+    return undefined;
+  };
+}
+
+/**
+ * Returns the first slice of the array of length `len`
+ * from the right (starting with `slice(len - 1)`,
+ * then `slice(len - 1)`, etc.) which passes `condition`.
+ * Returns `undefined` if no slice of the array ending with
+ * the last element passes.
+ *
+ * @param condition
+ *
+ * @example
+ * ```ts
+ * import * as A from "flurp/array";
+ * import * as N from "flurp/number";
+ *
+ * const twoPositive = (arr: ReadonlyArray<number>) => A.count(N.isPositive)(arr) >= 2;
+ * const firstSlice = A.findSliceRight(twoPositive);
+ * firstSlice([2, -4, 1, -5, 6]);      // [1, -5, 6]
+ * firstSlice([2, -4]);                // undefined
+ * ```
+ */
+export function findSliceRight<T>(condition: (a: ReadonlyArray<T>) => boolean) {
+  return function (arr: ReadonlyArray<T>) {
+    const len = arr.length;
+    let i = len - 1;
+
+    while (i >= 0) {
+      const slice = arr.slice(i);
+      if (condition(slice)) {
+        return slice;
+      }
+      i--;
     }
 
     return undefined;
@@ -801,18 +836,19 @@ export function length<T>(arr: ReadonlyArray<T>) {
 }
 
 /**
- * @param len
+ * @param condition
  *
  * @example
  * ```ts
  * import * as A from "flurp/array";
+ * import * as N from "flurp/number";
  *
- * const lengthIsTwo = A.lengthEquals(2);
- * lengthIsTwo([3, 4]);          // true
- * lengthIsTwo([3, 4, 5, 6]);    // false
+ * const shorterThanTwo = A.lengthSatisfies(N.isLt(2));
+ * shorterThanTwo([3]);           // true
+ * shorterThanTwo([3, 4]);        // false
  */
-export function lengthEquals<T>(len: number) {
-  return (arr: ReadonlyArray<T>) => arr.length === len;
+export function lengthSatisfies<T>(condition: (x: number) => boolean) {
+  return (arr: ReadonlyArray<T>) => condition(arr.length);
 }
 
 /**

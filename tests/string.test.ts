@@ -1,4 +1,5 @@
 import * as S from "../src/string";
+import * as N from "../src/number";
 
 describe("strings", () => {
   test("append", () => {
@@ -78,11 +79,11 @@ describe("strings", () => {
     expect(S.length("")).toBe(0);
   });
 
-  test("lengthEquals", () => {
-    const f = S.lengthEquals(2);
-    expect(f("we")).toBe(true);
-    expect(f("weasel")).toBe(false);
-    expect(f("")).toBe(false);
+  test("lengthSatisfies", () => {
+    const f = S.lengthSatisfies(N.isLt(2));
+    expect(f("w")).toBe(true);
+    expect(f("we")).toBe(false);
+    expect(f("")).toBe(true);
   });
 
   test("matches", () => {

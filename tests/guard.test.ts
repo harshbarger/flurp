@@ -56,6 +56,13 @@ describe("guard", () => {
     expect(G.isArray({})).toBe(false);
   });
 
+  test("isArrayAnd", () => {
+    const f = G.isArrayAnd(A.isEmpty);
+    expect(f([])).toBe(true);
+    expect(f([4])).toBe(false);
+    expect(f({})).toBe(false);
+  });
+
   test("isBoolean", () => {
     expect(G.isBoolean(true)).toBe(true);
     expect(G.isBoolean(Boolean(4))).toBe(true);
@@ -92,6 +99,13 @@ describe("guard", () => {
     expect(G.isNumber("42")).toBe(false);
   });
 
+  test("isNumberAnd", () => {
+    const f = G.isNumberAnd(isFinite);
+    expect(f(1e20)).toBe(true);
+    expect(f(-5 / 0)).toBe(false);
+    expect(f("weasel")).toBe(false);
+  });
+
   test("isPOJO", () => {
     expect(G.isPOJO({})).toBe(true);
     expect(G.isPOJO([])).toBe(false);
@@ -101,10 +115,24 @@ describe("guard", () => {
     expect(G.isPOJO((x: number) => x + 4)).toBe(false);
   });
 
+  test("isPOJOAnd", () => {
+    const f = G.isPOJOAnd(P.hasKey("x"));
+    expect(f({ x: 5 })).toBe(true);
+    expect(f({ y: 5 })).toBe(false);
+    expect(f(["x"])).toBe(false);
+  });
+
   test("isString", () => {
     expect(G.isString("42")).toBe(true);
     expect(G.isString(String(42))).toBe(true);
     expect(G.isString(42)).toBe(false);
+  });
+
+  test("isStringAnd", () => {
+    const f = G.isStringAnd(S.startsWith("w"));
+    expect(f("weasel")).toBe(true);
+    expect(f("a weasel")).toBe(false);
+    expect(f(/a weasel/)).toBe(false);
   });
 
   test("isUndefined", () => {

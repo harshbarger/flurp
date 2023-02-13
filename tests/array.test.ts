@@ -3,7 +3,6 @@ import * as A from "../src/array";
 import * as C from "../src/comparator";
 import * as L from "../src/logic";
 import * as N from "../src/number";
-import * as S from "../src/string";
 
 describe("arrays", () => {
   test("all", () => {
@@ -77,6 +76,12 @@ describe("arrays", () => {
   test("count", () => {
     const f = A.count(N.isPositive);
     expect(f([4, 5, -2, 6, -1])).toBe(3);
+  });
+
+  test("countSatisfies", () => {
+    const f = A.countSatisfies(N.isPositive, N.isGt(2));
+    expect(f([2, -3, 4, -5, 6])).toBe(true);
+    expect(f([2, -3, 4, -5, -6])).toBe(false);
   });
 
   test("createRange", () => {
@@ -176,22 +181,22 @@ describe("arrays", () => {
     expect(f([])).toBeUndefined();
   });
 
-  test("findRightSlice", () => {
-    const twoPos = (arr: ReadonlyArray<number>) =>
-      A.count(N.isPositive)(arr) >= 2;
-    const f = A.findRightSlice(twoPos);
-    expect(f([2, -4, 3, -5, 6])).toEqual([3, -5, 6]);
-    expect(f([2, -4, 3])).toEqual([2, -4, 3]);
-    expect(f([2, -4, -1, -5])).toBeUndefined();
-    expect(f([])).toBeUndefined();
-  });
-
   test("findSlice", () => {
     const twoPos = (arr: ReadonlyArray<number>) =>
       A.count(N.isPositive)(arr) >= 2;
     const f = A.findSlice(twoPos);
     expect(f([2, -4, 1, -5, 6])).toEqual([2, -4, 1]);
     expect(f([2, -4, 1])).toEqual([2, -4, 1]);
+    expect(f([2, -4, -1, -5])).toBeUndefined();
+    expect(f([])).toBeUndefined();
+  });
+
+  test("findSliceRight", () => {
+    const twoPos = (arr: ReadonlyArray<number>) =>
+      A.count(N.isPositive)(arr) >= 2;
+    const f = A.findSliceRight(twoPos);
+    expect(f([2, -4, 3, -5, 6])).toEqual([3, -5, 6]);
+    expect(f([2, -4, 3])).toEqual([2, -4, 3]);
     expect(f([2, -4, -1, -5])).toBeUndefined();
     expect(f([])).toBeUndefined();
   });
@@ -267,11 +272,11 @@ describe("arrays", () => {
     expect(A.length([4, 5, 6])).toBe(3);
   });
 
-  test("lengthEquals", () => {
-    const f = A.lengthEquals(2);
-    expect(f([3, 4])).toBe(true);
+  test("lengthSatisfies", () => {
+    const f = A.lengthSatisfies(N.isLt(2));
+    expect(f([3, 4])).toBe(false);
     expect(f([3, 4, 5, 6])).toBe(false);
-    expect(f([])).toBe(false);
+    expect(f([])).toBe(true);
   });
 
   test("map", () => {

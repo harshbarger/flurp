@@ -229,8 +229,42 @@ export function ifIsUndefined<T, U>(
  * G.isArray({x: 3, y: 4});   // false
  * ```
  */
-export function isArray(x: unknown) {
+export function isArray(x: unknown): x is Array<unknown> {
   return Array.isArray(x);
+}
+
+/**
+ * Executes a type guard for the `Array<unknown>` type prior to testing a `condition` that requires an
+ * input of `Array<unknown>` type, returning `true` only if both the type check and `condition` pass.
+ *
+ * @remarks
+ * This is especially useful in pipelines where the TS type checker would not detect that a type
+ * guard had been applied using other alternatives.
+ *
+ * @param condition
+ *
+ * @example
+ * ```ts
+ * import * as G from "flurp/guard";
+ * import * as L from "flurp/logic";
+ *
+ * const goodIsEmpty = G.isArrayAnd(A.isEmpty);
+ * goodIsEmpty([]);                // true
+ * goodIsEmpty([5]);               // false
+ * goodIsEmpty({});                // false
+ *
+ * const badIsEmpty = L.both(G.isArray, A.isEmpty);
+ * badIsEmpty({});         // TS compiler will not recognize G.isArray as a type guard.
+ * ```
+ */
+export function isArrayAnd<T>(condition: (arr: Array<unknown>) => boolean) {
+  return function (x: T) {
+    if (isArray(x)) {
+      return condition(x);
+    }
+
+    return false;
+  };
 }
 
 /**
@@ -329,6 +363,43 @@ export function isNumber(x: unknown) {
 }
 
 /**
+ * Executes a type guard for the `number` type prior to testing a `condition` that requires an
+ * input of `number` type, returning `true` only if both the type check and `condition` pass.
+ *
+ * @remarks
+ * This is especially useful in pipelines where the TS type checker would not detect that a type
+ * guard had been applied using other alternatives.
+ *
+ * @param condition
+ *
+ * @example
+ * ```ts
+ * import * as G from "flurp/guard";
+ * import * as L from "flurp/logic";
+ *
+ * // isFinite is a JS built-in. While vanilla JS is tolerant,
+ * // TS requires its parameter to be numeric.
+ *
+ * const goodIsFinite = G.isNumberAnd(isFinite);
+ * goodIsFinite(5);                // true
+ * goodIsFinite(5/0);              // false
+ * goodIsFinite("5");              // false
+ *
+ * const badIsFinite = L.both(G.isNumber, isFinite);
+ * badIsFinite("5");         // TS compiler will not recognize G.isNumber as a type guard.
+ * ```
+ */
+export function isNumberAnd<T>(condition: (x: number) => boolean) {
+  return function (x: T) {
+    if (typeof x === "number") {
+      return condition(x);
+    }
+
+    return false;
+  };
+}
+
+/**
  * This is named isPOJO ("Plain Old JavaScript Object)
  * rather than isObject to emphasize that it does not test for
  * anything that broadly derives from the Object type.
@@ -349,8 +420,18 @@ export function isNumber(x: unknown) {
  * G.isPOJO(Number(5));      // false
  * ```
  */
-export function isPOJO(x: unknown) {
+export function isPOJO(x: unknown): x is POJO<unknown> {
   return x?.constructor === Object;
+}
+
+export function isPOJOAnd<T>(condition: (x: POJO<unknown>) => boolean) {
+  return function (x: T) {
+    if (isPOJO(x)) {
+      return condition(x);
+    }
+
+    return false;
+  };
 }
 
 /**
@@ -366,6 +447,41 @@ export function isPOJO(x: unknown) {
  */
 export function isString(x: unknown) {
   return typeof x === "string";
+}
+
+/**
+ * Executes a type guard for the `string` type prior to testing a `condition` that requires an
+ * input of `string` type, returning `true` only if both the type check and `condition` pass.
+ *
+ * @remarks
+ * This is especially useful in pipelines where the TS type checker would not detect that a type
+ * guard had been applied using other alternatives.
+ *
+ * @param condition
+ *
+ * @example
+ * ```ts
+ * import * as G from "flurp/guard";
+ * import * as L from "flurp/logic";
+ * import * as S from "flurp/string";
+ *
+ * const goodStartW = G.isStringAnd(S.startsWith("w"));
+ * goodStartW("weasel");                // true
+ * goodStartW("a weasel");              // false
+ * goodStartW(/a weasel/);              // false
+ *
+ * const badStartW = L.both(G.isString, S.startsWith("w"));
+ * badStartW(/a weasel/);         // TS compiler will not recognize G.isString as a type guard.
+ * ```
+ */
+export function isStringAnd<T>(condition: (x: string) => boolean) {
+  return function (x: T) {
+    if (typeof x === "string") {
+      return condition(x);
+    }
+
+    return false;
+  };
 }
 
 /**

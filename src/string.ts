@@ -216,18 +216,19 @@ export function length(s: string) {
 }
 
 /**
- * @param len
+ * @param condition
  *
  * @example
  * ```ts
  * import * as S from "flurp/string";
+ * import * as N from "flurp/number";
  *
- * const lengthIsTwo = S.lengthEquals(2);
- * lengthIsTwo("we");        // true
- * lengthIsTwo("weasel");    // false
+ * const shorterThanTwo = S.lengthSatisfies(N.isLt(2));
+ * shorterThanTwo("w");         // true
+ * shorterThanTwo("weasel");    // false
  */
-export function lengthEquals(len: number) {
-  return (s: string) => s.length === len;
+export function lengthSatisfies(condition: (x: number) => boolean) {
+  return (s: string) => condition(s.length);
 }
 
 /**
