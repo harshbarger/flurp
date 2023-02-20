@@ -304,16 +304,16 @@ export function propEquals<T>(key: string, val: T) {
  * ```ts
  * import { G, N, O } from "flurp";
  *
- * const xIsPositive = P.propPasses("x", N.isPositive);
+ * const xIsPositive = P.propSatisfies("x", N.isPositive);
  * xIsPositive(f({ x: 5, y: 3 });      // true
  * xIsPositive(f({ x: -5, y: 3 });     // false
  * xIsPositive(f({ y: 5 });            // false
  *
- * const xIsUndefined = P.propPasses("x", G.isUndefined);
+ * const xIsUndefined = P.propSatisfies("x", G.isUndefined);
  * xIsUndefined(f{ y: 5 });             // true
  * ```
  */
-export function propPasses<T>(key: string, condition: (x: T) => boolean) {
+export function propSatisfies<T>(key: string, condition: (x: T) => boolean) {
   return (obj: POJO<T>) => condition(obj[key]);
 }
 

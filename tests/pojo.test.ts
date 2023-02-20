@@ -91,8 +91,8 @@ describe("object", () => {
   });
 
   test("propPasses", () => {
-    const f = P.propPasses("x", N.isPositive);
-    const g = P.propPasses("x", G.isNullish);
+    const f = P.propSatisfies("x", N.isPositive);
+    const g = P.propSatisfies("x", G.isNullish);
     expect(f({ x: 5, y: 3 })).toBe(true);
     expect(f({ x: -5, y: 3 })).toBe(false);
     expect(f({ y: 5 })).toBe(false);

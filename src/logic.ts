@@ -121,7 +121,7 @@ export function both<T>(
 
 /**
  * Applies the transform corresponding to the first matching condition, or the `fallback`
- * transform if no predicate from 'conditions` matches.
+ * transform if no predicate from `conditions` matches.
  *
  * @param conditions
  * @param fallback
