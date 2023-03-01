@@ -78,9 +78,9 @@ describe("object", () => {
   });
 
   test("pick", () => {
-    const f = P.pick(["x", "z"]);
+    const f = P.pick(["x", "z"], 0);
     expect(f({ x: 3, y: 4, z: 5 })).toEqual({ x: 3, z: 5 });
-    expect(f({ x: 3 })).toEqual({ x: 3, z: undefined });
+    expect(f({ x: 3 })).toEqual({ x: 3, z: 0 });
   });
 
   test("propEquals", () => {

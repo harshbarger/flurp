@@ -1,4 +1,4 @@
-import { POJO } from "../src/pojo";
+import { POJO } from "./pojo";
 
 /**
  * Applies `arrayTransform` if the argument is an array,
@@ -22,7 +22,7 @@ export function ifIsArray<T, U>(
   arrayTransform: (x: Array<unknown>) => U,
   otherTransform: (x: T) => U
 ) {
-  return function (x: T) {
+  return function (x: T | Array<unknown>) {
     if (Array.isArray(x)) {
       return arrayTransform(x);
     }
@@ -49,7 +49,7 @@ export function ifIsArray<T, U>(
  * ```
  */
 export function ifIsNull<T, U>(nullValue: U, otherTransform: (x: T) => U) {
-  return function (x: T) {
+  return function (x: T | null) {
     if (x === null) {
       return nullValue;
     }
@@ -62,7 +62,7 @@ export function ifIsNull<T, U>(nullValue: U, otherTransform: (x: T) => U) {
  * Applies `nullishTransform` if the argument is nullish, i.e., `null` or `undefined`,
  * and `otherTransform` if it is not.
  *
- * @param nullishTransform
+ * @param nullishValue
  * @param otherTransform
  *
  * @example
@@ -70,19 +70,19 @@ export function ifIsNull<T, U>(nullValue: U, otherTransform: (x: T) => U) {
  * import * as G from "flurp/guard";
  * import * as L from "flurp/logic";
  *
- * const nullishToEmpty = G.ifIsNullish(L.always([]), L.identity);
+ * const nullishToEmpty = G.ifIsNullish([], L.identity);
  * nullishToEmpty(null);               // []
  * nullishToEmpty(undefined);          // []
  * nullishToEmpty([3, 4, 5]);          // [3, 4, 5]
  * ```
  */
 export function ifIsNullish<T, U>(
-  nullishTransform: (x: T) => U,
+  nullishValue: U,
   otherTransform: (x: T) => U
 ) {
-  return function (x: T) {
+  return function (x: T | null | undefined) {
     if (x === null || x === undefined) {
-      return nullishTransform(x);
+      return nullishValue;
     }
 
     return otherTransform(x);
@@ -111,7 +111,7 @@ export function ifIsNumber<T, U>(
   numberTransform: (x: number) => U,
   otherTransform: (x: T) => U
 ) {
-  return function (x: T) {
+  return function (x: T | number) {
     if (typeof x === "number") {
       return numberTransform(x);
     }
@@ -148,8 +148,8 @@ export function ifIsPOJO<T, U>(
   pojoTransform: (x: POJO<unknown>) => U,
   otherTransform: (x: T) => U
 ) {
-  return function (x: T) {
-    if (x?.constructor === Object) {
+  return function (x: T | POJO<unknown>) {
+    if (isPOJO(x)) {
       return pojoTransform(x);
     }
 
@@ -179,7 +179,7 @@ export function ifIsString<T, U>(
   stringTransform: (x: string) => U,
   otherTransform: (x: T) => U
 ) {
-  return function (x: T) {
+  return function (x: T | string) {
     if (typeof x === "string") {
       return stringTransform(x);
     }
@@ -209,7 +209,7 @@ export function ifIsUndefined<T, U>(
   undefinedValue: U,
   otherTransform: (x: T) => U
 ) {
-  return function (x: T) {
+  return function (x: T | undefined) {
     if (x === undefined) {
       return undefinedValue;
     }

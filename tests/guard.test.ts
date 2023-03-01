@@ -19,7 +19,7 @@ describe("guard", () => {
   });
 
   test("ifIsNullish", () => {
-    const f = G.ifIsNullish(L.always([]), L.identity);
+    const f = G.ifIsNullish([], L.identity);
     expect(f([3, 4, 5])).toEqual([3, 4, 5]);
     expect(f(null)).toEqual([]);
     expect(f(undefined)).toEqual([]);
