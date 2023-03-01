@@ -268,7 +268,7 @@ export function mergeInto<T, U>(objToMergeInto: POJO<U>) {
  */
 export function pick<T>(keys: Array<string>, fallback: T) {
   return function (obj: POJO<T>) {
-    const result: Record<string, T | undefined> = {};
+    const result: Record<string, T> = {};
     keys.forEach((k) => {
       result[k] = Object.hasOwn(obj, k) ? obj[k] : fallback;
     });
