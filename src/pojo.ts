@@ -13,6 +13,56 @@ function isKeyOf<T extends POJO<unknown>>(
 }
 
 /**
+ * @param condition
+ *
+ * @example
+ * ```ts
+ * import * as P from "flurp/pojo";
+ * import * as N from "flurp/number";
+ *
+ * const allPositive = P.allPropsSatisfy(N.isPositive);
+ * allPositive({ x: 3, y: 4, z: 5 });         // true
+ * allPositive({ x: 3, y: -4, z: 5 });        // false
+ * ```
+ */
+export function allPropsSatisfy<T>(condition: (x: T) => boolean) {
+  return function (obj: POJO<T>) {
+    for (const k in obj) {
+      if (!condition(obj[k])) {
+        return false;
+      }
+    }
+
+    return true;
+  };
+}
+
+/**
+ * @param condition
+ *
+ * @example
+ * ```ts
+ * import * as P from "flurp/pojo";
+ * import * as N from "flurp/number";
+ *
+ * const anyPositive = P.anyPropSatisfies(N.isPositive);
+ * anyPositive({ x: -3, y: -4, z: 5 });         // true
+ * anyPositive({ x: -3, y: -4, z: -5 });        // false
+ * ```
+ */
+export function anyPropSatisfies<T>(condition: (x: T) => boolean) {
+  return function (obj: POJO<T>) {
+    for (const k in obj) {
+      if (condition(obj[k])) {
+        return true;
+      }
+    }
+
+    return false;
+  };
+}
+
+/**
  * @param obj
  *
  * @example

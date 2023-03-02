@@ -4,6 +4,18 @@ import * as G from "../src/guard";
 import * as A from "../src/array";
 
 describe("object", () => {
+  test("allPropsSatisfy", () => {
+    const f = P.allPropsSatisfy(N.isPositive);
+    expect(f({ x: 3, y: 4, z: 5 })).toBe(true);
+    expect(f({ x: 3, y: -4, z: 5 })).toBe(false);
+  });
+
+  test("anyPropSatisfies", () => {
+    const f = P.anyPropSatisfies(N.isPositive);
+    expect(f({ x: -3, y: -4, z: 5 })).toBe(true);
+    expect(f({ x: -3, y: -4, z: -5 })).toBe(false);
+  });
+
   test("entries", () => {
     expect(P.entries({ x: 3, y: 4, z: 5 })).toEqual([
       ["x", 3],
