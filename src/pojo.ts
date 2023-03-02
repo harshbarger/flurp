@@ -301,6 +301,31 @@ export function mergeInto<T, U>(objToMergeInto: POJO<U>) {
 }
 
 /**
+ * @param condition
+ *
+ * @example
+ * ```ts
+ * import * as P from "flurp/pojo";
+ * import * as N from "flurp/number";
+ *
+ * const nonePositive = P.noPropSatisfies(N.isPositive);
+ * nonePositive({ x: -3, y: -4, z: -5 });         // true
+ * nonePositive({ x: -3, y: -4, z: 5 });          // false
+ * ```
+ */
+export function noPropSatisfies<T>(condition: (x: T) => boolean) {
+  return function (obj: POJO<T>) {
+    for (const k in obj) {
+      if (condition(obj[k])) {
+        return false;
+      }
+    }
+
+    return true;
+  };
+}
+
+/**
  * Transforms an object to have only the keys found in the `keys` array. If a key is
  * not contained in `keys`, it will be inserted with the `fallback` value.
  *

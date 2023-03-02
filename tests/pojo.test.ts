@@ -89,6 +89,12 @@ describe("object", () => {
     expect(f({ x: 3, y: 5 })).toEqual({ x: 3, y: 5 });
   });
 
+  test("noPropSatisfies", () => {
+    const f = P.noPropSatisfies(N.isPositive);
+    expect(f({ x: -3, y: -4, z: -5 })).toBe(true);
+    expect(f({ x: -3, y: -4, z: 5 })).toBe(false);
+  });
+
   test("pick", () => {
     const f = P.pick(["x", "z"], 0);
     expect(f({ x: 3, y: 4, z: 5 })).toEqual({ x: 3, z: 5 });
