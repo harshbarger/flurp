@@ -1,6 +1,6 @@
 {
   "name": "flurp",
-  "version": "0.16.4",
+  "version": "0.16.5",
   "description": "A functional programming library for Typescript with utilities for array, objects, strings, and more",
   "homepage": "https://harshbarger.github.io/flurp/",
   "repository": {

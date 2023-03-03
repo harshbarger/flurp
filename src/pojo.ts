@@ -350,9 +350,13 @@ export function noPropSatisfies<T extends POJO>(
  */
 export function pick<T extends POJO>(keys: Array<keyof T>) {
   return function (obj: T) {
+    /*
+     * Partial would seem more elegant, but in practice, it doesn't always
+     * play nicely with the next steps in the pipeline.
+     */
     const result: Record<string, T[keyof T]> = {};
-    for (const k in keys) {
-      result[k] = obj[k] as T[keyof T];
+    for (const k of keys) {
+      result[k as string] = obj[k] as T[keyof T];
     }
     return result;
   };
