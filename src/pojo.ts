@@ -338,11 +338,7 @@ export function noPropSatisfies<T extends POJO>(
 }
 
 /**
- * Transforms an object to have only the keys found in the `keys` array. If a key is
- * not contained in `keys`, it will be inserted with the `fallback` value.
- *
  * @param keys
- * @param fallback
  *
  * @example
  * ```ts
@@ -350,17 +346,13 @@ export function noPropSatisfies<T extends POJO>(
  *
  * const justXY = P.pick(["x", "Y"], 0);
  * justXY({ x: 3, y: 4, z: 5 });    // { x: 3, y: 4 }
- * justXY({ x: 3 });                // { x: 3, y: 0 }
  * ```
  */
-export function pick<T extends POJO>(
-  keys: Array<string>,
-  fallback: T[keyof T]
-) {
+export function pick<T extends POJO>(keys: Array<keyof T>) {
   return function (obj: T) {
-    const result: Record<string, T[keyof T]> = {};
+    const result: Partial<T> = {};
     for (const k of keys) {
-      result[k] = Object.hasOwn(obj, k) ? (obj[k] as T[keyof T]) : fallback;
+      result[k] = obj[k] as T[keyof T];
     }
     return result;
   };
