@@ -372,10 +372,10 @@ export function TRUE(_: unknown) {
 }
 
 /**
- * Applies a transformation if and only if the condition is false
+ * Applies `transform` if and only if the condition is false
  *
  * @param condition
- * @param f
+ * @param transform
  *
  * @example
  * ```ts
@@ -389,15 +389,18 @@ export function TRUE(_: unknown) {
  * f(-5);  // -10;
  * ```
  */
-export function unless<T>(condition: (x: T) => boolean, f: (x: T) => T) {
-  return (a: T) => (condition(a) ? a : f(a));
+export function unless<T, U>(
+  condition: (x: T) => boolean,
+  transform: (x: T) => U
+) {
+  return (a: T) => (condition(a) ? a : transform(a));
 }
 
 /**
- * Applies a transformation if and only if the condition is true
+ * Applies `transform` if and only if the condition is true
  *
  * @param condition
- * @param f
+ * @param transform
  *
  * @example
  * ```ts
@@ -411,6 +414,9 @@ export function unless<T>(condition: (x: T) => boolean, f: (x: T) => T) {
  * f(-5);   // -5;
  * ```
  */
-export function when<T>(condition: (x: T) => boolean, f: (x: T) => T) {
-  return (a: T) => (condition(a) ? f(a) : a);
+export function when<T, U>(
+  condition: (x: T) => boolean,
+  transform: (x: T) => U
+) {
+  return (a: T) => (condition(a) ? transform(a) : a);
 }
