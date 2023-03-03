@@ -389,7 +389,7 @@ export function TRUE(_: unknown) {
  * f(-5);  // -10;
  * ```
  */
-export function unless<T, U>(condition: (x: T) => boolean, f: (x: T) => U) {
+export function unless<T>(condition: (x: T) => boolean, f: (x: T) => T) {
   return (a: T) => (condition(a) ? a : f(a));
 }
 
@@ -411,6 +411,6 @@ export function unless<T, U>(condition: (x: T) => boolean, f: (x: T) => U) {
  * f(-5);   // -5;
  * ```
  */
-export function when<T, U>(condition: (x: T) => boolean, f: (x: T) => U) {
+export function when<T>(condition: (x: T) => boolean, f: (x: T) => T) {
   return (a: T) => (condition(a) ? f(a) : a);
 }
