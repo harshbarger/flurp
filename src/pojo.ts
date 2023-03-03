@@ -1,14 +1,11 @@
-export type POJO<T> = Readonly<Record<string, T>>;
+export type POJO = Readonly<Record<string, unknown>>;
 
 /**
  * @internal
  * @param obj
  * @param key
  */
-function isKeyOf<T extends POJO<unknown>>(
-  obj: T,
-  key: string
-): key is keyof T & string {
+function isKeyOf<T extends POJO>(obj: T, key: string): key is keyof T & string {
   return obj !== null && key in obj;
 }
 
@@ -20,15 +17,17 @@ function isKeyOf<T extends POJO<unknown>>(
  * import * as P from "flurp/pojo";
  * import * as N from "flurp/number";
  *
- * const allPositive = P.allPropsSatisfy(N.isPositive);
+ * const allPositive = P.allPropsSatisfy<Record<string, number>>(N.isPositive);
  * allPositive({ x: 3, y: 4, z: 5 });         // true
  * allPositive({ x: 3, y: -4, z: 5 });        // false
  * ```
  */
-export function allPropsSatisfy<T>(condition: (x: T) => boolean) {
-  return function (obj: POJO<T>) {
-    for (const k in obj) {
-      if (!condition(obj[k])) {
+export function allPropsSatisfy<T extends POJO>(
+  condition: (x: T[keyof T]) => boolean
+) {
+  return function (obj: T) {
+    for (const k of Object.keys(obj)) {
+      if (!condition(obj[k as keyof T])) {
         return false;
       }
     }
@@ -45,15 +44,17 @@ export function allPropsSatisfy<T>(condition: (x: T) => boolean) {
  * import * as P from "flurp/pojo";
  * import * as N from "flurp/number";
  *
- * const anyPositive = P.anyPropSatisfies(N.isPositive);
+ * const anyPositive = P.anyPropSatisfies<Record<string, number>>(N.isPositive);
  * anyPositive({ x: -3, y: -4, z: 5 });         // true
  * anyPositive({ x: -3, y: -4, z: -5 });        // false
  * ```
  */
-export function anyPropSatisfies<T>(condition: (x: T) => boolean) {
-  return function (obj: POJO<T>) {
-    for (const k in obj) {
-      if (condition(obj[k])) {
+export function anyPropSatisfies<T extends POJO>(
+  condition: (x: T[keyof T]) => boolean
+) {
+  return function (obj: T) {
+    for (const k of Object.keys(obj)) {
+      if (condition(obj[k as keyof T])) {
         return true;
       }
     }
@@ -73,7 +74,7 @@ export function anyPropSatisfies<T>(condition: (x: T) => boolean) {
  * getEntries({x: 5, y: 10});       // [["x", 5], ["y", 10]]
  * ```
  */
-export function entries<T>(obj: POJO<T>) {
+export function entries<T extends POJO>(obj: T) {
   return Object.entries(obj);
 }
 
@@ -86,18 +87,21 @@ export function entries<T>(obj: POJO<T>) {
  * ```ts
  * import * as P from "flurp/pojo";
  *
- * const keepPositive = P.filter(N.isPositive);
+ * const keepPositive = P.filter<Record<string, number>>(N.isPositive);
  * keepPositive({ x: 3, y: -4, z: 5 });     // { x: 3, z: 5 }
  * ```
  */
-export function filter<T>(condition: (x: T) => boolean) {
-  return function (obj: POJO<T>) {
-    const filtered: Record<string, T> = {};
-    Object.entries(obj).forEach(([k, v]: [string, T]) => {
+export function filter<T extends POJO>(condition: (x: T[keyof T]) => boolean) {
+  return function (obj: T) {
+    const filtered: Record<string, T[keyof T]> = {};
+
+    for (const k of Object.keys(obj)) {
+      const v = obj[k] as T[keyof T];
       if (condition(v)) {
         filtered[k] = v;
       }
-    });
+    }
+
     return filtered;
   };
 }
@@ -109,23 +113,27 @@ export function filter<T>(condition: (x: T) => boolean) {
  *
  * @example
  * ```ts
- *import * as P from "flurp/pojo";
+ * import * as P from "flurp/pojo";
  *
- * const moreThanTwoChars = P.filterWithKey((s: string) => s.length > 2);
+ * const moreThanTwoChars = P.filterWithKey<Record<string, string>>((s: string) => s.length > 2);
  * moreThanTwoChars({ x: 3, yy: -4, zzz: 5 });         // { zzz: 5 }
  *
- * const keyEqualsValue = P.filterWithKey((k: string, v: string) => k === v);
+ * const keyEqualsValue = P.filterWithKey<Record<string, string>>((k: string, v: string) => k === v);
  * keyEqualsValue({ x: "x", y: "weasel", z: "z" })   // { x: "x", z: "z" }
  * ```
  */
-export function filterWithKey<T>(condition: (k: string, v: T) => boolean) {
-  return function (obj: POJO<T>) {
+export function filterWithKey<T extends POJO>(
+  condition: (k: string, v: T[keyof T]) => boolean
+) {
+  return function (obj: T) {
     const filtered: Record<string, unknown> = {};
-    Object.entries(obj).forEach(([k, v]: [string, T]) => {
+    for (const k of Object.keys(obj)) {
+      const v = obj[k] as T[keyof T];
       if (condition(k, v)) {
         filtered[k] = v;
       }
-    });
+    }
+
     return filtered;
   };
 }
@@ -141,7 +149,7 @@ export function filterWithKey<T>(condition: (k: string, v: T) => boolean) {
  * import * as P from "flurp/pojo";
  * import * as A from "flurp/array";
  *
- * const ends = P.fromSpec({
+ * const ends = P.fromSpec<Array<number>, Record<string, number | undefined>>({
  *   first: A.first,
  *   last: A.last,
  * });
@@ -149,12 +157,12 @@ export function filterWithKey<T>(condition: (k: string, v: T) => boolean) {
  * ends([3, 4, 5, 6]);    // { first: 3, last: 6 }
  * ```
  */
-export function fromSpec<T, U extends POJO<unknown>>(
-  spec: POJO<(x: T) => unknown>
+export function fromSpec<T, U extends POJO>(
+  spec: Record<keyof U, (x: T) => U[keyof U]>
 ): (x: T) => U {
   return function (x: T) {
-    const result: Partial<Record<keyof U, unknown>> = {};
-    Object.entries(spec).forEach(([k, v]: [keyof U, (x: T) => unknown]) => {
+    const result: Partial<U> = {};
+    Object.entries(spec).forEach(([k, v]: [keyof U, (x: T) => U[keyof U]]) => {
       result[k] = v(x);
     });
 
@@ -180,8 +188,8 @@ export function fromSpec<T, U extends POJO<unknown>>(
  * getY({x: 5});       // undefined
  * ```
  */
-export function getOr<T, U>(key: string, defaultValue?: U) {
-  return function (obj: POJO<T>) {
+export function getOr<T extends POJO, U>(key: string, defaultValue?: U) {
+  return function (obj: T) {
     if (isKeyOf(obj, key)) {
       return obj[key];
     }
@@ -202,8 +210,8 @@ export function getOr<T, U>(key: string, defaultValue?: U) {
  * hasX({y: 2});       // false
  * ```
  */
-export function hasKey<T>(key: string) {
-  return function (obj: POJO<T>) {
+export function hasKey<T extends POJO>(key: string) {
+  return function (obj: T) {
     return obj !== null && key in obj;
   };
 }
@@ -219,7 +227,7 @@ export function hasKey<T>(key: string) {
  * P.isEmpty({x: 4});       // false
  * ```
  */
-export function isEmpty(obj: POJO<unknown>) {
+export function isEmpty(obj: POJO) {
   return Object.keys(obj).length === 0;
 }
 
@@ -233,31 +241,33 @@ export function isEmpty(obj: POJO<unknown>) {
  * P.keys({x: 3, y: 4, x: 5});      // ["x", "y", "z"]
  * ```
  */
-export function keys<T>(obj: POJO<T>) {
+export function keys(obj: POJO) {
   return Object.keys(obj);
 }
 
 /**
  * The same concept as `Array.map()`, but for object values.
  *
- * @param f
+ * @param transform
  *
  * @example
  * ```ts
  * import * as P from "flurp/pojo";
  *
- * const multiplyByTen = P.map(N.multiply(10));
+ * const multiplyByTen = P.map<Record<string, number>, Record<string, number>>(N.multiply(10));
  * multiplyByTen({ x: 3, y: 4 });   // { x: 30, y: 40 }
  * ```
- *
  */
-export function map<T, U>(f: (x: T) => U) {
-  return function (obj: POJO<T>) {
-    const mapped: Record<string, U> = {};
+export function map<T extends POJO, U extends POJO>(
+  transform: (x: T[keyof T]) => U[keyof U]
+) {
+  return function (obj: T) {
+    const mapped: Record<string, U[keyof U]> = {};
 
-    Object.entries(obj).forEach(([k, v]: [string, T]) => {
-      mapped[k] = f(v);
-    });
+    for (const k of Object.keys(obj)) {
+      const v = obj[k] as T[keyof T];
+      mapped[k] = transform(v);
+    }
 
     return mapped;
   };
@@ -278,8 +288,8 @@ export function map<T, U>(f: (x: T) => U) {
  * mergeX({ x: 3, y: 5 });     // { x: 2, y: 5 }
  * ```
  */
-export function merge<T, U>(objToMerge: POJO<U>) {
-  return (obj: POJO<T>) => ({ ...obj, ...objToMerge });
+export function merge<T extends POJO, U extends POJO>(objToMerge: U) {
+  return (obj: T) => ({ ...obj, ...objToMerge });
 }
 
 /**
@@ -296,8 +306,8 @@ export function merge<T, U>(objToMerge: POJO<U>) {
  * mergeIntoXZ({ x: 3, y: 5 });     // { x: 3, y: 5, z: 4 }
  * ```
  */
-export function mergeInto<T, U>(objToMergeInto: POJO<U>) {
-  return (obj: POJO<T>) => ({ ...objToMergeInto, ...obj });
+export function mergeInto<T extends POJO, U extends POJO>(objToMergeInto: U) {
+  return (obj: T) => ({ ...objToMergeInto, ...obj });
 }
 
 /**
@@ -308,15 +318,17 @@ export function mergeInto<T, U>(objToMergeInto: POJO<U>) {
  * import * as P from "flurp/pojo";
  * import * as N from "flurp/number";
  *
- * const nonePositive = P.noPropSatisfies(N.isPositive);
+ * const nonePositive = P.noPropSatisfies<Record<string, number>>(N.isPositive);
  * nonePositive({ x: -3, y: -4, z: -5 });         // true
  * nonePositive({ x: -3, y: -4, z: 5 });          // false
  * ```
  */
-export function noPropSatisfies<T>(condition: (x: T) => boolean) {
-  return function (obj: POJO<T>) {
-    for (const k in obj) {
-      if (condition(obj[k])) {
+export function noPropSatisfies<T extends POJO>(
+  condition: (x: T[keyof T]) => boolean
+) {
+  return function (obj: T) {
+    for (const k of Object.keys(obj)) {
+      if (condition(obj[k as keyof T])) {
         return false;
       }
     }
@@ -341,12 +353,15 @@ export function noPropSatisfies<T>(condition: (x: T) => boolean) {
  * justXY({ x: 3 });                // { x: 3, y: 0 }
  * ```
  */
-export function pick<T>(keys: Array<string>, fallback: T) {
-  return function (obj: POJO<T>) {
-    const result: Record<string, T> = {};
-    keys.forEach((k) => {
-      result[k] = Object.hasOwn(obj, k) ? obj[k] : fallback;
-    });
+export function pick<T extends POJO>(
+  keys: Array<string>,
+  fallback: T[keyof T]
+) {
+  return function (obj: T) {
+    const result: Record<string, T[keyof T]> = {};
+    for (const k of keys) {
+      result[k] = Object.hasOwn(obj, k) ? (obj[k] as T[keyof T]) : fallback;
+    }
     return result;
   };
 }
@@ -365,14 +380,11 @@ export function pick<T>(keys: Array<string>, fallback: T) {
  * xIsFive({ y: 5 });            // false
  * ```
  */
-export function propEquals<T>(key: string, val: T) {
-  return (obj: POJO<T>) => obj[key] === val;
+export function propEquals<T extends POJO>(key: string, val: T[keyof T]) {
+  return (obj: T) => obj[key] === val;
 }
 
 /**
- * @remarks
- * Will return true for a non-existent key if `undefined` passes `condition`.
- *
  * @param key
  * @param condition
  *
@@ -380,17 +392,17 @@ export function propEquals<T>(key: string, val: T) {
  * ```ts
  * import { G, N, O } from "flurp";
  *
- * const xIsPositive = P.propSatisfies("x", N.isPositive);
+ * const xIsPositive = P.propSatisfies<Record<string, number>>("x", N.isPositive);
  * xIsPositive(f({ x: 5, y: 3 });      // true
  * xIsPositive(f({ x: -5, y: 3 });     // false
  * xIsPositive(f({ y: 5 });            // false
- *
- * const xIsUndefined = P.propSatisfies("x", G.isUndefined);
- * xIsUndefined(f{ y: 5 });             // true
  * ```
  */
-export function propSatisfies<T>(key: string, condition: (x: T) => boolean) {
-  return (obj: POJO<T>) => condition(obj[key]);
+export function propSatisfies<T extends POJO>(
+  key: keyof T,
+  condition: (x: T[keyof T]) => boolean
+) {
+  return (obj: T) => condition(obj[key]);
 }
 
 /**
@@ -400,25 +412,27 @@ export function propSatisfies<T>(key: string, condition: (x: T) => boolean) {
  * ```ts
  * import * as P from "flurp/pojo";
  *
- * const removeX = P.remove("x");
+ * const removeX = P.remove<Record<string, number>>("x");
  * removeX({x: 3, y: 4, z: 5});    // {y: 4, z: 5}
  *
- * const removeXAndY = P.remove(["x", "y"]);
+ * const removeXAndY = P.remove<Record<string, number>>(["x", "y"]);
  * removeXAnyY({x: 3, y: 4, z: 5});    // {z: 5}
  * ```
  */
-export function remove<T>(keys: string | Array<string>) {
-  if (typeof keys === "string") {
-    return function (obj: POJO<T>) {
+export function remove<T>(keys: keyof T | Array<keyof T>) {
+  if (Array.isArray(keys)) {
+    return function (obj: T) {
       const copy = { ...obj };
-      delete copy[keys];
+      for (const k of keys) {
+        delete copy[k];
+      }
       return copy;
     };
   }
 
-  return function (obj: POJO<T>) {
+  return function (obj: T) {
     const copy = { ...obj };
-    keys.forEach((key) => delete copy[key]);
+    delete copy[keys];
     return copy;
   };
 }
@@ -441,8 +455,12 @@ export function remove<T>(keys: string | Array<string>) {
  * setXIfExists({y: 3});      // {y: 3}
  * ```
  */
-export function set<T>(key: string, newVal: T, createIfNotFound = true) {
-  return function (obj: POJO<T>) {
+export function set<T extends POJO>(
+  key: string,
+  newVal: T[keyof T],
+  createIfNotFound = true
+) {
+  return function (obj: T) {
     if (isKeyOf(obj, key) || createIfNotFound) {
       return { ...obj, [key]: newVal };
     }
@@ -461,6 +479,6 @@ export function set<T>(key: string, newVal: T, createIfNotFound = true) {
  * P.values({x: 3, y: 4, x: 5});      // [3, 4, 5]
  * ```
  */
-export function values<T>(obj: POJO<T>) {
+export function values<T extends POJO>(obj: T) {
   return Object.values(obj);
 }

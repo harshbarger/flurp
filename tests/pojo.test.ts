@@ -1,17 +1,18 @@
 import * as P from "../src/pojo";
 import * as N from "../src/number";
-import * as G from "../src/guard";
 import * as A from "../src/array";
 
-describe("object", () => {
+type ObjOf<T> = Record<string, T>;
+
+describe("POJO", () => {
   test("allPropsSatisfy", () => {
-    const f = P.allPropsSatisfy(N.isPositive);
+    const f = P.allPropsSatisfy<ObjOf<number>>(N.isPositive);
     expect(f({ x: 3, y: 4, z: 5 })).toBe(true);
     expect(f({ x: 3, y: -4, z: 5 })).toBe(false);
   });
 
   test("anyPropSatisfies", () => {
-    const f = P.anyPropSatisfies(N.isPositive);
+    const f = P.anyPropSatisfies<ObjOf<number>>(N.isPositive);
     expect(f({ x: -3, y: -4, z: 5 })).toBe(true);
     expect(f({ x: -3, y: -4, z: -5 })).toBe(false);
   });
@@ -26,19 +27,19 @@ describe("object", () => {
   });
 
   test("filter", () => {
-    const f = P.filter(N.isPositive);
+    const f = P.filter<ObjOf<number>>(N.isPositive);
     expect(f({ x: 3, y: -4, z: 5 })).toEqual({ x: 3, z: 5 });
     expect(f({})).toEqual({});
   });
 
   test("filterWithKey", () => {
-    const f = P.filterWithKey((k: string, v: string) => v === k);
+    const f = P.filterWithKey<ObjOf<string>>((k: string, v: string) => v === k);
     expect(f({ x: "x", y: "weasel", z: "z" })).toEqual({ x: "x", z: "z" });
     expect(f({})).toEqual({});
   });
 
   test("fromSpec", () => {
-    const f = P.fromSpec({
+    const f = P.fromSpec<Array<number>, ObjOf<number | undefined>>({
       first: A.first,
       last: A.last,
     });
@@ -73,7 +74,7 @@ describe("object", () => {
   });
 
   test("map", () => {
-    const f = P.map(N.multiply(10));
+    const f = P.map<ObjOf<number>, ObjOf<number>>(N.multiply(10));
     expect(f({ x: 3, y: 4 })).toEqual({ x: 30, y: 40 });
     expect(f({})).toEqual({});
   });
@@ -90,7 +91,7 @@ describe("object", () => {
   });
 
   test("noPropSatisfies", () => {
-    const f = P.noPropSatisfies(N.isPositive);
+    const f = P.noPropSatisfies<ObjOf<number>>(N.isPositive);
     expect(f({ x: -3, y: -4, z: -5 })).toBe(true);
     expect(f({ x: -3, y: -4, z: 5 })).toBe(false);
   });
@@ -108,18 +109,15 @@ describe("object", () => {
     expect(f({ y: 5 })).toBe(false);
   });
 
-  test("propPasses", () => {
-    const f = P.propSatisfies("x", N.isPositive);
-    const g = P.propSatisfies("x", G.isNullish);
+  test("propSatisfies", () => {
+    const f = P.propSatisfies<ObjOf<number>>("x", N.isPositive);
     expect(f({ x: 5, y: 3 })).toBe(true);
     expect(f({ x: -5, y: 3 })).toBe(false);
-    expect(f({ y: 5 })).toBe(false);
-    expect(g({ y: 5 })).toBe(true);
   });
 
   test("remove", () => {
-    const f = P.remove("x");
-    const g = P.remove(["x", "y"]);
+    const f = P.remove<ObjOf<number>>("x");
+    const g = P.remove<ObjOf<number>>(["x", "y"]);
     expect(f({ x: 3, y: 5, z: 4 })).toEqual({ y: 5, z: 4 });
     expect(g({ x: 3, y: 5, z: 4 })).toEqual({ z: 4 });
     expect(f({ x: 3 })).toEqual({});

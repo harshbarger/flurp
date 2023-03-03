@@ -81,7 +81,7 @@ describe("comparators", () => {
 
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    const f = C.compareBy(P.getOr<number, number>("y", NaN), C.numericAsc);
+    const f = C.compareBy(P.getOr("y", NaN), C.numericAsc);
     expect(f({ x: 3, y: 5 }, { x: 5, y: 3 })).toBe(1);
   });
 
