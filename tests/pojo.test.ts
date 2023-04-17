@@ -39,7 +39,7 @@ describe("POJO", () => {
   });
 
   test("fromSpec", () => {
-    const f = P.fromSpec<Array<number>, ObjOf<number | undefined>>({
+    const f = P.fromSpec({
       first: A.first,
       last: A.last,
     });

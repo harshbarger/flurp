@@ -139,7 +139,7 @@ export function filterWithKey<T extends POJO<unknown>>(
  * import * as P from "flurp/pojo";
  * import * as A from "flurp/array";
  *
- * const ends = P.fromSpec<Array<number>, Record<string, number | undefined>>({
+ * const ends = P.fromSpec({
  *   first: A.first,
  *   last: A.last,
  * });
@@ -147,16 +147,10 @@ export function filterWithKey<T extends POJO<unknown>>(
  * ends([3, 4, 5, 6]);    // { first: 3, last: 6 }
  * ```
  */
-export function fromSpec<T, U extends POJO<unknown>>(
-  spec: Record<keyof U, (x: T) => U[keyof U]>
-): (x: T) => U {
+export function fromSpec<T>(spec: Record<string, (x: T) => unknown>) {
   return function (x: T) {
-    const result: Partial<U> = {};
-    Object.entries(spec).forEach(([k, v]: [keyof U, (x: T) => U[keyof U]]) => {
-      result[k] = v(x);
-    });
-
-    return result as U;
+    const keys = Object.keys(spec);
+    return Object.fromEntries(keys.map((k) => [k, spec[k](x)]));
   };
 }
 
@@ -261,6 +255,21 @@ export function map<T extends POJO<unknown>>(
   };
 }
 
+/**
+ * The same concept as `Array.mapWithIndex()`, but for object values and keys.
+ *
+ * @param transform
+ *
+ * @example
+ * ```ts
+ * import * as P from "flurp/pojo";
+ *
+ * const obj = { x: 10, y: 20 };
+ * const multiplyByObjValue = P.mapWithKey<{ x: number; y: number }>((v, k) => v * obj[k]);
+ * multiplyByObjValue({ x: 3, y: 4 });   // { x: 30, y: 80 }
+ * ```
+ */
+
 export function mapWithKey<T extends POJO<unknown>>(
   transform: (x: T[keyof T], k: keyof T) => unknown
 ) {
@@ -328,15 +337,8 @@ export function mergeInto<T extends POJO<unknown>, U extends POJO<unknown>>(
 export function noPropSatisfies<T extends POJO<unknown>>(
   condition: (x: T[keyof T]) => boolean
 ) {
-  return function (obj: T) {
-    for (const k of Object.keys(obj)) {
-      if (condition(obj[k as keyof T])) {
-        return false;
-      }
-    }
-
-    return true;
-  };
+  return (obj: T) =>
+    !Object.keys(obj).some((k) => condition(obj[k as keyof T]));
 }
 
 /**
@@ -351,17 +353,7 @@ export function noPropSatisfies<T extends POJO<unknown>>(
  * ```
  */
 export function pick<T extends POJO<unknown>>(keys: Array<keyof T>) {
-  return function (obj: T) {
-    /*
-     * Partial would seem more elegant, but in practice, it doesn't always
-     * play nicely with the next steps in the pipeline.
-     */
-    const result: Record<string, T[keyof T]> = {};
-    for (const k of keys) {
-      result[k as string] = obj[k] as T[keyof T];
-    }
-    return result;
-  };
+  return (obj: T) => Object.fromEntries(keys.map((k) => [k, obj[k]]));
 }
 
 /**
@@ -456,7 +448,9 @@ export function regroup<T extends POJO<unknown>, U extends Record<string, T>>(
  * removeXAnyY({x: 3, y: 4, z: 5});    // {z: 5}
  * ```
  */
-export function remove<T>(keys: keyof T | Array<keyof T>) {
+export function remove<T extends POJO<unknown>>(
+  keys: keyof T | Array<keyof T>
+) {
   if (Array.isArray(keys)) {
     return function (obj: T) {
       const copy = { ...obj };
