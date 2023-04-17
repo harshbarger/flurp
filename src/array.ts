@@ -1578,6 +1578,26 @@ export function takeLast<T>(count: number) {
 }
 
 /**
+ * Builds a JavaScript object using the elements of `arr` as the keys, applying `transform` to the
+ * keys to get the corresponding values.
+ *
+ * @param transform
+ *
+ * @example
+ * ```ts
+ * import * as A from "flurp/array";
+ * import * as S from "flurp/string";
+ *
+ * const pojoFromKeyLength = A.toPOJO(S.length);
+ * pojoFromKeyLength(["x", "xx"]);    // { x: 1, xx: 2 }
+ * ```
+ */
+export function toPOJO<T>(transform: (k: string) => T) {
+  return (arr: ReadonlyArray<string>) =>
+    Object.fromEntries(arr.map((key) => [key, transform(key)]));
+}
+
+/**
  * Applies a `transformation` to the value of an array at the specified `index`.
  *
  * Negative indices count backwards from the end of the array.

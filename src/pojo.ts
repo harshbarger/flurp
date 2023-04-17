@@ -386,7 +386,8 @@ export function propEquals<T extends POJO>(key: string, val: T[keyof T]) {
  *
  * @example
  * ```ts
- * import { G, N, O } from "flurp";
+ * import * as P from "flurp/pojo";
+ * import * as N from "flurp/number";
  *
  * const xIsPositive = P.propSatisfies<Record<string, number>>("x", N.isPositive);
  * xIsPositive(f({ x: 5, y: 3 });      // true
@@ -399,6 +400,39 @@ export function propSatisfies<T extends POJO>(
   condition: (x: T[keyof T]) => boolean
 ) {
   return (obj: T) => condition(obj[key]);
+}
+
+/**
+ * Given `obj` in which the values are themselves POJOs, restructures the object so that the first level keys
+ * become the second level keys and vice versa.
+ *
+ * @remarks
+ * All objects that are values of `obj` must have the same set of keys.
+ *
+ * @param obj
+ *
+ * @example
+ * ```ts
+ * import * as P from "flurp/pojo";
+ *
+ * const nested = {
+ *   x: {a: 1, b: 2},
+ *   y: {a: 3, b: 4},
+ *   z: {a: 5, b: 6},
+ * };
+ *
+ * P.regroup(nested);  // { a: {x: 1, y: 3, z: 5}, b: {x: 2, y: 4, z: 6} }
+ * ```
+ */
+export function regroup<T extends POJO, U extends Record<string, T>>(obj: U) {
+  const firstLevelKeys = Object.keys(obj);
+  const secondLevelKeys = Object.keys(obj[firstLevelKeys[0]]);
+  return Object.fromEntries(
+    secondLevelKeys.map((k2) => [
+      k2,
+      Object.fromEntries(firstLevelKeys.map((k1) => [k1, obj[k1][k2]])),
+    ])
+  );
 }
 
 /**

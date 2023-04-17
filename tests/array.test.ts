@@ -3,6 +3,7 @@ import * as A from "../src/array";
 import * as C from "../src/comparator";
 import * as L from "../src/logic";
 import * as N from "../src/number";
+import * as S from "../src/string";
 
 describe("arrays", () => {
   test("all", () => {
@@ -556,6 +557,11 @@ describe("arrays", () => {
     expect(g([0, 1, 2, 3, 4])).toEqual([]);
     expect(h([0, 1, 2, 3, 4])).toEqual([]);
     expect(i([0, 1, 2, 3, 4])).toEqual([0, 1, 2, 3, 4]);
+  });
+
+  test("toPOJO", () => {
+    const f = A.toPOJO(S.length);
+    expect(f(["x", "xx"])).toEqual({ x: 1, xx: 2 });
   });
 
   test("update", () => {

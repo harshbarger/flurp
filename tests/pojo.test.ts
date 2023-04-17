@@ -114,6 +114,13 @@ describe("POJO", () => {
     expect(f({ x: -5, y: 3 })).toBe(false);
   });
 
+  test("regroup", () => {
+    expect(P.regroup({ x: { a: 1, b: 2 }, y: { a: 3, b: 4 } })).toEqual({
+      a: { x: 1, y: 3 },
+      b: { x: 2, y: 4 },
+    });
+  });
+
   test("remove", () => {
     const f = P.remove<ObjOf<number>>("x");
     const g = P.remove<ObjOf<number>>(["x", "y"]);
