@@ -1,11 +1,14 @@
-export type POJO = Readonly<Record<string, unknown>>;
+export type POJO<T> = Readonly<Record<string, T>>;
 
 /**
  * @internal
  * @param obj
  * @param key
  */
-function isKeyOf<T extends POJO>(obj: T, key: string): key is keyof T & string {
+function isKeyOf<T extends POJO<unknown>>(
+  obj: T,
+  key: string
+): key is keyof T & string {
   return obj !== null && key in obj;
 }
 
@@ -22,18 +25,11 @@ function isKeyOf<T extends POJO>(obj: T, key: string): key is keyof T & string {
  * allPositive({ x: 3, y: -4, z: 5 });        // false
  * ```
  */
-export function allPropsSatisfy<T extends POJO>(
+export function allPropsSatisfy<T extends POJO<unknown>>(
   condition: (x: T[keyof T]) => boolean
 ) {
-  return function (obj: T) {
-    for (const k of Object.keys(obj)) {
-      if (!condition(obj[k as keyof T])) {
-        return false;
-      }
-    }
-
-    return true;
-  };
+  return (obj: T) =>
+    Object.keys(obj).every((k) => condition(obj[k as keyof T]));
 }
 
 /**
@@ -49,18 +45,10 @@ export function allPropsSatisfy<T extends POJO>(
  * anyPositive({ x: -3, y: -4, z: -5 });        // false
  * ```
  */
-export function anyPropSatisfies<T extends POJO>(
+export function anyPropSatisfies<T extends POJO<unknown>>(
   condition: (x: T[keyof T]) => boolean
 ) {
-  return function (obj: T) {
-    for (const k of Object.keys(obj)) {
-      if (condition(obj[k as keyof T])) {
-        return true;
-      }
-    }
-
-    return false;
-  };
+  return (obj: T) => Object.keys(obj).some((k) => condition(obj[k as keyof T]));
 }
 
 /**
@@ -74,7 +62,7 @@ export function anyPropSatisfies<T extends POJO>(
  * getEntries({x: 5, y: 10});       // [["x", 5], ["y", 10]]
  * ```
  */
-export function entries<T extends POJO>(obj: T) {
+export function entries<T extends POJO<unknown>>(obj: T) {
   return Object.entries(obj);
 }
 
@@ -91,7 +79,9 @@ export function entries<T extends POJO>(obj: T) {
  * keepPositive({ x: 3, y: -4, z: 5 });     // { x: 3, z: 5 }
  * ```
  */
-export function filter<T extends POJO>(condition: (x: T[keyof T]) => boolean) {
+export function filter<T extends POJO<unknown>>(
+  condition: (x: T[keyof T]) => boolean
+) {
   return function (obj: T) {
     const filtered: Record<string, T[keyof T]> = {};
 
@@ -122,7 +112,7 @@ export function filter<T extends POJO>(condition: (x: T[keyof T]) => boolean) {
  * keyEqualsValue({ x: "x", y: "weasel", z: "z" })   // { x: "x", z: "z" }
  * ```
  */
-export function filterWithKey<T extends POJO>(
+export function filterWithKey<T extends POJO<unknown>>(
   condition: (k: string, v: T[keyof T]) => boolean
 ) {
   return function (obj: T) {
@@ -157,7 +147,7 @@ export function filterWithKey<T extends POJO>(
  * ends([3, 4, 5, 6]);    // { first: 3, last: 6 }
  * ```
  */
-export function fromSpec<T, U extends POJO>(
+export function fromSpec<T, U extends POJO<unknown>>(
   spec: Record<keyof U, (x: T) => U[keyof U]>
 ): (x: T) => U {
   return function (x: T) {
@@ -188,7 +178,10 @@ export function fromSpec<T, U extends POJO>(
  * getY({x: 5});       // undefined
  * ```
  */
-export function getOr<T extends POJO, U>(key: string, defaultValue?: U) {
+export function getOr<T extends POJO<unknown>, U>(
+  key: string,
+  defaultValue?: U
+) {
   return function (obj: T) {
     if (isKeyOf(obj, key)) {
       return obj[key];
@@ -210,7 +203,7 @@ export function getOr<T extends POJO, U>(key: string, defaultValue?: U) {
  * hasX({y: 2});       // false
  * ```
  */
-export function hasKey<T extends POJO>(key: string) {
+export function hasKey<T extends POJO<unknown>>(key: string) {
   return function (obj: T) {
     return obj !== null && key in obj;
   };
@@ -227,7 +220,7 @@ export function hasKey<T extends POJO>(key: string) {
  * P.isEmpty({x: 4});       // false
  * ```
  */
-export function isEmpty(obj: POJO) {
+export function isEmpty(obj: POJO<unknown>) {
   return Object.keys(obj).length === 0;
 }
 
@@ -241,7 +234,7 @@ export function isEmpty(obj: POJO) {
  * P.keys({x: 3, y: 4, x: 5});      // ["x", "y", "z"]
  * ```
  */
-export function keys(obj: POJO) {
+export function keys(obj: POJO<unknown>) {
   return Object.keys(obj);
 }
 
@@ -254,22 +247,27 @@ export function keys(obj: POJO) {
  * ```ts
  * import * as P from "flurp/pojo";
  *
- * const multiplyByTen = P.map<Record<string, number>, Record<string, number>>(N.multiply(10));
+ * const multiplyByTen = P.map<Record<string, number>>(N.multiply(10));
  * multiplyByTen({ x: 3, y: 4 });   // { x: 30, y: 40 }
  * ```
  */
-export function map<T extends POJO, U extends POJO>(
-  transform: (x: T[keyof T]) => U[keyof U]
+export function map<T extends POJO<unknown>>(
+  transform: (x: T[keyof T]) => unknown
 ) {
   return function (obj: T) {
-    const mapped: Record<string, U[keyof U]> = {};
+    const keys = Object.keys(obj) as Array<keyof T>;
 
-    for (const k of Object.keys(obj)) {
-      const v = obj[k] as T[keyof T];
-      mapped[k] = transform(v);
-    }
+    return Object.fromEntries(keys.map((k) => [k, transform(obj[k])]));
+  };
+}
 
-    return mapped;
+export function mapWithKey<T extends POJO<unknown>>(
+  transform: (x: T[keyof T], k: keyof T) => unknown
+) {
+  return function (obj: T) {
+    const keys = Object.keys(obj) as Array<keyof T>;
+
+    return Object.fromEntries(keys.map((k) => [k, transform(obj[k], k)]));
   };
 }
 
@@ -288,7 +286,9 @@ export function map<T extends POJO, U extends POJO>(
  * mergeX({ x: 3, y: 5 });     // { x: 2, y: 5 }
  * ```
  */
-export function merge<T extends POJO, U extends POJO>(objToMerge: U) {
+export function merge<T extends POJO<unknown>, U extends POJO<unknown>>(
+  objToMerge: U
+) {
   return (obj: T) => ({ ...obj, ...objToMerge });
 }
 
@@ -306,7 +306,9 @@ export function merge<T extends POJO, U extends POJO>(objToMerge: U) {
  * mergeIntoXZ({ x: 3, y: 5 });     // { x: 3, y: 5, z: 4 }
  * ```
  */
-export function mergeInto<T extends POJO, U extends POJO>(objToMergeInto: U) {
+export function mergeInto<T extends POJO<unknown>, U extends POJO<unknown>>(
+  objToMergeInto: U
+) {
   return (obj: T) => ({ ...objToMergeInto, ...obj });
 }
 
@@ -323,7 +325,7 @@ export function mergeInto<T extends POJO, U extends POJO>(objToMergeInto: U) {
  * nonePositive({ x: -3, y: -4, z: 5 });          // false
  * ```
  */
-export function noPropSatisfies<T extends POJO>(
+export function noPropSatisfies<T extends POJO<unknown>>(
   condition: (x: T[keyof T]) => boolean
 ) {
   return function (obj: T) {
@@ -348,7 +350,7 @@ export function noPropSatisfies<T extends POJO>(
  * justXY({ x: 3, y: 4, z: 5 });    // { x: 3, y: 4 }
  * ```
  */
-export function pick<T extends POJO>(keys: Array<keyof T>) {
+export function pick<T extends POJO<unknown>>(keys: Array<keyof T>) {
   return function (obj: T) {
     /*
      * Partial would seem more elegant, but in practice, it doesn't always
@@ -376,7 +378,10 @@ export function pick<T extends POJO>(keys: Array<keyof T>) {
  * xIsFive({ y: 5 });            // false
  * ```
  */
-export function propEquals<T extends POJO>(key: string, val: T[keyof T]) {
+export function propEquals<T extends POJO<unknown>>(
+  key: string,
+  val: T[keyof T]
+) {
   return (obj: T) => obj[key] === val;
 }
 
@@ -395,7 +400,7 @@ export function propEquals<T extends POJO>(key: string, val: T[keyof T]) {
  * xIsPositive(f({ y: 5 });            // false
  * ```
  */
-export function propSatisfies<T extends POJO>(
+export function propSatisfies<T extends POJO<unknown>>(
   key: keyof T,
   condition: (x: T[keyof T]) => boolean
 ) {
@@ -424,7 +429,9 @@ export function propSatisfies<T extends POJO>(
  * P.regroup(nested);  // { a: {x: 1, y: 3, z: 5}, b: {x: 2, y: 4, z: 6} }
  * ```
  */
-export function regroup<T extends POJO, U extends Record<string, T>>(obj: U) {
+export function regroup<T extends POJO<unknown>, U extends Record<string, T>>(
+  obj: U
+) {
   const firstLevelKeys = Object.keys(obj);
   const secondLevelKeys = Object.keys(obj[firstLevelKeys[0]]);
   return Object.fromEntries(
@@ -485,7 +492,7 @@ export function remove<T>(keys: keyof T | Array<keyof T>) {
  * setXIfExists({y: 3});      // {y: 3}
  * ```
  */
-export function set<T extends POJO>(
+export function set<T extends POJO<unknown>>(
   key: string,
   newVal: T[keyof T],
   createIfNotFound = true
@@ -509,6 +516,6 @@ export function set<T extends POJO>(
  * P.values({x: 3, y: 4, x: 5});      // [3, 4, 5]
  * ```
  */
-export function values<T extends POJO>(obj: T) {
+export function values<T extends POJO<unknown>>(obj: T) {
   return Object.values(obj);
 }

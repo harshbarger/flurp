@@ -144,16 +144,16 @@ export function ifIsNumber<T, U>(
  *
  * ```
  */
-export function ifIsPOJO<T, U>(
-  pojoTransform: (x: POJO) => U,
-  otherTransform: (x: T) => U
+export function ifIsPOJO<T extends POJO<unknown>, U, V>(
+  pojoTransform: (x: T) => V,
+  otherTransform: (x: U) => V
 ) {
-  return function (x: T | POJO) {
+  return function (x: unknown) {
     if (isPOJO(x)) {
-      return pojoTransform(x);
+      return pojoTransform(x as T);
     }
 
-    return otherTransform(x);
+    return otherTransform(x as U);
   };
 }
 
@@ -420,14 +420,16 @@ export function isNumberAnd<T>(condition: (x: number) => boolean) {
  * G.isPOJO(Number(5));      // false
  * ```
  */
-export function isPOJO(x: unknown): x is POJO {
+export function isPOJO(x: unknown): x is POJO<unknown> {
   return x?.constructor === Object;
 }
 
-export function isPOJOAnd<T>(condition: (x: POJO) => boolean) {
-  return function (x: T) {
+export function isPOJOAnd<T extends POJO<unknown>>(
+  condition: (x: T) => boolean
+) {
+  return function (x: unknown) {
     if (isPOJO(x)) {
-      return condition(x);
+      return condition(x as T);
     }
 
     return false;

@@ -74,9 +74,15 @@ describe("POJO", () => {
   });
 
   test("map", () => {
-    const f = P.map<ObjOf<number>, ObjOf<number>>(N.multiply(10));
+    const f = P.map<ObjOf<number>>(N.multiply(10));
     expect(f({ x: 3, y: 4 })).toEqual({ x: 30, y: 40 });
     expect(f({})).toEqual({});
+  });
+
+  test("mapWithKey", () => {
+    const obj = { x: 10, y: 20 };
+    const f = P.mapWithKey<{ x: number; y: number }>((v, k) => v * obj[k]);
+    expect(f({ x: 3, y: 4 })).toEqual({ x: 30, y: 80 });
   });
 
   test("merge", () => {
